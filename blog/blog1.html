@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started with micro-ROS on ESP32 - Vi Microsystems Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #333; background: #f4f4f4; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+        .top-bar { background: #444; padding: 7px 0; font-size: 12px; color: #ccc; }
+        .top-bar .container { max-width: 1200px; display: flex; justify-content: space-between; }
+        .top-bar a { color: #ccc; margin-left: 14px; }
+
+        .site-header { background: #fff; padding: 16px 0; border-bottom: 1px solid #eee; }
+        .site-header .inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 14px; }
+        .logo-text { height: 65px; width: 65px; background: #1e73be; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 900; color: #fff; }
+        .site-header h1 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; color: #1e73be; }
+        .site-header .tagline { font-size: 10px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+
+        .main-nav { background: #fff; border-bottom: 2px solid #eee; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .main-nav .inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: flex-end; }
+        .nav-list { list-style: none; display: flex; }
+        .nav-list > li > a { display: block; color: #333; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; padding: 16px 18px; text-transform: uppercase; border-bottom: 3px solid transparent; transition: color 0.2s; }
+        .nav-list > li > a:hover { color: #1e73be; border-bottom-color: #1e73be; }
+
+        /* BLOG POST */
+        .post-hero { background: linear-gradient(120deg, #0d5c30, #25b060); padding: 50px 0; }
+        .post-hero .container { max-width: 900px; }
+        .post-cat { display: inline-block; background: #e8720c; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 2px; margin-bottom: 14px; }
+        .post-hero h1 { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 12px; }
+        .post-meta { font-size: 12px; color: rgba(255,255,255,0.7); display: flex; gap: 20px; flex-wrap: wrap; }
+        .post-meta i { margin-right: 5px; color: #ffd700; }
+        .breadcrumb-nav { margin-top: 14px; font-size: 12px; color: rgba(255,255,255,0.6); }
+        .breadcrumb-nav a { color: rgba(255,255,255,0.8); }
+        .breadcrumb-nav span { margin: 0 6px; }
+
+        .post-body { background: #fff; padding: 48px 0 60px; }
+        .post-body h2 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: #1e73be; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e8720c; }
+        .post-body h3 { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: #222; margin: 24px 0 10px; }
+        .post-body p { font-size: 14.5px; color: #444; line-height: 1.85; margin-bottom: 14px; }
+        .post-body ul, .post-body ol { margin: 8px 0 16px 24px; }
+        .post-body li { font-size: 14px; color: #555; margin-bottom: 6px; line-height: 1.7; }
+
+        /* Code block */
+        .code-block { background: #1e1e2e; border-radius: 8px; margin: 20px 0; overflow: hidden; }
+        .code-header { background: #2a2a3e; padding: 10px 16px; font-size: 12px; color: #aaa; font-family: monospace; display: flex; justify-content: space-between; align-items: center; }
+        .code-header span { color: #e8720c; font-weight: 700; }
+        .code-block pre { padding: 20px; overflow-x: auto; font-size: 13px; line-height: 1.7; font-family: 'Courier New', Courier, monospace; color: #cdd6f4; }
+        .code-block .kw { color: #cba6f7; }
+        .code-block .fn { color: #89b4fa; }
+        .code-block .st { color: #a6e3a1; }
+        .code-block .cm { color: #6c7086; font-style: italic; }
+        .code-block .nm { color: #fab387; }
+
+        /* Block diagram */
+        .diagram-box { background: #f0f6ff; border: 2px solid #c8ddf5; border-radius: 8px; padding: 24px; margin: 20px 0; text-align: center; }
+        .diagram-box h4 { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800; color: #1e73be; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .diagram { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0; }
+        .diag-box { background: #1e73be; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; padding: 12px 16px; border-radius: 6px; text-align: center; min-width: 100px; line-height: 1.4; }
+        .diag-box.green { background: #28a745; }
+        .diag-box.orange { background: #e8720c; }
+        .diag-box.purple { background: #6a1a9e; }
+        .diag-box.dark { background: #1a1a2e; }
+        .diag-arrow { font-size: 20px; color: #1e73be; padding: 0 8px; font-weight: 700; }
+
+        /* Info box */
+        .info-box { background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px; padding: 14px 18px; margin: 16px 0; font-size: 13.5px; color: #555; }
+        .info-box i { color: #ffc107; margin-right: 8px; }
+        .tip-box { background: #d4edda; border-left: 4px solid #28a745; border-radius: 4px; padding: 14px 18px; margin: 16px 0; font-size: 13.5px; color: #444; }
+        .tip-box i { color: #28a745; margin-right: 8px; }
+
+        /* Nav between posts */
+        .post-nav { background: #f4f4f4; padding: 30px 0; border-top: 1px solid #eee; }
+        .post-nav .container { max-width: 900px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .post-nav a { background: #1e73be; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; padding: 10px 20px; border-radius: 4px; text-transform: uppercase; transition: background 0.2s; }
+        .post-nav a:hover { background: #e8720c; }
+
+        .site-footer { background: #1a1a1a; padding: 28px 0; color: #999; font-size: 12px; text-align: center; }
+        .site-footer p { margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="container" style="max-width:1200px;">
+        <span><i class="fas fa-envelope" style="margin-right:6px;"></i>info@vimicrosystem.com</span>
+        <span><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../support.html">Support</a></span>
+    </div>
+</div>
+
+<header class="site-header">
+    <div class="inner">
+        <div class="logo-text">Vi</div>
+        <div>
+            <h1>VI MICROSYSTEMS PVT LTD</h1>
+            <div class="tagline">Robotics &nbsp;|&nbsp; Networking &nbsp;|&nbsp; Embedded Security</div>
+        </div>
+    </div>
+</header>
+
+<nav class="main-nav">
+    <div class="inner">
+        <ul class="nav-list">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#products">Products</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../index.html#clients">Clients</a></li>
+            <li><a href="../support.html">Support</a></li>
+            <li><a href="../index.html#contact">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- HERO -->
+<div class="post-hero">
+    <div class="container">
+        <span class="post-cat">Robotics</span>
+        <h1>Getting Started with micro-ROS on ESP32<br>for Autonomous Navigation</h1>
+        <div class="post-meta">
+            <span><i class="far fa-calendar"></i>June 2026</span>
+            <span><i class="far fa-user"></i>Vi Microsystems Team</span>
+            <span><i class="fas fa-tag"></i>ROS2, ESP32, micro-ROS</span>
+        </div>
+        <div class="breadcrumb-nav">
+            <a href="../index.html">Home</a><span>›</span>
+            <a href="../blog.html">Blog</a><span>›</span>
+            micro-ROS on ESP32
+        </div>
+    </div>
+</div>
+
+<!-- POST BODY -->
+<div class="post-body">
+  <div class="container">
+
+    <h2>Introduction</h2>
+    <p>micro-ROS is a lightweight version of ROS2 designed specifically for microcontrollers. Unlike a standard ROS2 setup that runs on Linux-capable hardware like a Raspberry Pi, micro-ROS allows the ESP32 to participate directly in a ROS2 network — publishing sensor data, receiving velocity commands, and running real-time hardware control.</p>
+    <p>In this guide, you will flash micro-ROS firmware on the ESP32, set up the XRCE-DDS Agent on a PC or Jetson, and verify communication using ROS2 command-line tools and RViz2.</p>
+
+    <h2>System Block Diagram</h2>
+    <div class="diagram-box">
+        <h4>micro-ROS Architecture — MR Robo ESP32</h4>
+        <div class="diagram">
+            <div class="diag-box green">MPU6050<br>IMU Sensor</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box">ESP32<br>micro-ROS<br>Firmware</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box orange">USB Serial<br>XRCE-DDS</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box purple">micro-ROS<br>Agent<br>(PC / Jetson)</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box dark">ROS2 Humble<br>Nav2 / RViz2</div>
+        </div>
+    </div>
+
+    <h2>Working Principle</h2>
+    <p>The ESP32 runs a micro-ROS node that uses the <strong>Micro XRCE-DDS</strong> middleware to communicate with a micro-ROS Agent running on the host (PC or Jetson Orin). The Agent acts as a bridge between the embedded node and the full ROS2 DDS network.</p>
+    <ul>
+        <li>ESP32 reads MPU6050 IMU data over I2C at 100 Hz</li>
+        <li>Encoder ticks are counted for wheel odometry calculation</li>
+        <li>Motor PWM commands are received from the ROS2 <code>/cmd_vel</code> topic</li>
+        <li>Battery voltage is read via ADC and published as a ROS2 topic</li>
+        <li>Ultrasonic sensor distances are published for obstacle avoidance</li>
+    </ul>
+
+    <h2>Step 1 — Install micro-ROS on ESP32 (Arduino IDE)</h2>
+    <div class="info-box"><i class="fas fa-info-circle"></i>Requires Arduino IDE 2.x and ESP32 board package installed. Tested with micro-ROS Arduino library v4.3.0</div>
+
+    <div class="code-block">
+        <div class="code-header"><span>Arduino IDE — Board Manager URL</span></div>
+        <pre>https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json</pre>
+    </div>
+
+    <p>Install the micro-ROS Arduino library from the Library Manager — search for <strong>micro_ros_arduino</strong> and install version 4.3.0 or later.</p>
+
+    <h2>Step 2 — ESP32 Firmware Code</h2>
+    <div class="code-block">
+        <div class="code-header"><span>main.ino — micro-ROS ESP32 Publisher</span></div>
+        <pre><span class="kw">#include</span> <span class="st">&lt;micro_ros_arduino.h&gt;</span>
+<span class="kw">#include</span> <span class="st">&lt;rcl/rcl.h&gt;</span>
+<span class="kw">#include</span> <span class="st">&lt;sensor_msgs/msg/imu.h&gt;</span>
+<span class="kw">#include</span> <span class="st">&lt;geometry_msgs/msg/twist.h&gt;</span>
+
+<span class="cm">// micro-ROS handles</span>
+rcl_publisher_t     imu_publisher;
+rcl_subscription_t  cmd_sub;
+rclc_executor_t     executor;
+rclc_support_t      support;
+rcl_allocator_t     allocator;
+rcl_node_t          node;
+
+sensor_msgs__msg__Imu       imu_msg;
+geometry_msgs__msg__Twist   cmd_msg;
+
+<span class="kw">void</span> <span class="fn">cmd_vel_callback</span>(<span class="kw">const</span> <span class="nm">void</span> * msgin) {
+  <span class="kw">const</span> geometry_msgs__msg__Twist * msg =
+    (<span class="kw">const</span> geometry_msgs__msg__Twist *)msgin;
+  <span class="cm">// Set motor PWM from linear.x and angular.z</span>
+  <span class="fn">setMotors</span>(msg->linear.x, msg->angular.z);
+}
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  set_microros_transports();         <span class="cm">// USB Serial transport</span>
+  allocator = rcl_get_default_allocator();
+  rclc_support_init(&support, 0, NULL, &allocator);
+  rclc_node_init_default(&node, <span class="st">"esp32_bot"</span>, <span class="st">""</span>, &support);
+
+  <span class="cm">// Publisher — IMU data</span>
+  rclc_publisher_init_default(&imu_publisher, &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, Imu),
+    <span class="st">"/imu/data"</span>);
+
+  <span class="cm">// Subscriber — velocity commands</span>
+  rclc_subscription_init_default(&cmd_sub, &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, Twist),
+    <span class="st">"/cmd_vel"</span>);
+
+  rclc_executor_init(&executor, &support.context, 2, &allocator);
+  rclc_executor_add_subscription(&executor, &cmd_sub,
+    &cmd_msg, &cmd_vel_callback, ON_NEW_DATA);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="fn">readIMU</span>(&imu_msg);               <span class="cm">// Read MPU6050</span>
+  rcl_publish(&imu_publisher, &imu_msg, NULL);
+  rclc_executor_spin_some(&executor, RCL_MS_TO_NS(10));
+  delay(10);
+}</pre>
+    </div>
+
+    <h2>Step 3 — Start micro-ROS Agent on PC / Jetson</h2>
+    <div class="code-block">
+        <div class="code-header"><span>Terminal — Run Agent (Docker)</span></div>
+        <pre><span class="cm"># Pull and run micro-ROS agent via Docker</span>
+docker run -it --rm -v /dev:/dev --privileged \
+  microros/micro-ros-agent:humble \
+  serial --dev /dev/ttyUSB0 -v4
+
+<span class="cm"># OR build from source on Jetson:</span>
+source /opt/ros/humble/setup.bash
+ros2 run micro_ros_agent micro_ros_agent \
+  serial --dev /dev/ttyUSB0</pre>
+    </div>
+
+    <h2>Step 4 — Verify ROS2 Topics</h2>
+    <div class="code-block">
+        <div class="code-header"><span>Terminal — ROS2 Topic Check</span></div>
+        <pre><span class="cm"># List all topics published by ESP32</span>
+ros2 topic list
+
+<span class="cm"># Expected output:</span>
+<span class="st">/imu/data
+/battery/voltage
+/ultrasonic/front
+/ultrasonic/rear
+/odom</span>
+
+<span class="cm"># Echo IMU data</span>
+ros2 topic echo /imu/data
+
+<span class="cm"># Send velocity command to robot</span>
+ros2 topic pub /cmd_vel geometry_msgs/msg/Twist \
+  "{linear: {x: 0.2}, angular: {z: 0.1}}"</pre>
+    </div>
+
+    <h2>Step 5 — Visualize in RViz2</h2>
+    <p>Launch RViz2 and add the following displays:</p>
+    <ul>
+        <li><strong>TF</strong> — view robot transform tree</li>
+        <li><strong>Odometry</strong> — subscribe to <code>/odom</code></li>
+        <li><strong>Imu</strong> — subscribe to <code>/imu/data</code></li>
+        <li><strong>LaserScan</strong> — if LiDAR is connected (for UNO Q / Orin)</li>
+    </ul>
+    <div class="code-block">
+        <div class="code-header"><span>Terminal — Launch RViz2</span></div>
+        <pre>rviz2</pre>
+    </div>
+
+    <h2>Expected Results</h2>
+    <div class="tip-box"><i class="fas fa-check-circle"></i>When everything is working correctly, you should see IMU orientation arrows moving in RViz2 as you tilt the robot, and the robot chassis moving when you publish to /cmd_vel.</div>
+
+    <h2>Conclusion</h2>
+    <p>You have successfully set up micro-ROS on the ESP32, connected it to a ROS2 host, and verified sensor data and motor control over the ROS2 network. This forms the foundation for building a fully autonomous robot using the MR Robo ESP32 platform with Nav2, SLAM, and sensor fusion in future tutorials.</p>
+
+    <div style="margin-top:30px;padding:20px;background:#f0f6ff;border-radius:8px;">
+        <strong style="color:#1e73be;font-family:'Montserrat',sans-serif;">Related Product:</strong>
+        <a href="../products/esp32.html" style="display:inline-block;margin-left:12px;background:#1e73be;color:#fff;padding:8px 18px;border-radius:4px;font-size:12px;font-weight:800;font-family:'Montserrat',sans-serif;">MR Robo ESP32 →</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- POST NAV -->
+<div class="post-nav">
+    <div class="container">
+        <a href="../blog.html">← Back to Blog</a>
+        <a href="blog2.html">Next: Offline AI Chatbot on UNO Q →</a>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <div class="container" style="max-width:1200px;">
+        <p>© 2026 Vi Microsystems Pvt Ltd. All Rights Reserved.</p>
+        <p>SIDCO Industrial Estate, Perungudi, Chennai – 600096, Tamil Nadu, India</p>
+        <p>ISO Certificate No.: ICI/4144787/24 | DSIR Recognized R&D Unit</p>
+    </div>
+</footer>
+
+</body>
+</html>

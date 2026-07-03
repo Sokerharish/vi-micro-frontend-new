@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AES & RSA on Vi LaN-05 - Vi Microsystems Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #333; background: #f4f4f4; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        .top-bar { background: #444; padding: 7px 0; font-size: 12px; color: #ccc; }
+        .top-bar .inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; }
+        .top-bar a { color: #ccc; margin-left: 14px; }
+        .site-header { background: #fff; padding: 16px 0; border-bottom: 1px solid #eee; }
+        .site-header .inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 14px; }
+        .logo-text { height: 65px; width: 65px; background: #1e73be; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 900; color: #fff; }
+        .site-header h1 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; color: #1e73be; }
+        .site-header .tagline { font-size: 10px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+        .main-nav { background: #fff; border-bottom: 2px solid #eee; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .main-nav .inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: flex-end; }
+        .nav-list { list-style: none; display: flex; }
+        .nav-list > li > a { display: block; color: #333; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; padding: 16px 18px; text-transform: uppercase; border-bottom: 3px solid transparent; transition: color 0.2s; }
+        .nav-list > li > a:hover { color: #1e73be; border-bottom-color: #1e73be; }
+
+        .post-hero { background: linear-gradient(120deg, #0a4a5e, #28a0b4); padding: 50px 0; }
+        .post-cat { display: inline-block; background: #e8720c; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 2px; margin-bottom: 14px; }
+        .post-hero h1 { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 12px; }
+        .post-meta { font-size: 12px; color: rgba(255,255,255,0.7); display: flex; gap: 20px; flex-wrap: wrap; }
+        .post-meta i { margin-right: 5px; color: #ffd700; }
+        .breadcrumb-nav { margin-top: 14px; font-size: 12px; color: rgba(255,255,255,0.6); }
+        .breadcrumb-nav a { color: rgba(255,255,255,0.8); }
+        .breadcrumb-nav span { margin: 0 6px; }
+
+        .post-body { background: #fff; padding: 48px 0 60px; }
+        .post-body h2 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: #1e73be; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e8720c; }
+        .post-body h3 { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: #222; margin: 24px 0 10px; }
+        .post-body p { font-size: 14.5px; color: #444; line-height: 1.85; margin-bottom: 14px; }
+        .post-body ul, .post-body ol { margin: 8px 0 16px 24px; }
+        .post-body li { font-size: 14px; color: #555; margin-bottom: 6px; line-height: 1.7; }
+
+        .code-block { background: #1e1e2e; border-radius: 8px; margin: 20px 0; overflow: hidden; }
+        .code-header { background: #2a2a3e; padding: 10px 16px; font-size: 12px; color: #aaa; font-family: monospace; display: flex; justify-content: space-between; }
+        .code-header span { color: #e8720c; font-weight: 700; }
+        .code-block pre { padding: 20px; overflow-x: auto; font-size: 13px; line-height: 1.7; font-family: 'Courier New', monospace; color: #cdd6f4; }
+        .kw { color: #cba6f7; } .fn { color: #89b4fa; } .st { color: #a6e3a1; } .cm { color: #6c7086; font-style: italic; } .nm { color: #fab387; }
+
+        .diagram-box { background: #f0f6ff; border: 2px solid #c8ddf5; border-radius: 8px; padding: 24px; margin: 20px 0; text-align: center; }
+        .diagram-box h4 { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800; color: #1e73be; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .diagram { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0; }
+        .diag-box { background: #1e73be; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; padding: 12px 16px; border-radius: 6px; text-align: center; min-width: 100px; line-height: 1.4; }
+        .diag-box.green { background: #28a745; } .diag-box.orange { background: #e8720c; } .diag-box.teal { background: #0a7a8a; } .diag-box.dark { background: #1a1a2e; }
+        .diag-arrow { font-size: 20px; color: #1e73be; padding: 0 8px; font-weight: 700; }
+
+        .info-box { background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px; padding: 14px 18px; margin: 16px 0; font-size: 13.5px; color: #555; }
+        .info-box i { color: #ffc107; margin-right: 8px; }
+        .tip-box { background: #d4edda; border-left: 4px solid #28a745; border-radius: 4px; padding: 14px 18px; margin: 16px 0; font-size: 13.5px; color: #444; }
+        .tip-box i { color: #28a745; margin-right: 8px; }
+
+        .algo-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+        .algo-table th { background: #1e73be; color: #fff; padding: 10px 14px; text-align: left; font-weight: 700; }
+        .algo-table td { border: 1px solid #dde6f5; padding: 9px 14px; }
+        .algo-table tr:nth-child(even) td { background: #f5f8ff; }
+
+        .post-nav { background: #f4f4f4; padding: 30px 0; border-top: 1px solid #eee; }
+        .post-nav .container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .post-nav a { background: #1e73be; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; padding: 10px 20px; border-radius: 4px; text-transform: uppercase; transition: background 0.2s; }
+        .post-nav a:hover { background: #e8720c; }
+
+        .site-footer { background: #1a1a1a; padding: 28px 0; color: #999; font-size: 12px; text-align: center; }
+        .site-footer p { margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="inner">
+        <span><i class="fas fa-envelope" style="margin-right:6px;"></i>info@vimicrosystem.com</span>
+        <span><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../support.html">Support</a></span>
+    </div>
+</div>
+<header class="site-header">
+    <div class="inner">
+        <div class="logo-text">Vi</div>
+        <div><h1>VI MICROSYSTEMS PVT LTD</h1><div class="tagline">Robotics &nbsp;|&nbsp; Networking &nbsp;|&nbsp; Embedded Security</div></div>
+    </div>
+</header>
+<nav class="main-nav">
+    <div class="inner">
+        <ul class="nav-list">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#products">Products</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../support.html">Support</a></li>
+            <li><a href="../index.html#contact">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="post-hero">
+    <div class="container">
+        <span class="post-cat">Networking &amp; Cyber Security</span>
+        <h1>Implementing AES and RSA on the<br>Vi LaN-05 Cyber Security Trainer</h1>
+        <div class="post-meta">
+            <span><i class="far fa-calendar"></i>May 2026</span>
+            <span><i class="far fa-user"></i>Vi Microsystems Team</span>
+            <span><i class="fas fa-tag"></i>AES, RSA, Cryptography, Vi LaN-05</span>
+        </div>
+        <div class="breadcrumb-nav"><a href="../index.html">Home</a><span>›</span><a href="../blog.html">Blog</a><span>›</span>AES &amp; RSA on Vi LaN-05</div>
+    </div>
+</div>
+
+<div class="post-body">
+  <div class="container">
+
+    <h2>Introduction</h2>
+    <p>The Vi LaN-05 Cyber Security Trainer supports 28 hands-on experiments covering network topologies, protocols, and cryptography algorithms. In this blog post we focus on <strong>Experiments 22 and 24</strong> — implementing AES (Advanced Encryption Standard) and RSA (Rivest–Shamir–Adleman) encryption using Python on the Vi LaN-05 platform.</p>
+
+    <h2>Cryptography Algorithms Overview</h2>
+    <table class="algo-table">
+        <thead><tr><th>Algorithm</th><th>Type</th><th>Key Size</th><th>Use Case</th></tr></thead>
+        <tbody>
+            <tr><td>AES</td><td>Symmetric Block Cipher</td><td>128 / 192 / 256 bit</td><td>Data encryption, secure storage</td></tr>
+            <tr><td>RSA</td><td>Asymmetric (Public Key)</td><td>1024 / 2048 / 4096 bit</td><td>Key exchange, digital signatures</td></tr>
+            <tr><td>Diffie-Hellman</td><td>Key Exchange Protocol</td><td>Variable</td><td>Secure key agreement over network</td></tr>
+            <tr><td>SHA-1 / MD5</td><td>Hash Function</td><td>160 / 128 bit output</td><td>Message integrity verification</td></tr>
+        </tbody>
+    </table>
+
+    <h2>System Block Diagram</h2>
+    <div class="diagram-box">
+        <h4>Vi LaN-05 Cryptography Experiment — Block Diagram</h4>
+        <div class="diagram">
+            <div class="diag-box green">Plaintext<br>Message</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box">AES / RSA<br>Encrypt</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box orange">Ciphertext<br>(Network TX)</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box teal">AES / RSA<br>Decrypt</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box dark">Recovered<br>Plaintext</div>
+        </div>
+    </div>
+
+    <h2>Working Principle — AES</h2>
+    <p>AES is a symmetric block cipher — the same key is used for both encryption and decryption. It operates on 128-bit blocks of data and supports key sizes of 128, 192, or 256 bits. AES performs multiple rounds of substitution, permutation, mixing, and key addition operations to produce ciphertext.</p>
+    <ul>
+        <li><strong>SubBytes</strong> — Non-linear byte substitution using S-Box lookup table</li>
+        <li><strong>ShiftRows</strong> — Cyclic shift of each row in the state matrix</li>
+        <li><strong>MixColumns</strong> — Matrix multiplication in GF(2⁸) field</li>
+        <li><strong>AddRoundKey</strong> — XOR with the round key derived from the original key</li>
+    </ul>
+
+    <h2>Experiment 22 — AES Encryption in Python</h2>
+    <div class="info-box"><i class="fas fa-info-circle"></i>Run this on the Vi LaN-05 station PC. Install pycryptodome: <code>pip install pycryptodome</code></div>
+
+    <div class="code-block">
+        <div class="code-header"><span>aes_experiment.py — AES Encrypt &amp; Decrypt</span></div>
+        <pre><span class="kw">from</span> <span class="nm">Crypto.Cipher</span> <span class="kw">import</span> AES
+<span class="kw">from</span> <span class="nm">Crypto.Util.Padding</span> <span class="kw">import</span> pad, unpad
+<span class="kw">from</span> <span class="nm">Crypto.Random</span> <span class="kw">import</span> get_random_bytes
+<span class="kw">import</span> <span class="nm">binascii</span>
+
+<span class="cm"># ===== AES-256 ENCRYPTION =====</span>
+key = <span class="fn">get_random_bytes</span>(<span class="nm">32</span>)    <span class="cm"># 256-bit key</span>
+iv  = <span class="fn">get_random_bytes</span>(<span class="nm">16</span>)    <span class="cm"># Initialization Vector</span>
+
+plaintext = <span class="st">b"Vi Microsystems AES Experiment 22"</span>
+
+<span class="cm"># ENCRYPT</span>
+cipher_enc = AES.<span class="fn">new</span>(key, AES.MODE_CBC, iv)
+ciphertext  = cipher_enc.<span class="fn">encrypt</span>(<span class="fn">pad</span>(plaintext, AES.block_size))
+
+<span class="fn">print</span>(<span class="st">f"Plaintext  : {plaintext.decode()}"</span>)
+<span class="fn">print</span>(<span class="st">f"Key (hex)  : {binascii.hexlify(key).decode()}"</span>)
+<span class="fn">print</span>(<span class="st">f"IV  (hex)  : {binascii.hexlify(iv).decode()}"</span>)
+<span class="fn">print</span>(<span class="st">f"Ciphertext : {binascii.hexlify(ciphertext).decode()}"</span>)
+
+<span class="cm"># DECRYPT</span>
+cipher_dec = AES.<span class="fn">new</span>(key, AES.MODE_CBC, iv)
+decrypted  = <span class="fn">unpad</span>(cipher_dec.<span class="fn">decrypt</span>(ciphertext), AES.block_size)
+
+<span class="fn">print</span>(<span class="st">f"Decrypted  : {decrypted.decode()}"</span>)
+<span class="fn">print</span>(<span class="st">f"Match      : {plaintext == decrypted}"</span>)</pre>
+    </div>
+
+    <h2>Working Principle — RSA</h2>
+    <p>RSA is an asymmetric cryptosystem using a public-private key pair. A message encrypted with the public key can only be decrypted with the private key. RSA security relies on the computational difficulty of factoring large prime numbers.</p>
+    <ul>
+        <li>Choose two large primes <strong>p</strong> and <strong>q</strong></li>
+        <li>Compute <strong>n = p × q</strong> (modulus) and <strong>φ(n) = (p-1)(q-1)</strong></li>
+        <li>Choose public exponent <strong>e</strong> such that gcd(e, φ(n)) = 1</li>
+        <li>Compute private key <strong>d</strong> such that d × e ≡ 1 (mod φ(n))</li>
+        <li>Encrypt: <strong>C = M^e mod n</strong> &nbsp;|&nbsp; Decrypt: <strong>M = C^d mod n</strong></li>
+    </ul>
+
+    <h2>Experiment 24 — RSA Encryption in Python</h2>
+    <div class="code-block">
+        <div class="code-header"><span>rsa_experiment.py — RSA Encrypt &amp; Decrypt</span></div>
+        <pre><span class="kw">from</span> <span class="nm">Crypto.PublicKey</span> <span class="kw">import</span> RSA
+<span class="kw">from</span> <span class="nm">Crypto.Cipher</span> <span class="kw">import</span> PKCS1_OAEP
+<span class="kw">import</span> <span class="nm">binascii</span>
+
+<span class="cm"># ===== GENERATE RSA 2048-bit KEY PAIR =====</span>
+key     = RSA.<span class="fn">generate</span>(<span class="nm">2048</span>)
+pub_key = key.publickey()
+
+<span class="fn">print</span>(<span class="st">"Public Key:"</span>)
+<span class="fn">print</span>(pub_key.<span class="fn">export_key</span>().<span class="fn">decode</span>())
+
+<span class="cm"># ===== ENCRYPT WITH PUBLIC KEY =====</span>
+plaintext  = <span class="st">b"Vi LaN-05 RSA Experiment 24"</span>
+cipher_rsa = PKCS1_OAEP.<span class="fn">new</span>(pub_key)
+ciphertext = cipher_rsa.<span class="fn">encrypt</span>(plaintext)
+
+<span class="fn">print</span>(<span class="st">f"\nPlaintext  : {plaintext.decode()}"</span>)
+<span class="fn">print</span>(<span class="st">f"Ciphertext : {binascii.hexlify(ciphertext).decode()[:60]}..."</span>)
+
+<span class="cm"># ===== DECRYPT WITH PRIVATE KEY =====</span>
+decipher   = PKCS1_OAEP.<span class="fn">new</span>(key)
+decrypted  = decipher.<span class="fn">decrypt</span>(ciphertext)
+
+<span class="fn">print</span>(<span class="st">f"Decrypted  : {decrypted.decode()}"</span>)
+<span class="fn">print</span>(<span class="st">f"Match      : {plaintext == decrypted}"</span>)</pre>
+    </div>
+
+    <h2>Experiment 25 — Diffie-Hellman Key Exchange</h2>
+    <div class="code-block">
+        <div class="code-header"><span>diffie_hellman.py — Key Exchange Simulation</span></div>
+        <pre><span class="cm"># Public parameters (known to both parties)</span>
+p = <span class="nm">23</span>    <span class="cm"># Large prime number</span>
+g = <span class="nm">5</span>     <span class="cm"># Primitive root modulo p</span>
+
+<span class="cm"># Private keys (secret)</span>
+a = <span class="nm">6</span>     <span class="cm"># Alice's private key</span>
+b = <span class="nm">15</span>    <span class="cm"># Bob's private key</span>
+
+<span class="cm"># Public keys (exchanged over network)</span>
+A = (g ** a) % p   <span class="cm"># Alice sends A to Bob</span>
+B = (g ** b) % p   <span class="cm"># Bob sends B to Alice</span>
+
+<span class="cm"># Shared secret (computed independently)</span>
+secret_alice = (B ** a) % p
+secret_bob   = (A ** b) % p
+
+<span class="fn">print</span>(<span class="st">f"Alice Public Key : {A}"</span>)
+<span class="fn">print</span>(<span class="st">f"Bob   Public Key : {B}"</span>)
+<span class="fn">print</span>(<span class="st">f"Alice Shared     : {secret_alice}"</span>)
+<span class="fn">print</span>(<span class="st">f"Bob   Shared     : {secret_bob}"</span>)
+<span class="fn">print</span>(<span class="st">f"Keys Match       : {secret_alice == secret_bob}"</span>)</pre>
+    </div>
+
+    <h2>Expected Output</h2>
+    <div class="tip-box"><i class="fas fa-check-circle"></i>When all three experiments run correctly, you will see: AES plaintext matching decrypted output, RSA ciphertext (256 bytes) successfully decrypted, and Diffie-Hellman shared keys matching on both sides — confirming secure key exchange.</div>
+
+    <h2>Conclusion</h2>
+    <p>You have implemented AES-256, RSA-2048, and Diffie-Hellman key exchange on the Vi LaN-05 Cyber Security Trainer. These experiments cover the core cryptography algorithms specified in the Anna University ECE syllabus and give students a hands-on understanding of how modern network security works.</p>
+
+    <div style="margin-top:30px;padding:20px;background:#f0f6ff;border-radius:8px;">
+        <strong style="color:#1e73be;font-family:'Montserrat',sans-serif;">Related Product:</strong>
+        <a href="../products/vilan.html" style="display:inline-block;margin-left:12px;background:#1e73be;color:#fff;padding:8px 18px;border-radius:4px;font-size:12px;font-weight:800;font-family:'Montserrat',sans-serif;">Vi LaN-05 Trainer →</a>
+    </div>
+  </div>
+</div>
+
+<div class="post-nav">
+    <div class="container">
+        <a href="blog2.html">← Offline AI ChatBot on UNO Q</a>
+        <a href="blog4.html">Next: YOLOv8 on Jetson Orin →</a>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <div class="container" style="max-width:1200px;">
+        <p>© 2026 Vi Microsystems Pvt Ltd. All Rights Reserved.</p>
+        <p>SIDCO Industrial Estate, Perungudi, Chennai – 600096, Tamil Nadu, India</p>
+    </div>
+</footer>
+</body>
+</html>

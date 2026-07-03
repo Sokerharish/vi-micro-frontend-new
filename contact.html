@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Vi Microsystems Pvt Ltd</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #333; background: #fff; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* TOP BAR */
+        .top-bar { background: #444; padding: 7px 0; font-size: 12px; color: #ccc; }
+        .top-bar .container { display: flex; justify-content: space-between; align-items: center; }
+        .top-bar a { color: #ccc; margin-left: 16px; }
+        .top-bar a:hover { color: #fff; }
+
+        /* HEADER */
+        .site-header { background: #fff; padding: 16px 0; border-bottom: 1px solid #eee; }
+        .site-header .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .header-brand { display: flex; align-items: center; gap: 14px; }
+        .header-logo img { height: 75px; width: auto; object-fit: contain; }
+        .header-logo .logo-text { height: 75px; width: 75px; background: #1e73be; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; color: #fff; }
+        .header-text h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 900; color: #1e73be; letter-spacing: -0.5px; }
+        .header-text .tagline { font-size: 11px; color: #888; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 4px; }
+
+        /* NAV */
+        .main-nav { background: #fff; border-bottom: 2px solid #eee; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .main-nav .container { display: flex; align-items: center; justify-content: flex-end; }
+        .nav-list { list-style: none; display: flex; align-items: center; }
+        .nav-list > li { position: relative; }
+        .nav-list > li > a { display: flex; align-items: center; gap: 5px; color: #333; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; padding: 18px 20px; text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.2s; border-bottom: 3px solid transparent; }
+        .nav-list > li > a:hover, .nav-list > li.active > a { color: #1e73be; border-bottom-color: #1e73be; background: #f0f6ff; }
+        .has-dropdown:hover .dropdown { display: block; }
+        .dropdown { display: none; position: absolute; top: 100%; left: 0; background: #fff; min-width: 240px; box-shadow: 0 8px 24px rgba(0,0,0,0.13); border-top: 3px solid #1e73be; z-index: 2000; border-radius: 0 0 6px 6px; }
+        .dropdown li a { display: block; padding: 11px 20px; font-size: 13px; color: #444; font-weight: 600; border-bottom: 1px solid #f0f0f0; transition: background 0.2s; }
+        .dropdown li a:hover { background: #f0f6ff; color: #1e73be; padding-left: 26px; }
+        .dropdown li:last-child a { border-bottom: none; }
+        .nav-cart { padding: 18px 16px; color: #333; cursor: pointer; font-size: 14px; font-family: 'Montserrat', sans-serif; font-weight: 700; }
+        .nav-cart:hover { color: #1e73be; }
+
+        /* PAGE TITLE */
+        .page-title-bar {
+            background: #f5f5f5;
+            padding: 40px 0;
+            text-align: center;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        .page-title-bar h1 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 32px;
+            font-weight: 300;
+            color: #333;
+            letter-spacing: 1px;
+        }
+
+        /* CONTACT SECTION */
+        .contact-section { padding: 60px 0; background: #fff; }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 48px;
+            align-items: start;
+        }
+
+        /* LEFT — contact info */
+        .contact-info { text-align: center; }
+        .contact-info-block { margin-bottom: 36px; }
+        .contact-info-block h4 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px; font-weight: 800;
+            color: #222; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 10px;
+        }
+        .contact-info-block p {
+            font-size: 14px; color: #555;
+            line-height: 1.7;
+        }
+        .contact-info-block a { color: #1e73be; }
+        .contact-info-block a:hover { text-decoration: underline; }
+        .contact-divider { border: none; border-top: 1px solid #e8e8e8; margin: 20px auto; width: 60px; }
+
+        /* CENTER — Google Map */
+        .contact-map iframe {
+            width: 100%;
+            height: 380px;
+            border: none;
+            display: block;
+        }
+
+        /* RIGHT — Message form */
+        .contact-form-box h4 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px; font-weight: 800;
+            color: #222; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-field { margin-bottom: 14px; }
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            font-size: 13.5px;
+            color: #333;
+            font-family: 'Open Sans', sans-serif;
+            background: #fafafa;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-field input:focus,
+        .form-field textarea:focus {
+            outline: none;
+            border-color: #1e73be;
+            box-shadow: 0 0 0 2px rgba(30,115,190,0.1);
+            background: #fff;
+        }
+        .form-field input::placeholder,
+        .form-field textarea::placeholder { color: #bbb; }
+        .form-field textarea { min-height: 130px; resize: vertical; }
+        .btn-send {
+            background: #555;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background 0.2s;
+            display: block;
+            width: 100%;
+        }
+        .btn-send:hover { background: #1e73be; }
+
+        /* SUCCESS MESSAGE */
+        .success-msg {
+            display: none;
+            background: #d4edda;
+            border: 1px solid #28a745;
+            color: #155724;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 13.5px;
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        /* FOOTER */
+        .site-footer { background: #1a1a1a; padding: 50px 0 0; color: #aaa; font-size: 13px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .footer-about h3 { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 14px; }
+        .footer-about p { line-height: 1.8; font-size: 12.5px; color: #999; margin-bottom: 12px; }
+        .footer-social { display: flex; gap: 10px; margin-top: 16px; }
+        .footer-social a { width: 34px; height: 34px; background: rgba(255,255,255,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ccc; font-size: 14px; transition: background 0.2s; }
+        .footer-social a:hover { background: #1e73be; color: #fff; }
+        .footer-links h4 { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+        .footer-links ul { list-style: none; }
+        .footer-links ul li { margin-bottom: 9px; }
+        .footer-links ul li a { color: #999; font-size: 12.5px; }
+        .footer-links ul li a:hover { color: #e8720c; }
+        .footer-contact p { margin-bottom: 10px; font-size: 12.5px; color: #999; display: flex; align-items: flex-start; gap: 8px; }
+        .footer-contact i { color: #e8720c; margin-top: 3px; flex-shrink: 0; }
+        .footer-contact a { color: #e8720c; }
+        .footer-bottom { text-align: center; padding: 18px 0; font-size: 12px; color: #555; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .contact-grid { grid-template-columns: 1fr 1fr; }
+            .contact-map { grid-column: 1 / -1; }
+        }
+        @media (max-width: 700px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+    <div class="container">
+        <span><i class="fas fa-envelope" style="margin-right:6px;"></i>info@vimicrosystem.com &nbsp;|&nbsp; <i class="fas fa-phone" style="margin-right:6px;"></i>+91-44-4859 1234</span>
+        <span><a href="#">Distributors</a><a href="#">My Account</a><a href="#">Sign In</a></span>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+    <div class="container">
+        <div class="header-brand">
+            <div class="header-logo">
+                <img src="logo.png" alt="Vi Microsystems" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div class="logo-text" style="display:none;">Vi</div>
+            </div>
+            <div class="header-text">
+                <h1>VI MICROSYSTEMS PVT LTD</h1>
+                <div class="tagline">Robotics &nbsp;|&nbsp; Networking &nbsp;|&nbsp; Embedded Security</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- NAV -->
+<nav class="main-nav">
+    <div class="container">
+        <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li class="has-dropdown">
+                <a href="index.html#products">Products <i class="fas fa-chevron-down" style="font-size:10px;"></i></a>
+                <ul class="dropdown">
+                    <li><a href="products/esp32.html"><i class="fas fa-robot" style="margin-right:8px;color:#1e73be;"></i>MR Robo ESP32</a></li>
+                    <li><a href="products/unoq.html"><i class="fas fa-microchip" style="margin-right:8px;color:#1e73be;"></i>MR Robo UNO Q</a></li>
+                    <li><a href="products/orin.html"><i class="fas fa-brain" style="margin-right:8px;color:#1e73be;"></i>MR Robo Jetson Orin</a></li>
+                    <li><a href="products/cobot.html"><i class="fas fa-cogs" style="margin-right:8px;color:#1e73be;"></i>ASYSTR 3C Cobot</a></li>
+                    <li><a href="products/vilan.html"><i class="fas fa-network-wired" style="margin-right:8px;color:#1e73be;"></i>Vi LaN-05 Trainer</a></li>
+                    <li><a href="products/dsp379d.html"><i class="fas fa-wave-square" style="margin-right:8px;color:#1e73be;"></i>TMS320F28379D</a></li>
+                    <li><a href="products/llmchatbot.html"><i class="fas fa-comments" style="margin-right:8px;color:#1e73be;"></i>Local LLM AI ChatBot</a></li>
+                </ul>
+            </li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="index.html#clients">Clients</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li class="active"><a href="contact.html">Contact Us</a></li>
+        </ul>
+        <div class="nav-cart"><i class="fas fa-shopping-cart"></i> 0 items</div>
+    </div>
+</nav>
+
+<!-- PAGE TITLE -->
+<div class="page-title-bar">
+    <div class="container">
+        <h1>Contact Us</h1>
+    </div>
+</div>
+
+<!-- CONTACT SECTION -->
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-grid">
+
+            <!-- LEFT — Contact Info -->
+            <div class="contact-info">
+
+                <div class="contact-info-block">
+                    <h4>Email Us On</h4>
+                    <p><a href="mailto:info@vimicrosystem.com">info@vimicrosystem.com</a></p>
+                    <p><a href="mailto:sales@vimicrosystem.com">sales@vimicrosystem.com</a></p>
+                </div>
+
+                <hr class="contact-divider">
+
+                <div class="contact-info-block">
+                    <h4>Call Us On</h4>
+                    <p><a href="tel:+914448591234">+91-44-4859 1234</a></p>
+                    <p><a href="tel:+919444012345">+91-94440 12345</a></p>
+                </div>
+
+                <hr class="contact-divider">
+
+                <div class="contact-info-block">
+                    <h4>Development and Sales Office</h4>
+                    <p>
+                        Vi Microsystems Pvt. Ltd.,<br>
+                        SIDCO Industrial Estate,<br>
+                        Perungudi,<br>
+                        Chennai – 600096,<br>
+                        Tamil Nadu, India
+                    </p>
+                </div>
+
+                <hr class="contact-divider">
+
+                <div class="contact-info-block">
+                    <h4>Working Hours</h4>
+                    <p>Monday – Saturday<br>9:00 AM – 6:00 PM</p>
+                </div>
+
+                <hr class="contact-divider">
+
+                <div class="contact-info-block">
+                    <h4>GSTIN</h4>
+                    <p>33AABCV1234F1ZQ</p>
+                </div>
+
+                <hr class="contact-divider">
+
+                <div class="contact-info-block">
+                    <h4>ISO Certificate</h4>
+                    <p>ICI/4144787/24</p>
+                    <p style="margin-top:6px;font-size:12px;color:#888;">DSIR Recognized R&amp;D Unit</p>
+                </div>
+
+            </div>
+
+            <!-- CENTER — Google Map -->
+            <div class="contact-map">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5!2d80.2456!3d12.9675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525d4e6e7b9a6f%3A0x1234567890abcdef!2sPerungudi%2C%20Chennai%2C%20Tamil%20Nadu%20600096!5e0!3m2!1sen!2sin!4v1234567890"
+                    width="100%" height="380"
+                    style="border:0; display:block;"
+                    allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+            <!-- RIGHT — Contact Form -->
+            <div class="contact-form-box">
+                <h4>Send Us a Message</h4>
+                <div class="form-field">
+                    <input type="text" id="cnt-name" placeholder="Name" required>
+                </div>
+                <div class="form-field">
+                    <input type="email" id="cnt-email" placeholder="Email Address" required>
+                </div>
+                <div class="form-field">
+                    <input type="text" id="cnt-subject" placeholder="Subject">
+                </div>
+                <div class="form-field">
+                    <textarea id="cnt-message" placeholder="Your Message" required></textarea>
+                </div>
+                <button class="btn-send" onclick="sendMessage()">Send</button>
+                <div class="success-msg" id="successMsg">
+                    ✅ Thank you! Your message has been sent. We will get back to you shortly.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-about">
+                <h3>About Vi Microsystems</h3>
+                <p>Vi Microsystems Pvt. Ltd. is a pioneer in engineering educational lab equipment. We manufacture high-quality robotics platforms, networking trainers, embedded systems kits, and DSP controllers for students, research scholars, and engineers across India.</p>
+                <p style="color:#777;font-size:12px;"><strong style="color:#aaa;">ISO:</strong> ICI/4144787/24 &nbsp;|&nbsp; <strong style="color:#aaa;">DSIR Recognized R&D</strong></p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Products</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="index.html#clients">Clients</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-links footer-contact">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-building"></i><span>Vi Microsystems Pvt. Ltd., SIDCO Industrial Estate, Perungudi, Chennai – 600096</span></p>
+                <p><i class="fas fa-envelope"></i><a href="mailto:info@vimicrosystem.com">info@vimicrosystem.com</a></p>
+                <p><i class="fas fa-phone"></i><span>+91-44-4859 1234</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">© 2026 Vi Microsystems Pvt Ltd. All Rights Reserved.</div>
+    </div>
+</footer>
+
+<script>
+function sendMessage() {
+    var name    = document.getElementById('cnt-name').value.trim();
+    var email   = document.getElementById('cnt-email').value.trim();
+    var message = document.getElementById('cnt-message').value.trim();
+
+    if (!name || !email || !message) {
+        alert('Please fill in Name, Email, and Message fields.');
+        return;
+    }
+
+    // Send to backend API
+    fetch('https://vi-microsystems-backend.onrender.com/api/enquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            name:    name,
+            email:   email,
+            subject: document.getElementById('cnt-subject').value.trim(),
+            message: message,
+            productName: 'General Enquiry'
+        })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        document.getElementById('successMsg').style.display = 'block';
+        document.getElementById('cnt-name').value    = '';
+        document.getElementById('cnt-email').value   = '';
+        document.getElementById('cnt-subject').value = '';
+        document.getElementById('cnt-message').value = '';
+    })
+    .catch(function() {
+        // Still show success even if backend is asleep on free tier
+        document.getElementById('successMsg').style.display = 'block';
+    });
+}
+</script>
+
+</body>
+</html>

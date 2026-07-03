@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart - Vi Microsystems Pvt Ltd</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    /* ===== RESET (shared with index.html) ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Open Sans', Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #333; background: #fff; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; height: auto; display: block; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== TOP BAR ===== */
+    .top-bar { background: #444; padding: 7px 0; font-size: 12px; color: #ccc; }
+    .top-bar .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .top-bar a { color: #ccc; margin-left: 16px; }
+    .top-bar a:hover { color: #fff; }
+
+    /* ===== HEADER ===== */
+    .site-header { background: #fff; padding: 16px 0; border-bottom: 1px solid #eee; }
+    .site-header .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .header-brand { display: flex; align-items: center; gap: 14px; }
+    .header-logo img { height: 75px; width: auto; object-fit: contain; }
+    .header-logo .logo-text {
+        height: 75px; width: 75px; background: #1e73be; border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; color: #fff;
+    }
+    .header-text h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 900; color: #1e73be; letter-spacing: -0.5px; }
+    .header-text .tagline { font-size: 11px; color: #888; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 4px; }
+    .header-contact { text-align: right; font-size: 13px; color: #555; }
+    .header-contact strong { display: block; font-size: 18px; font-weight: 700; color: #1e73be; }
+    .header-contact a { color: #555; }
+
+    /* ===== NAVIGATION ===== */
+    .main-nav { background: #fff; border-bottom: 2px solid #eee; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .main-nav .container { display: flex; align-items: center; justify-content: flex-end; gap: 0; }
+    .nav-list { list-style: none; display: flex; align-items: center; }
+    .nav-list > li { position: relative; }
+    .nav-list > li > a {
+        display: flex; align-items: center; gap: 5px;
+        color: #333; font-family: 'Montserrat', sans-serif;
+        font-size: 13px; font-weight: 700; padding: 18px 20px;
+        text-transform: uppercase; letter-spacing: 0.5px;
+        transition: color 0.2s, background 0.2s;
+        border-bottom: 3px solid transparent;
+    }
+    .nav-list > li > a:hover,
+    .nav-list > li.active > a { color: #1e73be; border-bottom-color: #1e73be; }
+    .nav-list > li.active > a { background: #f0f6ff; }
+    .nav-list li.has-dropdown { position: relative; }
+    .dropdown {
+        display: none; position: absolute; top: 100%; left: 0;
+        background: #fff; min-width: 240px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+        border-top: 3px solid #1e73be;
+        z-index: 2000; border-radius: 0 0 6px 6px;
+    }
+    .nav-list li.has-dropdown:hover .dropdown { display: block; }
+    .dropdown li a {
+        display: block; padding: 11px 20px;
+        font-size: 13px; color: #444; font-weight: 600;
+        border-bottom: 1px solid #f0f0f0;
+        transition: background 0.2s, color 0.2s;
+    }
+    .dropdown li a:hover { background: #f0f6ff; color: #1e73be; padding-left: 26px; }
+    .dropdown li:last-child a { border-bottom: none; }
+    .nav-cart { margin-left: 10px; padding: 18px 16px; color: #333; cursor: pointer; font-size: 16px; display: inline-flex; align-items: center; text-decoration: none; }
+    .nav-cart:hover { color: #1e73be; }
+
+    /* ===== CART PAGE ===== */
+    .cart-page-header { padding: 38px 0 18px; }
+    .cart-page-header h1 { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 800; color: #222; margin-bottom: 16px; }
+    .cart-page-header .underline { width: 100%; height: 3px; background: linear-gradient(90deg, #9ec33b 0%, #e8e8e8 0%); border-top: 3px solid #9ec33b; opacity: 0.6; margin-bottom: 0; }
+
+    .cart-notice {
+        display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;
+        background: #f4f8ec; border: 1px solid #d8e8b0; border-radius: 4px;
+        padding: 16px 20px; margin: 22px 0 30px;
+        font-size: 14px; color: #333;
+    }
+    .cart-notice .notice-text { display: flex; align-items: center; gap: 10px; }
+    .cart-notice .notice-text i { color: #6a9a23; font-size: 18px; }
+    .btn-continue {
+        background: #f0f0f0; color: #333; font-family: 'Montserrat', sans-serif;
+        font-size: 12.5px; font-weight: 700; padding: 10px 20px; border-radius: 3px;
+        border: 1px solid #ddd; cursor: pointer; transition: background 0.2s;
+        white-space: nowrap;
+    }
+    .btn-continue:hover { background: #e6e6e6; }
+
+    .cart-table-wrap { overflow-x: auto; margin-bottom: 30px; }
+    table.cart-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    table.cart-table thead th {
+        text-align: left; font-family: 'Montserrat', sans-serif; font-weight: 700;
+        font-size: 13px; color: #222; padding: 14px 12px; border-bottom: 2px solid #eee;
+    }
+    table.cart-table tbody td { padding: 18px 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
+    .cart-remove-btn { color: #cc0000; font-size: 14px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .cart-remove-btn:hover { color: #ff3333; }
+    .cart-thumb { width: 64px; height: 64px; border: 1px solid #eee; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f7f9fc; }
+    .cart-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .cart-prod-name { color: #1e73be; font-weight: 600; font-size: 14.5px; }
+    .cart-prod-name:hover { text-decoration: underline; }
+    .cart-qty-input {
+        width: 64px; padding: 8px 10px; border: 1px solid #ccc; border-radius: 3px;
+        font-size: 14px; text-align: center;
+    }
+    .cart-empty { text-align: center; padding: 60px 20px; color: #888; }
+    .cart-empty i { font-size: 48px; color: #ccc; margin-bottom: 16px; display: block; }
+    .cart-empty a { color: #1e73be; font-weight: 700; }
+
+    .coupon-row { display: flex; gap: 10px; align-items: center; margin-bottom: 36px; flex-wrap: wrap; }
+    .coupon-row input { flex: 1; min-width: 180px; max-width: 260px; padding: 12px 14px; border: 1px solid #ccc; border-radius: 3px; font-size: 13px; }
+    .btn-apply-coupon { background: #fff; border: 1px solid #999; color: #444; font-family: 'Montserrat', sans-serif; font-size: 12.5px; font-weight: 700; padding: 12px 20px; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
+    .btn-apply-coupon:hover { background: #f5f5f5; }
+    .btn-update-cart { background: #f0f0f0; color: #999; font-family: 'Montserrat', sans-serif; font-size: 12.5px; font-weight: 700; padding: 12px 20px; border-radius: 3px; border: 1px solid #ddd; cursor: not-allowed; margin-left: auto; }
+    .btn-update-cart.active { background: #1e73be; color: #fff; border-color: #1e73be; cursor: pointer; }
+    .btn-update-cart.active:hover { background: #155d9e; }
+
+    .cart-totals-section { display: flex; justify-content: flex-end; position: relative; }
+    .cart-totals-box { max-width: 460px; width: 100%; border: 1px solid #eee; border-radius: 4px; overflow: hidden; }
+    .cart-totals-box h2 { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800; color: #222; padding: 20px 24px 16px; border-bottom: 1px solid #eee; }
+    .cart-totals-row { display: flex; justify-content: space-between; padding: 18px 24px; border-bottom: 1px solid #eee; font-size: 15px; }
+    .cart-totals-row .label { font-weight: 700; color: #222; }
+    .cart-totals-row .value { text-align: right; color: #333; }
+    .cart-totals-row.total .label, .cart-totals-row.total .value { font-size: 19px; font-weight: 800; color: #222; }
+    .cart-shipping-info { font-size: 13.5px; color: #555; line-height: 1.7; }
+    .cart-shipping-info a { color: #1e73be; font-weight: 600; }
+    .cart-checkout-wrap { padding: 20px 24px 24px; }
+    .btn-checkout {
+        display: block; width: 100%; text-align: center;
+        background: #4caf50; color: #fff; font-family: 'Montserrat', sans-serif;
+        font-size: 16px; font-weight: 800; padding: 16px; border-radius: 4px;
+        border: none; cursor: pointer; transition: background 0.2s;
+    }
+    .btn-checkout:hover { background: #3d9c40; }
+    .btn-checkout:disabled { background: #ccc; cursor: not-allowed; }
+
+    /* currency switcher tab — fixed to right edge like reference screenshot */
+    .currency-switcher {
+        position: fixed; top: 50%; right: 0; transform: translateY(-50%);
+        z-index: 999; display: flex; flex-direction: column;
+        font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.15);
+    }
+    .currency-switcher button {
+        padding: 12px 18px; border: none; cursor: pointer; color: #fff;
+        background: #1a1a1a; transition: background 0.2s; text-align: left; min-width: 90px;
+    }
+    .currency-switcher button.active { background: #1e73be; }
+    .currency-switcher button:hover { background: #2a2a2a; }
+    .currency-switcher button.active:hover { background: #155d9e; }
+
+    /* ===== FOOTER (shared with index.html) ===== */
+    .site-footer { background: #ececec; padding: 50px 0 0; color: #555; font-size: 13px; margin-top: 40px; }
+    .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.1); }
+    .footer-about h3 { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; color: #222; margin-bottom: 14px; }
+    .footer-about p { line-height: 1.8; font-size: 13.5px; color: #444; margin-bottom: 16px; }
+    .footer-about p strong { color: #222; }
+    .footer-social { display: flex; gap: 10px; }
+    .footer-social a { width: 34px; height: 34px; background: rgba(0,0,0,0.06); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #555; font-size: 14px; transition: background 0.2s, color 0.2s; }
+    .footer-social a:hover { background: #1e73be; color: #fff; }
+    .footer-links h4 { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; color: #222; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+    .footer-contact p { margin-bottom: 10px; font-size: 12.5px; color: #444; display: flex; align-items: flex-start; gap: 8px; }
+    .footer-contact i { color: #e8720c; margin-top: 3px; width: 14px; flex-shrink: 0; }
+    .footer-contact a { color: #1e73be; }
+    .footer-bottom { text-align: center; padding: 18px 0; font-size: 12px; color: #777; background: #1a1a1a; }
+    .footer-bottom a { color: #ccc; }
+    .footer-bottom a:hover { color: #e8720c; }
+    .footer-follow-card { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 10px 14px; margin-bottom: 16px; }
+    .footer-follow-card img { width: 46px; height: 46px; border-radius: 4px; object-fit: cover; flex-shrink: 0; }
+    .footer-follow-card .ffc-name { font-weight: 700; color: #1e73be; font-size: 14px; margin-bottom: 6px; display: block; }
+    .footer-follow-card .ffc-btn { display: inline-flex; align-items: center; gap: 6px; background: #1877f2; color: #fff; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 3px; }
+    .footer-follow-card .ffc-btn.yt { background: #ff0000; }
+    .footer-follow-card .ffc-followers { font-size: 12px; color: #777; margin-left: 8px; }
+    .footer-newsletter h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: #222; margin-bottom: 18px; line-height: 1.3; }
+    .footer-newsletter input[type="email"] { width: 100%; padding: 13px 16px; border: 1px solid #ccc; border-radius: 3px; background: #fff; color: #333; font-size: 13px; margin-bottom: 16px; }
+    .footer-newsletter button { background: #1a1a1a; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; padding: 12px 28px; border-radius: 24px; border: none; cursor: pointer; transition: background 0.2s; margin-bottom: 20px; }
+    .footer-newsletter button:hover { background: #e8720c; }
+    .footer-payment-icons { display: flex; gap: 8px; flex-wrap: wrap; }
+    .footer-made-india { display: block; max-width: 220px; margin-bottom: 22px; border-radius: 4px; }
+    .footer-company-name { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 800; color: #222; margin-bottom: 10px; letter-spacing: 0.5px; }
+    .footer-address { color: #444; line-height: 1.7; font-size: 13px; margin-bottom: 12px; }
+    .footer-address strong { display: block; color: #1e73be; }
+    .footer-address a { color: #1e73be; font-weight: 700; }
+
+    @media (max-width: 800px) {
+        table.cart-table thead { display: none; }
+        table.cart-table, table.cart-table tbody, table.cart-table tr, table.cart-table td { display: block; width: 100%; }
+        table.cart-table tr { border-bottom: 2px solid #eee; padding: 14px 0; }
+        table.cart-table td { padding: 6px 0; border-bottom: none; }
+        .cart-totals-section { justify-content: stretch; }
+        .cart-totals-box { max-width: 100%; }
+        .currency-switcher { top: auto; bottom: 90px; transform: none; flex-direction: row; }
+        .footer-grid { grid-template-columns: 1fr 1fr; }
+        .footer-about { grid-column: 1/-1; }
+    }
+    @media (max-width: 560px) {
+        .footer-grid { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+    <div class="container">
+        <span><i class="fas fa-envelope" style="margin-right:6px;"></i>info@vimicrosystem.com &nbsp;|&nbsp; <i class="fas fa-phone" style="margin-right:6px;"></i>+91-44-4859 1234</span>
+        <span>
+            <a href="#">Distributors</a>
+            <a href="account.html" data-account-link><span data-account-name>Sign In</span></a>
+        </span>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+    <div class="container">
+        <div class="header-brand">
+            <div class="header-logo">
+                <img src="logo.png" alt="Vi Microsystems Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div class="logo-text" style="display:none;">Vi</div>
+            </div>
+            <div class="header-text">
+                <h1>VI MICROSYSTEMS PVT LTD</h1>
+                <div class="tagline">Robotics &nbsp;|&nbsp; Networking &nbsp;|&nbsp; Embedded Security</div>
+            </div>
+        </div>
+        <div class="header-contact">
+            <strong>+91-44-4859 1234</strong>
+            <a href="mailto:info@vimicrosystem.com">info@vimicrosystem.com</a><br>
+            <span style="font-size:11px;color:#aaa;">Mon–Sat &nbsp;9:00 AM – 6:00 PM</span>
+        </div>
+    </div>
+</header>
+
+<!-- NAV -->
+<nav class="main-nav">
+    <div class="container">
+        <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li class="has-dropdown">
+                <a href="index.html#products">Products <i class="fas fa-chevron-down" style="font-size:10px;"></i></a>
+                <ul class="dropdown">
+                    <li><a href="products/esp32.html"><i class="fas fa-robot" style="margin-right:8px;color:#1e73be;"></i>MR Robo ESP32</a></li>
+                    <li><a href="products/unoq.html"><i class="fas fa-microchip" style="margin-right:8px;color:#1e73be;"></i>MR Robo UNO Q</a></li>
+                    <li><a href="products/orin.html"><i class="fas fa-brain" style="margin-right:8px;color:#1e73be;"></i>MR Robo Jetson Orin</a></li>
+                    <li><a href="products/cobot.html"><i class="fas fa-cogs" style="margin-right:8px;color:#1e73be;"></i>ASYSTR 3C Cobot</a></li>
+                    <li><a href="products/vilan.html"><i class="fas fa-network-wired" style="margin-right:8px;color:#1e73be;"></i>Vi LaN-05 Trainer</a></li>
+                    <li><a href="products/dsp379d.html"><i class="fas fa-wave-square" style="margin-right:8px;color:#1e73be;"></i>TMS320F28379D PWM Controller</a></li>
+                    <li><a href="products/llmchatbot.html"><i class="fas fa-comments" style="margin-right:8px;color:#1e73be;"></i>Local LLM AI ChatBot</a></li>
+                </ul>
+            </li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="index.html#clients">Clients</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="index.html#contact">Contact Us</a></li>
+        </ul>
+        <a href="cart.html" class="nav-cart active" style="color:#1e73be;"><i class="fas fa-shopping-cart"></i> <span data-cart-count>0 items</span></a>
+    </div>
+</nav>
+
+<!-- CART PAGE -->
+<div class="container">
+    <div class="cart-page-header">
+        <h1>Cart</h1>
+        <div class="underline"></div>
+    </div>
+
+    <div id="cart-notice" class="cart-notice" style="display:none;">
+        <div class="notice-text"><i class="fas fa-check-circle"></i> <span id="cart-notice-text"></span></div>
+        <a href="index.html#products" class="btn-continue">Continue shopping</a>
+    </div>
+
+    <div class="cart-table-wrap">
+        <table class="cart-table" id="cart-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody id="cart-table-body">
+                <!-- rows injected by JS -->
+            </tbody>
+        </table>
+        <div id="cart-empty-state" class="cart-empty" style="display:none;">
+            <i class="fas fa-shopping-cart"></i>
+            <p>Your cart is currently empty.</p>
+            <p style="margin-top:8px;"><a href="index.html#products">Browse our products &rarr;</a></p>
+        </div>
+    </div>
+
+    <div id="cart-coupon-row" class="coupon-row">
+        <input type="text" placeholder="Coupon code">
+        <button type="button" class="btn-apply-coupon">Apply coupon</button>
+        <button type="button" class="btn-update-cart" disabled>Update cart</button>
+    </div>
+
+    <div id="cart-totals-section" class="cart-totals-section" style="display:none;">
+        <div class="cart-totals-box">
+            <h2>Cart totals</h2>
+            <div class="cart-totals-row">
+                <span class="label">Subtotal</span>
+                <span class="value" id="cart-subtotal">₹ 0</span>
+            </div>
+            <div class="cart-totals-row">
+                <span class="label">Shipment</span>
+                <div class="value cart-shipping-info">
+                    Free shipping<br>
+                    Shipping to <strong>Tamil Nadu</strong>.<br>
+                    <a href="#">Change address</a> <i class="fas fa-edit" style="font-size:11px;"></i>
+                </div>
+            </div>
+            <div class="cart-totals-row total">
+                <span class="label">Total</span>
+                <span class="value" id="cart-total">₹ 0</span>
+            </div>
+            <div class="cart-checkout-wrap">
+                <button type="button" id="btn-show-checkout" class="btn-checkout" onclick="showCheckoutForm()">Proceed to checkout</button>
+            </div>
+        </div>
+
+        <!-- CHECKOUT DETAILS FORM (shown after clicking Proceed to checkout) -->
+        <div id="checkout-form-box" class="cart-totals-box" style="display:none; margin-top:16px;">
+            <h2 style="font-size:20px;">Your Details</h2>
+            <div style="padding:20px 24px;">
+                <div id="checkout-error" style="display:none; background:#fdeaea; border:1px solid #f5c2c2; color:#c0392b; padding:10px 14px; border-radius:3px; font-size:13px; margin-bottom:16px;"></div>
+                <div style="margin-bottom:14px;">
+                    <label style="display:block; font-size:13px; margin-bottom:6px; color:#333;">Full Name *</label>
+                    <input type="text" id="checkout-name" style="width:100%; padding:11px 13px; border:1px solid #ccc; border-radius:3px; font-size:14px;">
+                </div>
+                <div style="margin-bottom:14px;">
+                    <label style="display:block; font-size:13px; margin-bottom:6px; color:#333;">Email *</label>
+                    <input type="email" id="checkout-email" style="width:100%; padding:11px 13px; border:1px solid #ccc; border-radius:3px; font-size:14px;">
+                </div>
+                <div style="margin-bottom:14px;">
+                    <label style="display:block; font-size:13px; margin-bottom:6px; color:#333;">Phone</label>
+                    <input type="tel" id="checkout-phone" style="width:100%; padding:11px 13px; border:1px solid #ccc; border-radius:3px; font-size:14px;">
+                </div>
+                <div style="margin-bottom:18px;">
+                    <label style="display:block; font-size:13px; margin-bottom:6px; color:#333;">Shipping Address</label>
+                    <textarea id="checkout-address" rows="3" style="width:100%; padding:11px 13px; border:1px solid #ccc; border-radius:3px; font-size:14px; resize:vertical;"></textarea>
+                </div>
+                <button type="button" id="btn-place-order" class="btn-checkout" onclick="placeOrder()">Place Order</button>
+                <p style="font-size:12px; color:#888; margin-top:12px;">This places your order for processing — online payment isn&rsquo;t connected yet, our team will contact you to confirm payment and shipping.</p>
+            </div>
+        </div>
+
+        <!-- ORDER CONFIRMATION (shown after a successful order) -->
+        <div id="order-confirmation-box" class="cart-totals-box" style="display:none; margin-top:16px; text-align:center; padding:40px 24px;">
+            <i class="fas fa-check-circle" style="font-size:48px; color:#4caf50; margin-bottom:16px; display:block;"></i>
+            <h2 style="border:none; font-size:22px;">Order Placed!</h2>
+            <p style="color:#555; margin-top:10px;">Thank you &mdash; your order number is <strong id="confirmation-order-id">#0</strong>. We&rsquo;ll contact you shortly to confirm payment and shipping details.</p>
+            <a href="index.html" style="display:inline-block; margin-top:20px; color:#1e73be; font-weight:700;">&larr; Continue Shopping</a>
+        </div>
+    </div>
+</div>
+
+<!-- Currency switcher tab -->
+<div class="currency-switcher">
+    <button type="button" id="currency-inr" onclick="switchCurrency('INR')">INR ₹</button>
+    <button type="button" id="currency-usd" onclick="switchCurrency('USD')">USD $</button>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer" id="contact">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-about">
+                <h3>About Us</h3>
+                <p><strong>Vi Microsystems</strong> is the manufacturer of high-quality and reliable engineering educational lab equipment. Our kits are feature-rich development platforms with the best documentation and support. We aim to offer the best robotics, networking, and embedded systems learning platform to students, research scholars, and young engineers.</p>
+                <p style="color:#888;font-size:12px;"><strong style="color:#555;">ISO Certificate No.:</strong> ICI/4144787/24 &nbsp;|&nbsp; <strong style="color:#555;">DSIR Recognized R&D Unit</strong></p>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-follow-card">
+                    <img src="robo esp32.png" alt="" onerror="this.style.display='none'">
+                    <div>
+                        <span class="ffc-name">Vi Microsystems</span>
+                        <span class="ffc-btn"><i class="fab fa-facebook-f"></i> Follow Page</span>
+                        <span class="ffc-followers">4.1K followers</span>
+                    </div>
+                </div>
+                <div class="footer-follow-card">
+                    <img src="robo esp32.png" alt="" onerror="this.style.display='none'">
+                    <div>
+                        <span class="ffc-name">Vi Microsystems</span>
+                        <span class="ffc-btn yt"><i class="fab fa-youtube"></i> YouTube</span>
+                        <span class="ffc-followers">1K</span>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="mailto:info@vimicrosystem.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links footer-newsletter">
+                <h3>Get Notified on New Products and Tutorials!</h3>
+                <input type="email" placeholder="Email Address">
+                <button type="button">Notify Me</button>
+                <div class="footer-payment-icons">
+                    <span style="display:inline-block;background:#003087;color:#fff;font-weight:800;font-size:11px;padding:6px 10px;border-radius:3px;font-style:italic;">PayPal</span>
+                    <span style="display:inline-block;background:#fff;border:1px solid #ddd;border-radius:3px;padding:4px 8px;"><span style="color:#eb001b;font-weight:900;">●</span><span style="color:#f79e1b;font-weight:900;margin-left:-8px;">●</span></span>
+                    <span style="display:inline-block;background:#1a1f71;color:#fff;font-weight:800;font-size:11px;padding:6px 10px;border-radius:3px;font-style:italic;">VISA</span>
+                    <span style="display:inline-block;background:#2e77bc;color:#fff;font-weight:800;font-size:10px;padding:6px 8px;border-radius:3px;">AMEX</span>
+                </div>
+            </div>
+
+            <div class="footer-links footer-contact">
+                <svg class="footer-made-india" viewBox="0 0 220 70" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="220" height="70" fill="#1a1a1a"/>
+                    <rect x="10" y="14" width="60" height="42" fill="#fff"/>
+                    <rect x="10" y="14" width="60" height="14" fill="#ff9933"/>
+                    <rect x="10" y="42" width="60" height="14" fill="#138808"/>
+                    <circle cx="40" cy="35" r="6" fill="none" stroke="#000080" stroke-width="1"/>
+                    <text x="82" y="32" font-family="Montserrat, sans-serif" font-size="13" font-weight="800" fill="#fff">MADE IN</text>
+                    <text x="82" y="50" font-family="Montserrat, sans-serif" font-size="16" font-weight="900" fill="#fff">INDIA</text>
+                </svg>
+                <div class="footer-company-name">VI MICROSYSTEMS PVT LTD</div>
+                <p class="footer-address">
+                    SIDCO Industrial Estate,<br>
+                    Perungudi,<br>
+                    Chennai, Tamil Nadu, India – 600096
+                </p>
+                <p class="footer-address"><strong style="display:inline;color:#1e73be;">Email:</strong> <a href="mailto:info@vimicrosystem.com">info@vimicrosystem.com</a></p>
+                <p class="footer-address"><strong style="display:inline;color:#1e73be;">Phone:</strong> <a href="tel:+914448591234" style="color:#444;font-weight:400;">+91-44-4859 1234</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div style="margin-bottom:8px;">
+                <a href="account.html" style="margin:0 10px;">My account</a>
+                <a href="terms-of-service.html" style="margin:0 10px;">Terms of Service</a>
+                <a href="privacy-policy.html" style="margin:0 10px;">Privacy Policy</a>
+                <a href="return-refund-policy.html" style="margin:0 10px;">Return and Refund Policy</a>
+                <a href="shipping-policy.html" style="margin:0 10px;">Shipping Policy</a>
+            </div>
+            © 2026 • VI MICROSYSTEMS
+        </div>
+    </div>
+</footer>
+
+<script src="js/cart.js"></script>
+<script src="js/account.js"></script>
+<script>
+(function () {
+    var lastAddedId = new URLSearchParams(window.location.search).get('added');
+
+    function renderCurrencyButtons() {
+        var cur = ViCart.getCurrency();
+        document.getElementById('currency-inr').classList.toggle('active', cur === 'INR');
+        document.getElementById('currency-usd').classList.toggle('active', cur === 'USD');
+    }
+
+    window.switchCurrency = function (code) {
+        ViCart.setCurrency(code);
+        renderCart();
+        renderCurrencyButtons();
+    };
+
+    window.removeCartItem = function (id) {
+        ViCart.removeItem(id);
+        renderCart();
+    };
+
+    window.updateCartQty = function (id, value) {
+        ViCart.setQty(id, value);
+        renderCart();
+    };
+
+    function renderCart() {
+        var lines = ViCart.getLines();
+        var tbody = document.getElementById('cart-table-body');
+        var emptyState = document.getElementById('cart-empty-state');
+        var totalsSection = document.getElementById('cart-totals-section');
+        var couponRow = document.getElementById('cart-coupon-row');
+        var table = document.getElementById('cart-table');
+
+        if (lines.length === 0) {
+            table.style.display = 'none';
+            emptyState.style.display = 'block';
+            totalsSection.style.display = 'none';
+            couponRow.style.display = 'none';
+            return;
+        }
+
+        table.style.display = '';
+        emptyState.style.display = 'none';
+        totalsSection.style.display = 'flex';
+        couponRow.style.display = 'flex';
+
+        tbody.innerHTML = lines.map(function (line) {
+            var placeholderTag = line.isPlaceholder
+                ? '<br><span style="color:#cc7a00;font-size:10.5px;font-weight:700;">⚠ placeholder price</span>'
+                : '';
+            return '<tr>' +
+                '<td><button type="button" class="cart-remove-btn" onclick="removeCartItem(\'' + line.id + '\')" aria-label="Remove"><i class="fas fa-times"></i></button></td>' +
+                '<td><div class="cart-thumb"><img src="' + line.img + '" alt="" onerror="this.style.display=\'none\'"></div></td>' +
+                '<td><a href="' + line.url + '" class="cart-prod-name">' + line.name + '</a></td>' +
+                '<td>' + ViCart.formatPrice(line.price) + placeholderTag + '</td>' +
+                '<td><input type="number" min="1" class="cart-qty-input" value="' + line.qty + '" onchange="updateCartQty(\'' + line.id + '\', this.value)"></td>' +
+                '<td>' + ViCart.formatPrice(line.subtotal) + '</td>' +
+                '</tr>';
+        }).join('');
+
+        var subtotal = ViCart.getSubtotal();
+        document.getElementById('cart-subtotal').textContent = ViCart.formatPrice(subtotal);
+        document.getElementById('cart-total').textContent = ViCart.formatPrice(subtotal);
+
+        var notice = document.getElementById('cart-notice');
+        if (lastAddedId && ViCart.CATALOG[lastAddedId]) {
+            document.getElementById('cart-notice-text').textContent =
+                '"' + ViCart.CATALOG[lastAddedId].name + '" has been added to your cart.';
+            notice.style.display = 'flex';
+        } else {
+            notice.style.display = 'none';
+        }
+    }
+
+    window.showCheckoutForm = function () {
+        document.getElementById('btn-show-checkout').style.display = 'none';
+        document.getElementById('checkout-form-box').style.display = 'block';
+
+        // Pre-fill name/email if the visitor is already logged in.
+        if (window.ViAccount && ViAccount.isLoggedIn()) {
+            var session = ViAccount.getSession();
+            if (session) {
+                document.getElementById('checkout-name').value = session.name || '';
+                document.getElementById('checkout-email').value = session.email || '';
+            }
+        }
+    };
+
+    window.placeOrder = function () {
+        var name = document.getElementById('checkout-name').value.trim();
+        var email = document.getElementById('checkout-email').value.trim();
+        var phone = document.getElementById('checkout-phone').value.trim();
+        var address = document.getElementById('checkout-address').value.trim();
+        var errorBox = document.getElementById('checkout-error');
+        var placeBtn = document.getElementById('btn-place-order');
+
+        errorBox.style.display = 'none';
+
+        if (!name || !email) {
+            errorBox.textContent = 'Please fill in your name and email.';
+            errorBox.style.display = 'block';
+            return;
+        }
+
+        placeBtn.textContent = 'Placing order...';
+        placeBtn.disabled = true;
+
+        ViCart.submitOrder({ name: name, email: email, phone: phone, address: address })
+            .then(function (result) {
+                placeBtn.textContent = 'Place Order';
+                placeBtn.disabled = false;
+
+                if (!result.ok) {
+                    errorBox.textContent = result.error;
+                    errorBox.style.display = 'block';
+                    return;
+                }
+
+                document.getElementById('checkout-form-box').style.display = 'none';
+                document.getElementById('cart-coupon-row').style.display = 'none';
+                document.getElementById('confirmation-order-id').textContent = '#' + result.order.id;
+                document.getElementById('order-confirmation-box').style.display = 'block';
+            });
+    };
+
+    renderCurrencyButtons();
+    renderCart();
+    window.addEventListener('cart:updated', renderCart);
+})();
+</script>
+</body>
+</html>

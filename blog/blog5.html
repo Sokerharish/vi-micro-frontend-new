@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOC on TMS320F28379D - Vi Microsystems Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #333; background: #f4f4f4; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        .top-bar { background: #444; padding: 7px 0; font-size: 12px; color: #ccc; }
+        .top-bar .inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; }
+        .top-bar a { color: #ccc; margin-left: 14px; }
+        .site-header { background: #fff; padding: 16px 0; border-bottom: 1px solid #eee; }
+        .site-header .inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 14px; }
+        .logo-text { height: 65px; width: 65px; background: #1e73be; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 900; color: #fff; }
+        .site-header h1 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; color: #1e73be; }
+        .site-header .tagline { font-size: 10px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+        .main-nav { background: #fff; border-bottom: 2px solid #eee; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .main-nav .inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: flex-end; }
+        .nav-list { list-style: none; display: flex; }
+        .nav-list > li > a { display: block; color: #333; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; padding: 16px 18px; text-transform: uppercase; border-bottom: 3px solid transparent; transition: color 0.2s; }
+        .nav-list > li > a:hover { color: #1e73be; border-bottom-color: #1e73be; }
+
+        .post-hero { background: linear-gradient(120deg, #1a3a0a, #5a9a28); padding: 50px 0; }
+        .post-cat { display: inline-block; background: #e8720c; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 2px; margin-bottom: 14px; }
+        .post-hero h1 { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 12px; }
+        .post-meta { font-size: 12px; color: rgba(255,255,255,0.7); display: flex; gap: 20px; flex-wrap: wrap; }
+        .post-meta i { margin-right: 5px; color: #ffd700; }
+        .breadcrumb-nav { margin-top: 14px; font-size: 12px; color: rgba(255,255,255,0.6); }
+        .breadcrumb-nav a { color: rgba(255,255,255,0.8); }
+        .breadcrumb-nav span { margin: 0 6px; }
+
+        .post-body { background: #fff; padding: 48px 0 60px; }
+        .post-body h2 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: #1e73be; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e8720c; }
+        .post-body h3 { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: #222; margin: 24px 0 10px; }
+        .post-body p { font-size: 14.5px; color: #444; line-height: 1.85; margin-bottom: 14px; }
+        .post-body ul, .post-body ol { margin: 8px 0 16px 24px; }
+        .post-body li { font-size: 14px; color: #555; margin-bottom: 6px; line-height: 1.7; }
+
+        .code-block { background: #1e1e2e; border-radius: 8px; margin: 20px 0; overflow: hidden; }
+        .code-header { background: #2a2a3e; padding: 10px 16px; font-size: 12px; color: #aaa; font-family: monospace; }
+        .code-header span { color: #e8720c; font-weight: 700; }
+        .code-block pre { padding: 20px; overflow-x: auto; font-size: 13px; line-height: 1.7; font-family: 'Courier New', monospace; color: #cdd6f4; }
+        .kw { color: #cba6f7; } .fn { color: #89b4fa; } .st { color: #a6e3a1; } .cm { color: #6c7086; font-style: italic; } .nm { color: #fab387; }
+
+        .diagram-box { background: #f0f6ff; border: 2px solid #c8ddf5; border-radius: 8px; padding: 24px; margin: 20px 0; text-align: center; }
+        .diagram-box h4 { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800; color: #1e73be; margin-bottom: 20px; text-transform: uppercase; }
+        .diagram-v { display: flex; flex-direction: column; gap: 0; align-items: center; }
+        .diag-row { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 0; }
+        .diag-box { background: #1e73be; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; padding: 10px 14px; border-radius: 6px; text-align: center; min-width: 110px; line-height: 1.4; }
+        .diag-box.green { background: #28a745; } .diag-box.orange { background: #e8720c; } .diag-box.olive { background: #3a6a1a; } .diag-box.dark { background: #1a1a2e; }
+        .diag-arrow { font-size: 20px; color: #1e73be; padding: 0 8px; font-weight: 700; }
+        .diag-arrow-down { font-size: 20px; color: #1e73be; font-weight: 700; padding: 4px 0; }
+
+        .info-box { background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px; padding: 14px 18px; margin: 16px 0; font-size: 13.5px; color: #555; }
+        .info-box i { color: #ffc107; margin-right: 8px; }
+        .tip-box { background: #d4edda; border-left: 4px solid #28a745; border-radius: 4px; padding: 14px 18px; margin: 16px 0; font-size: 13.5px; color: #444; }
+        .tip-box i { color: #28a745; margin-right: 8px; }
+
+        .foc-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+        .foc-table th { background: #3a6a1a; color: #fff; padding: 10px 14px; text-align: left; font-weight: 700; }
+        .foc-table td { border: 1px solid #dde6f5; padding: 9px 14px; }
+        .foc-table tr:nth-child(even) td { background: #f5fff5; }
+
+        .post-nav { background: #f4f4f4; padding: 30px 0; border-top: 1px solid #eee; }
+        .post-nav .container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .post-nav a { background: #1e73be; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; padding: 10px 20px; border-radius: 4px; text-transform: uppercase; transition: background 0.2s; }
+        .post-nav a:hover { background: #e8720c; }
+        .site-footer { background: #1a1a1a; padding: 28px 0; color: #999; font-size: 12px; text-align: center; }
+        .site-footer p { margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="inner">
+        <span><i class="fas fa-envelope" style="margin-right:6px;"></i>info@vimicrosystem.com</span>
+        <span><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../support.html">Support</a></span>
+    </div>
+</div>
+<header class="site-header">
+    <div class="inner">
+        <div class="logo-text">Vi</div>
+        <div><h1>VI MICROSYSTEMS PVT LTD</h1><div class="tagline">Robotics &nbsp;|&nbsp; Networking &nbsp;|&nbsp; Embedded Security</div></div>
+    </div>
+</header>
+<nav class="main-nav">
+    <div class="inner">
+        <ul class="nav-list">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#products">Products</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../support.html">Support</a></li>
+            <li><a href="../index.html#contact">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="post-hero">
+    <div class="container">
+        <span class="post-cat">Power Electronics</span>
+        <h1>FOC Implementation for PMSM on TMS320F28379D<br>— From Theory to Code</h1>
+        <div class="post-meta">
+            <span><i class="far fa-calendar"></i>April 2026</span>
+            <span><i class="far fa-user"></i>Vi Microsystems Team</span>
+            <span><i class="fas fa-tag"></i>FOC, PMSM, DSP, Motor Control</span>
+        </div>
+        <div class="breadcrumb-nav"><a href="../index.html">Home</a><span>›</span><a href="../blog.html">Blog</a><span>›</span>FOC on TMS320F28379D</div>
+    </div>
+</div>
+
+<div class="post-body">
+  <div class="container">
+
+    <h2>Introduction</h2>
+    <p>Field-Oriented Control (FOC) is the gold standard for high-performance PMSM and BLDC motor control. It decouples torque and flux control, enabling precise speed and position response. The TMS320F28379D Micro-Launch379D provides all hardware needed — 16 HRPWMs, dual ADC, encoder interface, and a 200 MHz C28x core — to implement a complete FOC loop.</p>
+
+    <h2>FOC Block Diagram</h2>
+    <div class="diagram-box">
+        <h4>Field-Oriented Control — Complete Signal Flow</h4>
+        <div style="overflow-x:auto;">
+        <div style="display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:nowrap;min-width:700px;">
+            <div class="diag-box green" style="min-width:80px;font-size:10px;">Speed<br>Reference<br>ω*</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box" style="min-width:80px;font-size:10px;">Speed<br>PI<br>Controller</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box orange" style="min-width:80px;font-size:10px;">Current<br>PI (Id, Iq)<br>Controllers</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box" style="min-width:80px;font-size:10px;">Inv Park<br>Transform<br>Vα, Vβ</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box olive" style="min-width:80px;font-size:10px;">SVPWM<br>Generator<br>16 HRPWM</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box dark" style="min-width:80px;font-size:10px;">3-Phase<br>Inverter<br>PMSM</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;margin-top:10px;font-size:11px;color:#1e73be;font-weight:700;">
+            ↑ Encoder Feedback → eQEP → θ (rotor angle) &nbsp;|&nbsp; ADC → Ia, Ib → Clarke → Park Transform ↑
+        </div>
+        </div>
+    </div>
+
+    <h2>Key FOC Transforms</h2>
+    <table class="foc-table">
+        <thead><tr><th>Transform</th><th>Input</th><th>Output</th><th>Purpose</th></tr></thead>
+        <tbody>
+            <tr><td>Clarke Transform</td><td>Ia, Ib, Ic (3-phase)</td><td>Iα, Iβ (2-phase stationary)</td><td>Reduce 3 phases to 2</td></tr>
+            <tr><td>Park Transform</td><td>Iα, Iβ + rotor angle θ</td><td>Id, Iq (rotating frame)</td><td>DC quantities for PI control</td></tr>
+            <tr><td>Inverse Park</td><td>Vd, Vq + rotor angle θ</td><td>Vα, Vβ</td><td>Back to stationary frame</td></tr>
+            <tr><td>SVPWM</td><td>Vα, Vβ</td><td>PWM duty cycles</td><td>Drive 3-phase inverter</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Step 1 — Clarke Transform (C Code)</h2>
+    <div class="code-block">
+        <div class="code-header"><span>foc_clarke.c — Clarke Transformation</span></div>
+        <pre><span class="cm">// Clarke Transform: 3-phase → 2-phase stationary (α-β)</span>
+<span class="cm">// Assumes balanced 3-phase: Ia + Ib + Ic = 0</span>
+
+<span class="kw">typedef struct</span> {
+    <span class="kw">float</span> alpha;
+    <span class="kw">float</span> beta;
+} Clarke_t;
+
+Clarke_t <span class="fn">Clarke_Transform</span>(<span class="kw">float</span> Ia, <span class="kw">float</span> Ib) {
+    Clarke_t out;
+    <span class="cm">// α component equals Ia directly</span>
+    out.alpha = Ia;
+    <span class="cm">// β component uses Ib and Ic (=-Ia-Ib)</span>
+    out.beta  = (Ia + <span class="nm">2.0f</span> * Ib) * <span class="nm">0.57735f</span>; <span class="cm">// 1/√3</span>
+    <span class="kw">return</span> out;
+}</pre>
+    </div>
+
+    <h2>Step 2 — Park Transform (C Code)</h2>
+    <div class="code-block">
+        <div class="code-header"><span>foc_park.c — Park Transformation</span></div>
+        <pre><span class="kw">#include</span> <span class="st">&lt;math.h&gt;</span>
+
+<span class="kw">typedef struct</span> { <span class="kw">float</span> d; <span class="kw">float</span> q; } Park_t;
+
+Park_t <span class="fn">Park_Transform</span>(<span class="kw">float</span> alpha, <span class="kw">float</span> beta,
+                        <span class="kw">float</span> theta) {
+    Park_t out;
+    <span class="kw">float</span> cos_t = <span class="fn">cosf</span>(theta);
+    <span class="kw">float</span> sin_t = <span class="fn">sinf</span>(theta);
+    <span class="cm">// d-axis (flux component)</span>
+    out.d =  alpha * cos_t + beta * sin_t;
+    <span class="cm">// q-axis (torque component)</span>
+    out.q = -alpha * sin_t + beta * cos_t;
+    <span class="kw">return</span> out;
+}
+
+<span class="cm">// Inverse Park: rotating → stationary frame</span>
+Clarke_t <span class="fn">Inv_Park</span>(<span class="kw">float</span> Vd, <span class="kw">float</span> Vq, <span class="kw">float</span> theta) {
+    Clarke_t out;
+    <span class="kw">float</span> cos_t = <span class="fn">cosf</span>(theta);
+    <span class="kw">float</span> sin_t = <span class="fn">sinf</span>(theta);
+    out.alpha = Vd * cos_t - Vq * sin_t;
+    out.beta  = Vd * sin_t + Vq * cos_t;
+    <span class="kw">return</span> out;
+}</pre>
+    </div>
+
+    <h2>Step 3 — PI Current Controller</h2>
+    <div class="code-block">
+        <div class="code-header"><span>pi_controller.c — PI Controller for Id and Iq</span></div>
+        <pre><span class="kw">typedef struct</span> {
+    <span class="kw">float</span> Kp;           <span class="cm">// Proportional gain</span>
+    <span class="kw">float</span> Ki;           <span class="cm">// Integral gain</span>
+    <span class="kw">float</span> integral;     <span class="cm">// Accumulated integral</span>
+    <span class="kw">float</span> out_max;      <span class="cm">// Output saturation limit</span>
+} PI_t;
+
+<span class="kw">float</span> <span class="fn">PI_Run</span>(PI_t *pi, <span class="kw">float</span> ref, <span class="kw">float</span> fdbk) {
+    <span class="kw">float</span> err = ref - fdbk;
+    pi->integral += pi->Ki * err;
+
+    <span class="cm">// Anti-windup clamp</span>
+    <span class="kw">if</span>      (pi->integral >  pi->out_max) pi->integral =  pi->out_max;
+    <span class="kw">else if</span> (pi->integral < -pi->out_max) pi->integral = -pi->out_max;
+
+    <span class="kw">float</span> out = pi->Kp * err + pi->integral;
+
+    <span class="cm">// Output saturation</span>
+    <span class="kw">if</span>      (out >  pi->out_max) out =  pi->out_max;
+    <span class="kw">else if</span> (out < -pi->out_max) out = -pi->out_max;
+
+    <span class="kw">return</span> out;
+}</pre>
+    </div>
+
+    <h2>Step 4 — Main FOC Loop on F28379D</h2>
+    <div class="info-box"><i class="fas fa-info-circle"></i>This ISR runs at 10 kHz (100 µs) triggered by the PWM period interrupt on the TMS320F28379D. The dual C28x cores allow the FOC loop on CPU1 and CAN/UART communication on CPU2 simultaneously.</div>
+    <div class="code-block">
+        <div class="code-header"><span>foc_main.c — FOC Interrupt Service Routine</span></div>
+        <pre><span class="cm">// PWM Period ISR — runs at 10 kHz</span>
+__interrupt <span class="kw">void</span> <span class="fn">pwmISR</span>(<span class="kw">void</span>) {
+    <span class="cm">// 1. Read phase currents via ADC</span>
+    <span class="kw">float</span> Ia = <span class="fn">ADC_ReadCurrent</span>(ADC_CH_A);
+    <span class="kw">float</span> Ib = <span class="fn">ADC_ReadCurrent</span>(ADC_CH_B);
+
+    <span class="cm">// 2. Read rotor angle from eQEP encoder</span>
+    <span class="kw">float</span> theta = <span class="fn">eQEP_GetAngle</span>();
+
+    <span class="cm">// 3. Clarke Transform: 3-phase → α-β</span>
+    Clarke_t clark = <span class="fn">Clarke_Transform</span>(Ia, Ib);
+
+    <span class="cm">// 4. Park Transform: α-β → d-q</span>
+    Park_t park = <span class="fn">Park_Transform</span>(clark.alpha,
+                                   clark.beta, theta);
+
+    <span class="cm">// 5. PI Controllers for Id and Iq</span>
+    <span class="kw">float</span> Vd = <span class="fn">PI_Run</span>(&pi_d, Id_ref, park.d);
+    <span class="kw">float</span> Vq = <span class="fn">PI_Run</span>(&pi_q, Iq_ref, park.q);
+
+    <span class="cm">// 6. Inverse Park: d-q → α-β voltages</span>
+    Clarke_t volt = <span class="fn">Inv_Park</span>(Vd, Vq, theta);
+
+    <span class="cm">// 7. SVPWM — generate PWM duty cycles</span>
+    <span class="fn">SVPWM_Update</span>(volt.alpha, volt.beta);
+
+    <span class="cm">// 8. Update HRPWM compare registers</span>
+    <span class="fn">HRPWM_SetDuty</span>(pwmA, pwmB, pwmC);
+
+    PieCtrlRegs.PIEACK.all = PIEACK_GROUP3;
+}</pre>
+    </div>
+
+    <div class="tip-box"><i class="fas fa-check-circle"></i>Tune PI gains starting with Kp=0.1, Ki=0.01. Increase Kp gradually until the current response is fast without oscillation. Then increase Ki to eliminate steady-state error. Use CCS Watch expressions to monitor Id and Iq in real time.</div>
+
+    <h2>Conclusion</h2>
+    <p>You have implemented a complete FOC loop for PMSM on the TMS320F28379D including Clarke transform, Park transform, dual PI current controllers, inverse Park, and SVPWM generation — all running at 10 kHz in the PWM ISR. This forms the basis for EV motor drive, servo control, and industrial automation applications.</p>
+
+    <div style="margin-top:30px;padding:20px;background:#f0f6ff;border-radius:8px;">
+        <strong style="color:#1e73be;font-family:'Montserrat',sans-serif;">Related Product:</strong>
+        <a href="../products/dsp379d.html" style="display:inline-block;margin-left:12px;background:#3a6a1a;color:#fff;padding:8px 18px;border-radius:4px;font-size:12px;font-weight:800;font-family:'Montserrat',sans-serif;">TMS320F28379D Controller →</a>
+    </div>
+  </div>
+</div>
+
+<div class="post-nav">
+    <div class="container">
+        <a href="blog4.html">← YOLOv8 on Jetson Orin</a>
+        <a href="blog6.html">Next: Cobot Pick &amp; Place with MoveIt →</a>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <div class="container" style="max-width:1200px;">
+        <p>© 2026 Vi Microsystems Pvt Ltd. All Rights Reserved.</p>
+        <p>SIDCO Industrial Estate, Perungudi, Chennai – 600096, Tamil Nadu, India</p>
+    </div>
+</footer>
+</body>
+</html>

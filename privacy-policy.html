@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy - Vi Microsystems Pvt Ltd</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    /* ===== RESET (shared with index.html) ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Open Sans', Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #333; background: #fff; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; height: auto; display: block; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== TOP BAR ===== */
+    .top-bar { background: #444; padding: 7px 0; font-size: 12px; color: #ccc; }
+    .top-bar .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .top-bar a { color: #ccc; margin-left: 16px; }
+    .top-bar a:hover { color: #fff; }
+
+    /* ===== HEADER ===== */
+    .site-header { background: #fff; padding: 16px 0; border-bottom: 1px solid #eee; }
+    .site-header .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .header-brand { display: flex; align-items: center; gap: 14px; }
+    .header-logo img { height: 75px; width: auto; object-fit: contain; }
+    .header-logo .logo-text {
+        height: 75px; width: 75px; background: #1e73be; border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; color: #fff;
+    }
+    .header-text h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 900; color: #1e73be; letter-spacing: -0.5px; }
+    .header-text .tagline { font-size: 11px; color: #888; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 4px; }
+    .header-contact { text-align: right; font-size: 13px; color: #555; }
+    .header-contact strong { display: block; font-size: 18px; font-weight: 700; color: #1e73be; }
+    .header-contact a { color: #555; }
+
+    /* ===== NAVIGATION ===== */
+    .main-nav { background: #fff; border-bottom: 2px solid #eee; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .main-nav .container { display: flex; align-items: center; justify-content: flex-end; gap: 0; }
+    .nav-list { list-style: none; display: flex; align-items: center; }
+    .nav-list > li { position: relative; }
+    .nav-list > li > a {
+        display: flex; align-items: center; gap: 5px;
+        color: #333; font-family: 'Montserrat', sans-serif;
+        font-size: 13px; font-weight: 700; padding: 18px 20px;
+        text-transform: uppercase; letter-spacing: 0.5px;
+        transition: color 0.2s, background 0.2s;
+        border-bottom: 3px solid transparent;
+    }
+    .nav-list > li > a:hover,
+    .nav-list > li.active > a { color: #1e73be; border-bottom-color: #1e73be; }
+    .nav-list > li.active > a { background: #f0f6ff; }
+    .nav-list li.has-dropdown { position: relative; }
+    .dropdown {
+        display: none; position: absolute; top: 100%; left: 0;
+        background: #fff; min-width: 240px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+        border-top: 3px solid #1e73be;
+        z-index: 2000; border-radius: 0 0 6px 6px;
+    }
+    .nav-list li.has-dropdown:hover .dropdown { display: block; }
+    .dropdown li a {
+        display: block; padding: 11px 20px;
+        font-size: 13px; color: #444; font-weight: 600;
+        border-bottom: 1px solid #f0f0f0;
+        transition: background 0.2s, color 0.2s;
+    }
+    .dropdown li a:hover { background: #f0f6ff; color: #1e73be; padding-left: 26px; }
+    .dropdown li:last-child a { border-bottom: none; }
+    .nav-cart { margin-left: 10px; padding: 18px 16px; color: #333; cursor: pointer; font-size: 16px; display: inline-flex; align-items: center; text-decoration: none; }
+    .nav-cart:hover { color: #1e73be; }
+
+    /* ===== CART PAGE ===== */
+    .cart-page-header { padding: 38px 0 18px; }
+    .cart-page-header h1 { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 800; color: #222; margin-bottom: 16px; }
+    .cart-page-header .underline { width: 100%; height: 3px; background: linear-gradient(90deg, #9ec33b 0%, #e8e8e8 0%); border-top: 3px solid #9ec33b; opacity: 0.6; margin-bottom: 0; }
+
+    .cart-notice {
+        display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;
+        background: #f4f8ec; border: 1px solid #d8e8b0; border-radius: 4px;
+        padding: 16px 20px; margin: 22px 0 30px;
+        font-size: 14px; color: #333;
+    }
+    .cart-notice .notice-text { display: flex; align-items: center; gap: 10px; }
+    .cart-notice .notice-text i { color: #6a9a23; font-size: 18px; }
+    .btn-continue {
+        background: #f0f0f0; color: #333; font-family: 'Montserrat', sans-serif;
+        font-size: 12.5px; font-weight: 700; padding: 10px 20px; border-radius: 3px;
+        border: 1px solid #ddd; cursor: pointer; transition: background 0.2s;
+        white-space: nowrap;
+    }
+    .btn-continue:hover { background: #e6e6e6; }
+
+    .cart-table-wrap { overflow-x: auto; margin-bottom: 30px; }
+    table.cart-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    table.cart-table thead th {
+        text-align: left; font-family: 'Montserrat', sans-serif; font-weight: 700;
+        font-size: 13px; color: #222; padding: 14px 12px; border-bottom: 2px solid #eee;
+    }
+    table.cart-table tbody td { padding: 18px 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
+    .cart-remove-btn { color: #cc0000; font-size: 14px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .cart-remove-btn:hover { color: #ff3333; }
+    .cart-thumb { width: 64px; height: 64px; border: 1px solid #eee; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f7f9fc; }
+    .cart-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .cart-prod-name { color: #1e73be; font-weight: 600; font-size: 14.5px; }
+    .cart-prod-name:hover { text-decoration: underline; }
+    .cart-qty-input {
+        width: 64px; padding: 8px 10px; border: 1px solid #ccc; border-radius: 3px;
+        font-size: 14px; text-align: center;
+    }
+    .cart-empty { text-align: center; padding: 60px 20px; color: #888; }
+    .cart-empty i { font-size: 48px; color: #ccc; margin-bottom: 16px; display: block; }
+    .cart-empty a { color: #1e73be; font-weight: 700; }
+
+    .coupon-row { display: flex; gap: 10px; align-items: center; margin-bottom: 36px; flex-wrap: wrap; }
+    .coupon-row input { flex: 1; min-width: 180px; max-width: 260px; padding: 12px 14px; border: 1px solid #ccc; border-radius: 3px; font-size: 13px; }
+    .btn-apply-coupon { background: #fff; border: 1px solid #999; color: #444; font-family: 'Montserrat', sans-serif; font-size: 12.5px; font-weight: 700; padding: 12px 20px; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
+    .btn-apply-coupon:hover { background: #f5f5f5; }
+    .btn-update-cart { background: #f0f0f0; color: #999; font-family: 'Montserrat', sans-serif; font-size: 12.5px; font-weight: 700; padding: 12px 20px; border-radius: 3px; border: 1px solid #ddd; cursor: not-allowed; margin-left: auto; }
+    .btn-update-cart.active { background: #1e73be; color: #fff; border-color: #1e73be; cursor: pointer; }
+    .btn-update-cart.active:hover { background: #155d9e; }
+
+    .cart-totals-section { display: flex; justify-content: flex-end; position: relative; }
+    .cart-totals-box { max-width: 460px; width: 100%; border: 1px solid #eee; border-radius: 4px; overflow: hidden; }
+    .cart-totals-box h2 { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800; color: #222; padding: 20px 24px 16px; border-bottom: 1px solid #eee; }
+    .cart-totals-row { display: flex; justify-content: space-between; padding: 18px 24px; border-bottom: 1px solid #eee; font-size: 15px; }
+    .cart-totals-row .label { font-weight: 700; color: #222; }
+    .cart-totals-row .value { text-align: right; color: #333; }
+    .cart-totals-row.total .label, .cart-totals-row.total .value { font-size: 19px; font-weight: 800; color: #222; }
+    .cart-shipping-info { font-size: 13.5px; color: #555; line-height: 1.7; }
+    .cart-shipping-info a { color: #1e73be; font-weight: 600; }
+    .cart-checkout-wrap { padding: 20px 24px 24px; }
+    .btn-checkout {
+        display: block; width: 100%; text-align: center;
+        background: #4caf50; color: #fff; font-family: 'Montserrat', sans-serif;
+        font-size: 16px; font-weight: 800; padding: 16px; border-radius: 4px;
+        border: none; cursor: pointer; transition: background 0.2s;
+    }
+    .btn-checkout:hover { background: #3d9c40; }
+    .btn-checkout:disabled { background: #ccc; cursor: not-allowed; }
+
+    /* currency switcher tab — fixed to right edge like reference screenshot */
+    .currency-switcher {
+        position: fixed; top: 50%; right: 0; transform: translateY(-50%);
+        z-index: 999; display: flex; flex-direction: column;
+        font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.15);
+    }
+    .currency-switcher button {
+        padding: 12px 18px; border: none; cursor: pointer; color: #fff;
+        background: #1a1a1a; transition: background 0.2s; text-align: left; min-width: 90px;
+    }
+    .currency-switcher button.active { background: #1e73be; }
+    .currency-switcher button:hover { background: #2a2a2a; }
+    .currency-switcher button.active:hover { background: #155d9e; }
+
+    /* ===== FOOTER (shared with index.html) ===== */
+    .site-footer { background: #ececec; padding: 50px 0 0; color: #555; font-size: 13px; margin-top: 40px; }
+    .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.1); }
+    .footer-about h3 { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; color: #222; margin-bottom: 14px; }
+    .footer-about p { line-height: 1.8; font-size: 13.5px; color: #444; margin-bottom: 16px; }
+    .footer-about p strong { color: #222; }
+    .footer-social { display: flex; gap: 10px; }
+    .footer-social a { width: 34px; height: 34px; background: rgba(0,0,0,0.06); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #555; font-size: 14px; transition: background 0.2s, color 0.2s; }
+    .footer-social a:hover { background: #1e73be; color: #fff; }
+    .footer-links h4 { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; color: #222; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+    .footer-contact p { margin-bottom: 10px; font-size: 12.5px; color: #444; display: flex; align-items: flex-start; gap: 8px; }
+    .footer-contact i { color: #e8720c; margin-top: 3px; width: 14px; flex-shrink: 0; }
+    .footer-contact a { color: #1e73be; }
+    .footer-bottom { text-align: center; padding: 18px 0; font-size: 12px; color: #777; background: #1a1a1a; }
+    .footer-bottom a { color: #ccc; }
+    .footer-bottom a:hover { color: #e8720c; }
+    .footer-follow-card { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 10px 14px; margin-bottom: 16px; }
+    .footer-follow-card img { width: 46px; height: 46px; border-radius: 4px; object-fit: cover; flex-shrink: 0; }
+    .footer-follow-card .ffc-name { font-weight: 700; color: #1e73be; font-size: 14px; margin-bottom: 6px; display: block; }
+    .footer-follow-card .ffc-btn { display: inline-flex; align-items: center; gap: 6px; background: #1877f2; color: #fff; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 3px; }
+    .footer-follow-card .ffc-btn.yt { background: #ff0000; }
+    .footer-follow-card .ffc-followers { font-size: 12px; color: #777; margin-left: 8px; }
+    .footer-newsletter h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: #222; margin-bottom: 18px; line-height: 1.3; }
+    .footer-newsletter input[type="email"] { width: 100%; padding: 13px 16px; border: 1px solid #ccc; border-radius: 3px; background: #fff; color: #333; font-size: 13px; margin-bottom: 16px; }
+    .footer-newsletter button { background: #1a1a1a; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; padding: 12px 28px; border-radius: 24px; border: none; cursor: pointer; transition: background 0.2s; margin-bottom: 20px; }
+    .footer-newsletter button:hover { background: #e8720c; }
+    .footer-payment-icons { display: flex; gap: 8px; flex-wrap: wrap; }
+    .footer-made-india { display: block; max-width: 220px; margin-bottom: 22px; border-radius: 4px; }
+    .footer-company-name { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 800; color: #222; margin-bottom: 10px; letter-spacing: 0.5px; }
+    .footer-address { color: #444; line-height: 1.7; font-size: 13px; margin-bottom: 12px; }
+    .footer-address strong { display: block; color: #1e73be; }
+    .footer-address a { color: #1e73be; font-weight: 700; }
+
+    @media (max-width: 800px) {
+        table.cart-table thead { display: none; }
+        table.cart-table, table.cart-table tbody, table.cart-table tr, table.cart-table td { display: block; width: 100%; }
+        table.cart-table tr { border-bottom: 2px solid #eee; padding: 14px 0; }
+        table.cart-table td { padding: 6px 0; border-bottom: none; }
+        .cart-totals-section { justify-content: stretch; }
+        .cart-totals-box { max-width: 100%; }
+        .currency-switcher { top: auto; bottom: 90px; transform: none; flex-direction: row; }
+        .footer-grid { grid-template-columns: 1fr 1fr; }
+        .footer-about { grid-column: 1/-1; }
+    }
+    @media (max-width: 560px) {
+        .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== STATIC POLICY PAGE ===== */
+    .policy-page-header { padding: 38px 0 18px; }
+    .policy-page-header h1 { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 800; color: #222; margin-bottom: 16px; }
+    .policy-page-header .underline { width: 100%; height: 3px; border-top: 3px solid #9ec33b; opacity: 0.6; }
+    .policy-content { max-width: 100%; margin: 30px 0 70px; font-size: 15px; color: #444; line-height: 1.8; }
+    .policy-content h2 {
+        font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800;
+        color: #1e73be; text-transform: uppercase; letter-spacing: 1px;
+        margin: 30px 0 10px;
+    }
+    .policy-content h2:first-child { margin-top: 0; }
+    .policy-content p { margin-bottom: 14px; }
+    .policy-content a { color: #1e73be; font-weight: 600; }
+    .policy-content ul { margin: 0 0 14px 20px; }
+    .policy-content ul li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+    <div class="container">
+        <span><i class="fas fa-envelope" style="margin-right:6px;"></i>info@vimicrosystem.com &nbsp;|&nbsp; <i class="fas fa-phone" style="margin-right:6px;"></i>+91-44-4859 1234</span>
+        <span>
+            <a href="#">Distributors</a>
+            <a href="account.html" data-account-link><span data-account-name>Sign In</span></a>
+        </span>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+    <div class="container">
+        <div class="header-brand">
+            <div class="header-logo">
+                <img src="logo.png" alt="Vi Microsystems Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div class="logo-text" style="display:none;">Vi</div>
+            </div>
+            <div class="header-text">
+                <h1>VI MICROSYSTEMS PVT LTD</h1>
+                <div class="tagline">Robotics &nbsp;|&nbsp; Networking &nbsp;|&nbsp; Embedded Security</div>
+            </div>
+        </div>
+        <div class="header-contact">
+            <strong>+91-44-4859 1234</strong>
+            <a href="mailto:info@vimicrosystem.com">info@vimicrosystem.com</a><br>
+            <span style="font-size:11px;color:#aaa;">Mon–Sat &nbsp;9:00 AM – 6:00 PM</span>
+        </div>
+    </div>
+</header>
+
+<!-- NAV -->
+<nav class="main-nav">
+    <div class="container">
+        <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li class="has-dropdown">
+                <a href="index.html#products">Products <i class="fas fa-chevron-down" style="font-size:10px;"></i></a>
+                <ul class="dropdown">
+                    <li><a href="products/esp32.html"><i class="fas fa-robot" style="margin-right:8px;color:#1e73be;"></i>MR Robo ESP32</a></li>
+                    <li><a href="products/unoq.html"><i class="fas fa-microchip" style="margin-right:8px;color:#1e73be;"></i>MR Robo UNO Q</a></li>
+                    <li><a href="products/orin.html"><i class="fas fa-brain" style="margin-right:8px;color:#1e73be;"></i>MR Robo Jetson Orin</a></li>
+                    <li><a href="products/cobot.html"><i class="fas fa-cogs" style="margin-right:8px;color:#1e73be;"></i>ASYSTR 3C Cobot</a></li>
+                    <li><a href="products/vilan.html"><i class="fas fa-network-wired" style="margin-right:8px;color:#1e73be;"></i>Vi LaN-05 Trainer</a></li>
+                    <li><a href="products/dsp379d.html"><i class="fas fa-wave-square" style="margin-right:8px;color:#1e73be;"></i>TMS320F28379D PWM Controller</a></li>
+                    <li><a href="products/llmchatbot.html"><i class="fas fa-comments" style="margin-right:8px;color:#1e73be;"></i>Local LLM AI ChatBot</a></li>
+                </ul>
+            </li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="index.html#clients">Clients</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="index.html#contact">Contact Us</a></li>
+        </ul>
+        <a href="cart.html" class="nav-cart"><i class="fas fa-shopping-cart"></i> <span data-cart-count>0 items</span></a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="policy-page-header">
+        <h1>Privacy Policy</h1>
+        <div class="underline"></div>
+    </div>
+
+    <div class="policy-content">
+        <p>This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from this website (the &ldquo;Site&rdquo;), operated by Vi Microsystems Pvt Ltd.</p>
+
+        <h2>Personal Information We Collect</h2>
+        <p>When you visit the Site, we automatically collect certain information about your device, including information about your web browser, IP address, time zone, and some of the cookies that are installed on your device. Additionally, as you browse the Site, we collect information about the individual web pages or products that you view, what websites or search terms referred you to the Site, and information about how you interact with the Site. We refer to this automatically-collected information as &ldquo;Device Information.&rdquo;</p>
+        <p>We collect Device Information using the following technologies:</p>
+        <ul>
+            <li><strong>Cookies</strong> are data files that are placed on your device or computer and often include an anonymous unique identifier. For more information about cookies, and how to disable cookies, visit <a href="http://www.allaboutcookies.org" target="_blank">allaboutcookies.org</a>.</li>
+            <li><strong>Log files</strong> track actions occurring on the Site, and collect data including your IP address, browser type, Internet service provider, referring/exit pages, and date/time stamps.</li>
+            <li><strong>Web beacons, tags, and pixels</strong> are electronic files used to record information about how you browse the Site.</li>
+        </ul>
+        <p>Additionally, when you make a purchase or attempt to make a purchase through the Site, we collect certain information from you, including your name, billing address, shipping address, payment information, email address, and phone number. We refer to this information as &ldquo;Order Information.&rdquo;</p>
+        <p>When we talk about &ldquo;Personal Information&rdquo; in this Privacy Policy, we are talking about both Device Information and Order Information.</p>
+
+        <h2>How Do We Use Your Personal Information?</h2>
+        <p>We use the Order Information that we collect generally to fulfill any orders placed through the Site (including processing your payment information, arranging for shipping, and providing you with invoices and/or order confirmations). Additionally, we use this Order Information to:</p>
+        <ul>
+            <li>Communicate with you;</li>
+            <li>Screen our orders for potential risk or fraud; and</li>
+            <li>When in line with the preferences you have shared with us, provide you with information or advertising relating to our products or services.</li>
+        </ul>
+        <p>We use the Device Information that we collect to help us screen for potential risk and fraud (in particular, your IP address), and more generally to improve and optimize our Site &mdash; for example, by generating analytics about how our customers browse and interact with the Site, and to assess the success of our marketing and advertising campaigns.</p>
+
+        <h2>Sharing Your Personal Information</h2>
+        <p>We share your Personal Information with third parties to help us use your Personal Information, as described above. For example, we use Google Analytics to help us understand how our customers use the Site &mdash; you can read more about how Google uses your Personal Information <a href="https://www.google.com/intl/en/policies/privacy/" target="_blank">here</a>. You can also opt out of Google Analytics <a href="https://tools.google.com/dlpage/gaoptout" target="_blank">here</a>.</p>
+        <p>Finally, we may also share your Personal Information to comply with applicable laws and regulations, to respond to a subpoena, search warrant, or other lawful request for information we receive, or to otherwise protect our rights.</p>
+
+        <h2>Behavioural Advertising</h2>
+        <p>As described above, we use your Personal Information to provide you with targeted advertisements or marketing communications we believe may be of interest to you. For more information about how targeted advertising works, you can visit the Network Advertising Initiative&rsquo;s (&ldquo;NAI&rdquo;) educational page <a href="http://www.networkadvertising.org/understanding-online-advertising/how-does-it-work" target="_blank">here</a>.</p>
+        <p>You can opt out of targeted advertising by visiting the Digital Advertising Alliance&rsquo;s opt-out portal at: <a href="http://optout.aboutads.info/" target="_blank">optout.aboutads.info</a>.</p>
+
+        <h2>Do Not Track</h2>
+        <p>Please note that we do not alter our Site&rsquo;s data collection and use practices when we see a Do Not Track signal from your browser.</p>
+
+        <h2>Your Rights</h2>
+        <p>If you are a European resident, you have the right to access personal information we hold about you and to ask that your personal information be corrected, updated, or deleted. If you would like to exercise this right, please contact us through the contact information below.</p>
+        <p>Additionally, if you are a European resident, we note that we are processing your information in order to fulfill contracts we might have with you (for example, if you make an order through the Site), or otherwise to pursue our legitimate business interests listed above. Please note that your information may be transferred outside of Europe, including to India and other countries where we or our service providers operate.</p>
+
+        <h2>Data Retention</h2>
+        <p>When you place an order through the Site, we will maintain your Order Information for our records unless and until you ask us to delete this information.</p>
+
+        <h2>Minors</h2>
+        <p>The Site is not intended for individuals under the age of 16.</p>
+
+        <h2>Changes</h2>
+        <p>We may update this privacy policy from time to time in order to reflect, for example, changes to our practices or for other operational, legal, or regulatory reasons.</p>
+
+        <h2>Contact Us</h2>
+        <p>For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by email at <a href="mailto:info@vimicrosystem.com">info@vimicrosystem.com</a>, by phone at <a href="tel:+914448591234">+91-44-4859 1234</a>, or by mail using the details below:</p>
+        <p><strong>Vi Microsystems Pvt Ltd</strong><br>
+        SIDCO Industrial Estate,<br>
+        Perungudi,<br>
+        Chennai, Tamil Nadu, India &ndash; 600096</p>
+    </div>
+</div>
+
+<footer class="site-footer" id="contact">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-about">
+                <h3>About Us</h3>
+                <p><strong>Vi Microsystems</strong> is the manufacturer of high-quality and reliable engineering educational lab equipment. Our kits are feature-rich development platforms with the best documentation and support. We aim to offer the best robotics, networking, and embedded systems learning platform to students, research scholars, and young engineers.</p>
+                <p style="color:#888;font-size:12px;"><strong style="color:#555;">ISO Certificate No.:</strong> ICI/4144787/24 &nbsp;|&nbsp; <strong style="color:#555;">DSIR Recognized R&D Unit</strong></p>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-follow-card">
+                    <img src="robo esp32.png" alt="" onerror="this.style.display='none'">
+                    <div>
+                        <span class="ffc-name">Vi Microsystems</span>
+                        <span class="ffc-btn"><i class="fab fa-facebook-f"></i> Follow Page</span>
+                        <span class="ffc-followers">4.1K followers</span>
+                    </div>
+                </div>
+                <div class="footer-follow-card">
+                    <img src="robo esp32.png" alt="" onerror="this.style.display='none'">
+                    <div>
+                        <span class="ffc-name">Vi Microsystems</span>
+                        <span class="ffc-btn yt"><i class="fab fa-youtube"></i> YouTube</span>
+                        <span class="ffc-followers">1K</span>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="mailto:info@vimicrosystem.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links footer-newsletter">
+                <h3>Get Notified on New Products and Tutorials!</h3>
+                <input type="email" placeholder="Email Address">
+                <button type="button">Notify Me</button>
+                <div class="footer-payment-icons">
+                    <span style="display:inline-block;background:#003087;color:#fff;font-weight:800;font-size:11px;padding:6px 10px;border-radius:3px;font-style:italic;">PayPal</span>
+                    <span style="display:inline-block;background:#fff;border:1px solid #ddd;border-radius:3px;padding:4px 8px;"><span style="color:#eb001b;font-weight:900;">●</span><span style="color:#f79e1b;font-weight:900;margin-left:-8px;">●</span></span>
+                    <span style="display:inline-block;background:#1a1f71;color:#fff;font-weight:800;font-size:11px;padding:6px 10px;border-radius:3px;font-style:italic;">VISA</span>
+                    <span style="display:inline-block;background:#2e77bc;color:#fff;font-weight:800;font-size:10px;padding:6px 8px;border-radius:3px;">AMEX</span>
+                </div>
+            </div>
+
+            <div class="footer-links footer-contact">
+                <svg class="footer-made-india" viewBox="0 0 220 70" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="220" height="70" fill="#1a1a1a"/>
+                    <rect x="10" y="14" width="60" height="42" fill="#fff"/>
+                    <rect x="10" y="14" width="60" height="14" fill="#ff9933"/>
+                    <rect x="10" y="42" width="60" height="14" fill="#138808"/>
+                    <circle cx="40" cy="35" r="6" fill="none" stroke="#000080" stroke-width="1"/>
+                    <text x="82" y="32" font-family="Montserrat, sans-serif" font-size="13" font-weight="800" fill="#fff">MADE IN</text>
+                    <text x="82" y="50" font-family="Montserrat, sans-serif" font-size="16" font-weight="900" fill="#fff">INDIA</text>
+                </svg>
+                <div class="footer-company-name">VI MICROSYSTEMS PVT LTD</div>
+                <p class="footer-address">
+                    SIDCO Industrial Estate,<br>
+                    Perungudi,<br>
+                    Chennai, Tamil Nadu, India – 600096
+                </p>
+                <p class="footer-address"><strong style="display:inline;color:#1e73be;">Email:</strong> <a href="mailto:info@vimicrosystem.com">info@vimicrosystem.com</a></p>
+                <p class="footer-address"><strong style="display:inline;color:#1e73be;">Phone:</strong> <a href="tel:+914448591234" style="color:#444;font-weight:400;">+91-44-4859 1234</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div style="margin-bottom:8px;">
+                <a href="account.html" style="margin:0 10px;">My account</a>
+                <a href="terms-of-service.html" style="margin:0 10px;">Terms of Service</a>
+                <a href="privacy-policy.html" style="margin:0 10px;">Privacy Policy</a>
+                <a href="#" style="margin:0 10px;">Return and Refund Policy</a>
+                <a href="shipping-policy.html" style="margin:0 10px;">Shipping Policy</a>
+            </div>
+            © 2026 • VI MICROSYSTEMS
+        </div>
+    </div>
+</footer>
+
+<script src="js/cart.js"></script>
+<script src="js/account.js"></script>
+</body>
+</html>

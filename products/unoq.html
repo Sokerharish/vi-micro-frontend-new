@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR Robo UNO Q - Vi Microsystems Pvt Ltd</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Merriweather:wght@400;700&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #444; background: #fff; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* ===== TOP BAR ===== */
+        .top-bar { background: #444; padding: 7px 0; font-size: 12px; color: #ccc; }
+        .top-bar .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+        .top-bar a { color: #ccc; margin-left: 16px; }
+        .top-bar a:hover { color: #fff; }
+
+        /* ===== HEADER ===== */
+        .site-header { background: #fff; padding: 16px 0; border-bottom: 1px solid #eee; }
+        .site-header .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .header-brand { display: flex; align-items: center; gap: 14px; }
+        .header-logo img { height: 75px; width: auto; object-fit: contain; }
+        .header-logo .logo-text {
+            height: 75px; width: 75px; background: #1e73be; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; color: #fff;
+        }
+        .header-text h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 900; color: #1e73be; letter-spacing: -0.5px; }
+        .header-text .tagline { font-size: 11px; color: #888; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 4px; }
+        .header-contact { text-align: right; font-size: 13px; color: #555; }
+        .header-contact strong { display: block; font-size: 18px; font-weight: 700; color: #1e73be; }
+        .header-contact a { color: #555; }
+
+        /* ===== NAVIGATION ===== */
+        .main-nav { background: #fff; border-bottom: 2px solid #eee; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .main-nav .container { display: flex; align-items: center; justify-content: flex-end; gap: 0; flex-wrap: wrap; }
+        .nav-list { list-style: none; display: flex; align-items: center; flex-wrap: wrap; }
+        .nav-list > li { position: relative; }
+        .nav-list > li > a {
+            display: flex; align-items: center; gap: 5px;
+            color: #333; font-family: 'Montserrat', sans-serif;
+            font-size: 13px; font-weight: 700; padding: 18px 20px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            transition: color 0.2s, background 0.2s;
+            border-bottom: 3px solid transparent;
+        }
+        .nav-list > li > a:hover,
+        .nav-list > li.active > a { color: #1e73be; border-bottom-color: #1e73be; }
+        .nav-list > li.active > a { background: #f0f6ff; }
+        .nav-list li.has-dropdown { position: relative; }
+        .dropdown {
+            display: none; position: absolute; top: 100%; left: 0;
+            background: #fff; min-width: 260px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+            border-top: 3px solid #1e73be;
+            z-index: 2000; border-radius: 0 0 6px 6px;
+        }
+        .nav-list li.has-dropdown:hover .dropdown { display: block; }
+        .dropdown li a {
+            display: block; padding: 11px 20px;
+            font-size: 13px; color: #444; font-weight: 600;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s, color 0.2s;
+        }
+        .dropdown li a:hover { background: #f0f6ff; color: #1e73be; padding-left: 26px; }
+        .dropdown li:last-child a { border-bottom: none; }
+        .nav-cart { margin-left: 10px; padding: 18px 16px; color: #333; cursor: pointer; font-size: 16px; display: inline-flex; align-items: center; text-decoration: none; }
+        .nav-cart:hover { color: #1e73be; }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb { padding: 12px 0; border-bottom: 1px solid #eee; font-size: 12px; color: #888; }
+        .breadcrumb a { color: #1e73be; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 6px; }
+
+        .product-page { padding: 40px 0 60px; }
+        .product-page-grid { display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
+
+        .product-main h1 { font-family: 'Merriweather', serif; font-size: 26px; font-weight: 700; color: #222; margin-bottom: 14px; line-height: 1.3; }
+        .product-badge { display: inline-block; background: #e8720c; color: white; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; margin-bottom: 14px; }
+        .product-main p { font-size: 14px; color: #555; line-height: 1.75; margin-bottom: 14px; }
+        .product-main h2 { font-family: 'Merriweather', serif; font-size: 18px; color: #222; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 2px solid #e8720c; }
+        .product-main ul, .product-main ol { margin: 0 0 16px 20px; }
+        .product-main li { margin-bottom: 5px; font-size: 13.5px; color: #555; }
+        .product-main table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12.5px; }
+        .product-main th { background: #1e73be; color: white; padding: 9px 12px; text-align: left; font-weight: 600; }
+        .product-main td { border: 1px solid #e0e0e0; padding: 8px 12px; vertical-align: top; }
+        .product-main tr:nth-child(even) td { background: #f5f8ff; }
+        .product-main td:first-child { font-weight: 700; color: #1e73be; white-space: nowrap; }
+
+        /* dual chip banner */
+        .dual-chip { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+        .chip-card { background: linear-gradient(135deg, #1e73be, #155d9e); color: white; border-radius: 8px; padding: 18px; }
+        .chip-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; opacity: 0.9; }
+        .chip-card .chip-name { font-size: 16px; font-weight: 800; margin-bottom: 10px; }
+        .chip-card ul { list-style: none; padding: 0; margin: 0; }
+        .chip-card ul li { font-size: 12px; opacity: 0.88; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
+        .chip-card ul li:last-child { border-bottom: none; }
+
+        /* capability cards */
+        .capability-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+        .capability-card { background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 6px; padding: 14px 16px; }
+        .capability-card h4 { font-size: 13px; font-weight: 700; color: #222; margin-bottom: 6px; display: flex; align-items: center; gap: 7px; }
+        .capability-card h4 i { color: #e8720c; }
+        .capability-card p { font-size: 12px; color: #666; margin: 0; line-height: 1.6; }
+
+        .product-sidebar { position: sticky; top: 76px; }
+        .product-img-box { background: #f5f8ff; border: 1px solid #dde6f5; border-radius: 8px; padding: 24px; text-align: center; margin-bottom: 20px; }
+        .product-img-box .fallback-icon { font-size: 100px; color: #1e73be; opacity: 0.5; }
+        .product-img-box img { max-width: 100%; max-height: 260px; object-fit: contain; border-radius: 6px; }
+        .product-img-box p { font-size: 11px; color: #999; margin-top: 10px; }
+
+        .badge-strip { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+        .badge-pill { background: #e8f4fd; border: 1px solid #c8ddf5; color: #1e73be; border-radius: 20px; padding: 4px 10px; font-size: 11px; font-weight: 700; }
+
+        .product-action-box { border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; }
+        .price-tag { font-size: 22px; font-weight: 700; color: #28a745; margin-bottom: 16px; }
+        .price-tag small { font-size: 12px; color: #888; font-weight: 400; display: block; margin-top: 2px; }
+        .btn { display: block; width: 100%; text-align: center; padding: 12px; border-radius: 4px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; margin-bottom: 10px; transition: background 0.2s; }
+        .btn-cart { background: #28a745; color: white; }
+        .btn-cart:hover { background: #218838; }
+        .btn-enquiry { background: #1e73be; color: white; }
+        .btn-enquiry:hover { background: #155d9e; }
+        .btn-back { background: transparent; color: #444; border: 1px solid #ccc; }
+        .btn-back:hover { background: #f5f5f5; }
+
+        
+        /* ===== TRUST BADGES ===== */
+        .trust-badges-band { background: #f7f7f7; border-top: 3px solid #1e73be; border-bottom: 1px solid #eee; padding: 32px 0; }
+        .trust-badges-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+        .trust-badge i { font-size: 34px; color: #cc3333; margin-bottom: 10px; display: block; }
+        .trust-badge strong { display: block; font-size: 14px; color: #222; margin-bottom: 4px; }
+        .trust-badge span { font-size: 12px; color: #888; }
+
+        /* ===== BROCHURE DOWNLOAD ===== */
+        .brochure-download { margin: 28px 0; }
+        .brochure-download a {
+            display: inline-flex; align-items: center; gap: 10px;
+            color: #1e73be; font-weight: 700; font-size: 15px;
+        }
+        .brochure-download a:hover { text-decoration: underline; }
+        .brochure-download i.fa-file-pdf { color: #cc3333; font-size: 26px; }
+        .brochure-unavailable {
+            display: inline-flex; align-items: center; gap: 10px;
+            color: #999; font-weight: 600; font-size: 14px; font-style: italic;
+        }
+
+        /* ===== ACCORDION (Warranty / Shipping / FAQ) ===== */
+        .extra-info-section { padding: 40px 0 10px; }
+        .extra-info-grid { display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
+        .extra-info-main { min-width: 0; }
+        .extra-info-sidebar { position: sticky; top: 76px; }
+        @media (max-width: 900px) {
+            .extra-info-grid { grid-template-columns: 1fr; }
+            .extra-info-sidebar { position: static; }
+        }
+        .extra-info-section h2 {
+            font-family: 'Merriweather', serif; font-size: 22px; color: #222;
+            margin: 32px 0 16px;
+        }
+        .extra-info-section h2:first-child { margin-top: 0; }
+        .accordion-item {
+            background: #eef1f3; border-radius: 4px; margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .accordion-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px 22px; cursor: pointer; font-size: 14.5px; color: #333;
+            font-weight: 600; background: #eef1f3; transition: background 0.2s;
+        }
+        .accordion-header:hover { background: #e4e8eb; }
+        .accordion-header .accordion-icon {
+            font-size: 18px; color: #555; transition: transform 0.25s; flex-shrink: 0; margin-left: 16px;
+        }
+        .accordion-item.open .accordion-header .accordion-icon { transform: rotate(45deg); }
+        .accordion-body {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+            background: #fff; padding: 0 22px;
+        }
+        .accordion-item.open .accordion-body { padding: 16px 22px 20px; }
+        .accordion-body p { font-size: 13.5px; color: #555; line-height: 1.75; margin-bottom: 8px; }
+        .accordion-body ul { margin: 0 0 8px 18px; }
+        .accordion-body ul li { font-size: 13.5px; color: #555; margin-bottom: 4px; }
+
+        /* ===== PRODUCT ENQUIRY FORM (in sidebar) ===== */
+        .enquiry-form-box {
+            background: #2b2f33; color: #fff; border-radius: 8px;
+            padding: 26px 24px; margin-top: 20px;
+        }
+        .enquiry-form-box h3 {
+            font-family: 'Merriweather', serif; font-size: 19px; font-weight: 700;
+            margin-bottom: 10px; line-height: 1.4;
+        }
+        .enquiry-form-box .enquiry-sub { font-size: 12.5px; color: #b8bcbf; margin-bottom: 18px; line-height: 1.6; }
+        .enquiry-form-box input, .enquiry-form-box textarea {
+            width: 100%; padding: 12px 14px; margin-bottom: 12px;
+            background: #fff; border: none; border-radius: 4px;
+            font-size: 13px; font-family: inherit; color: #333;
+        }
+        .enquiry-form-box textarea { resize: vertical; min-height: 90px; }
+        .enquiry-form-box button {
+            width: 100%; padding: 13px; background: #1e73be; color: #fff;
+            border: none; border-radius: 4px; font-size: 13.5px; font-weight: 700;
+            cursor: pointer; transition: background 0.2s;
+        }
+        .enquiry-form-box button:hover { background: #155d9e; }
+
+        @media (max-width: 800px) {
+            .trust-badges-grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+        }
+
+        /* ===== FOOTER (shared with index.html) ===== */
+        .site-footer { background: #ececec; padding: 50px 0 0; color: #555; font-size: 13px; margin-top: 40px; }
+        .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.1); }
+        .footer-about h3 { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; color: #222; margin-bottom: 14px; }
+        .footer-about p { line-height: 1.8; font-size: 13.5px; color: #444; margin-bottom: 16px; }
+        .footer-about p strong { color: #222; }
+        .footer-social { display: flex; gap: 10px; }
+        .footer-social a { width: 34px; height: 34px; background: rgba(0,0,0,0.06); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #555; font-size: 14px; transition: background 0.2s, color 0.2s; }
+        .footer-social a:hover { background: #1e73be; color: #fff; }
+        .footer-links h4 { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; color: #222; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+        .footer-contact p { margin-bottom: 10px; font-size: 12.5px; color: #444; display: flex; align-items: flex-start; gap: 8px; }
+        .footer-contact i { color: #e8720c; margin-top: 3px; width: 14px; flex-shrink: 0; }
+        .footer-contact a { color: #1e73be; }
+        .footer-bottom { text-align: center; padding: 18px 0; font-size: 12px; color: #777; background: #1a1a1a; }
+        .footer-bottom a { color: #ccc; }
+        .footer-bottom a:hover { color: #e8720c; }
+        .footer-follow-card { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 10px 14px; margin-bottom: 16px; }
+        .footer-follow-card img { width: 46px; height: 46px; border-radius: 4px; object-fit: cover; flex-shrink: 0; }
+        .footer-follow-card .ffc-name { font-weight: 700; color: #1e73be; font-size: 14px; margin-bottom: 6px; display: block; }
+        .footer-follow-card .ffc-btn { display: inline-flex; align-items: center; gap: 6px; background: #1877f2; color: #fff; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 3px; }
+        .footer-follow-card .ffc-btn.yt { background: #ff0000; }
+        .footer-follow-card .ffc-followers { font-size: 12px; color: #777; margin-left: 8px; }
+        .footer-newsletter h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: #222; margin-bottom: 18px; line-height: 1.3; }
+        .footer-newsletter input[type="email"] { width: 100%; padding: 13px 16px; border: 1px solid #ccc; border-radius: 3px; background: #fff; color: #333; font-size: 13px; margin-bottom: 16px; }
+        .footer-newsletter button { background: #1a1a1a; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; padding: 12px 28px; border-radius: 24px; border: none; cursor: pointer; transition: background 0.2s; margin-bottom: 20px; }
+        .footer-newsletter button:hover { background: #e8720c; }
+        .footer-payment-icons { display: flex; gap: 8px; flex-wrap: wrap; }
+        .footer-made-india { display: block; max-width: 220px; margin-bottom: 22px; border-radius: 4px; }
+        .footer-company-name { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 800; color: #222; margin-bottom: 10px; letter-spacing: 0.5px; }
+        .footer-address { color: #444; line-height: 1.7; font-size: 13px; margin-bottom: 12px; }
+        .footer-address strong { display: block; color: #1e73be; }
+        .footer-address a { color: #1e73be; font-weight: 700; }
+
+        @media (max-width: 800px) {
+            .product-page-grid { grid-template-columns: 1fr; }
+            .product-sidebar { position: static; }
+            .dual-chip, .capability-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+    <div class="container">
+        <span><i class="fas fa-envelope" style="margin-right:6px;"></i>info@vimicrosystem.com &nbsp;|&nbsp; <i class="fas fa-phone" style="margin-right:6px;"></i>+91-44-4859 1234</span>
+        <span>
+            <a href="#">Distributors</a>
+            <a href="../account.html" data-account-link><span data-account-name>Sign In</span></a>
+        </span>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+    <div class="container">
+        <div class="header-brand">
+            <div class="header-logo">
+                <img src="../logo.png" alt="Vi Microsystems Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div class="logo-text" style="display:none;">Vi</div>
+            </div>
+            <div class="header-text">
+                <h1>VI MICROSYSTEMS PVT LTD</h1>
+
+                <div class="tagline">Robotics &nbsp;|&nbsp; Networking &nbsp;|&nbsp; Embedded Security</div>
+            </div>
+        </div>
+        <div class="header-contact">
+            <strong>+91-44-4859 1234</strong>
+            <a href="mailto:info@vimicrosystem.com">info@vimicrosystem.com</a><br>
+            <span style="font-size:11px;color:#aaa;">Mon&ndash;Sat &nbsp;9:00 AM &ndash; 6:00 PM</span>
+        </div>
+    </div>
+</header>
+
+<!-- NAV -->
+<nav class="main-nav">
+    <div class="container">
+        <ul class="nav-list">
+            <li><a href="../index.html">Home</a></li>
+            <li class="has-dropdown active">
+                <a href="../index.html#products">Products <i class="fas fa-chevron-down" style="font-size:10px;"></i></a>
+                <ul class="dropdown">
+                    <li><a href="esp32.html"><i class="fas fa-robot" style="margin-right:8px;color:#1e73be;"></i>MR Robo ESP32</a></li>
+                    <li><a href="unoq.html"><i class="fas fa-microchip" style="margin-right:8px;color:#1e73be;"></i>MR Robo UNO Q</a></li>
+                    <li><a href="orin.html"><i class="fas fa-brain" style="margin-right:8px;color:#1e73be;"></i>MR Robo Jetson Orin</a></li>
+                    <li><a href="cobot.html"><i class="fas fa-cogs" style="margin-right:8px;color:#1e73be;"></i>ASYSTR 3C Cobot</a></li>
+                    <li><a href="vilan.html"><i class="fas fa-network-wired" style="margin-right:8px;color:#1e73be;"></i>Vi LaN-05 Trainer</a></li>
+                    <li><a href="dsp379d.html"><i class="fas fa-wave-square" style="margin-right:8px;color:#1e73be;"></i>TMS320F28379D PWM Controller</a></li>
+                    <li><a href="llmchatbot.html"><i class="fas fa-comments" style="margin-right:8px;color:#1e73be;"></i>Local LLM AI ChatBot</a></li>
+                </ul>
+            </li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../index.html#clients">Clients</a></li>
+            <li><a href="../support.html">Support</a></li>
+            <li><a href="../index.html#contact">Contact Us</a></li>
+        </ul>
+        <a href="../cart.html" class="nav-cart"><i class="fas fa-shopping-cart"></i> <span data-cart-count>0 items</span></a>
+    </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+    <div class="container">
+        <a href="../index.html">Home</a>
+        <span>&rsaquo;</span>
+        <a href="../index.html#products">Products</a>
+        <span>&rsaquo;</span>
+        MR Robo UNO Q
+    </div>
+</div>
+
+<div class="product-page">
+    <div class="container">
+        <div class="product-page-grid">
+            <div class="product-main">
+                <span class="product-badge">Hottest Product</span>
+                <h1>MR Robo UNO Q — ROS2 Autonomous Robot with Qualcomm Dragonwing™</h1>
+
+
+                <p>The MR Robo UNO Q is built around the <strong>Arduino UNO Q</strong> — a dual-processor development board combining the Qualcomm QRB2210 SoC with an STM32U585 co-processor. It ships with 2× LiDAR sensors, USB camera, and a 30Ah battery, making it the most capable mid-range robot in the Vi Microsystems lineup for full SLAM and autonomous navigation without a GPU.</p>
+
+                <h2>Dual Processor Architecture</h2>
+                <div class="dual-chip">
+                    <div class="chip-card">
+                        <h4>Application Processor</h4>
+                        <div class="chip-name">Qualcomm Dragonwing™ QRB2210</div>
+                        <ul>
+                            <li>Quad-core Arm Cortex-A53 @ 2.0 GHz</li>
+                            <li>Adreno GPU (3D graphics accelerator)</li>
+                            <li>2× ISP (13 MP + 13 MP / 25 MP) @ 30 fps</li>
+                            <li>Linux OS (Ubuntu-based)</li>
+                            <li>Runs ROS2 Humble full stack</li>
+                        </ul>
+                    </div>
+                    <div class="chip-card">
+                        <h4>Real-Time MCU</h4>
+                        <div class="chip-name">STM32U585 Cortex-M33</div>
+                        <ul>
+                            <li>Arm Cortex-M33 @ 160 MHz</li>
+                            <li>2MB Flash + 786KB SRAM</li>
+                            <li>3× USART, 4× I²C, 3× SPI, 1× FDCAN</li>
+                            <li>RGB LEDs, 8×13 LED Matrix</li>
+                            <li>Real-time motor &amp; sensor control</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>Arduino UNO Q Board — Full Specification</h2>
+                <table>
+                    <thead><tr><th>Category</th><th>Parameter</th><th>Value</th></tr></thead>
+                    <tbody>
+                        <tr><td>MPU</td><td>Processor</td><td>Qualcomm QRB2210 Quad-core Cortex-A53 @ 2.0 GHz</td></tr>
+                        <tr><td></td><td>GPU</td><td>Adreno GPU 3D graphics accelerator</td></tr>
+                        <tr><td></td><td>Camera ISP</td><td>2× ISP (13 MP + 13 MP or 25 MP) @ 30 fps</td></tr>
+                        <tr><td>MCU</td><td>Core</td><td>STM32U585 Arm Cortex-M33 @ 160 MHz</td></tr>
+                        <tr><td></td><td>Flash / SRAM</td><td>2 MB / 786 KB</td></tr>
+                        <tr><td></td><td>ADC</td><td>14-bit @ 2.5 Msps (2×)</td></tr>
+                        <tr><td></td><td>DAC</td><td>12-bit (2×)</td></tr>
+                        <tr><td></td><td>Timers</td><td>Advanced (2×), General Purpose (9×), Basic (2×)</td></tr>
+                        <tr><td></td><td>OPAMP</td><td>2×</td></tr>
+                        <tr><td></td><td>USART / UART</td><td>3× USART + 2× UART</td></tr>
+                        <tr><td></td><td>I²C / SPI</td><td>4× I²C + 3× SPI</td></tr>
+                        <tr><td></td><td>CAN</td><td>1× FDCAN</td></tr>
+                        <tr><td></td><td>LED Matrix</td><td>8×13, plus 2× RGB LEDs</td></tr>
+                        <tr><td>Radio</td><td>Wi-Fi</td><td>Wi-Fi 5 Dual-band 2.4 / 5 GHz (WCBN3536A)</td></tr>
+                        <tr><td></td><td>Bluetooth</td><td>Bluetooth 5.1 with onboard antenna</td></tr>
+                        <tr><td>USB</td><td>Type</td><td>USB-C with host/device, power role switch, video output</td></tr>
+                        <tr><td>Power</td><td>Via USB-C</td><td>+5V DC max @ 3A</td></tr>
+                        <tr><td></td><td>VIN Input</td><td>7–24V DC</td></tr>
+                        <tr><td></td><td>I/O Voltage</td><td>3.3V (MCU, 5V tolerant) · 1.8V (MPU)</td></tr>
+                        <tr><td>Connectors</td><td>Qwiic</td><td>I²C @ 3.3V</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Robot Hardware Components</h2>
+                <ul>
+                    <li><strong>×2 LiDAR Sensors</strong> — 360° real-time distance scanning for SLAM, autonomous navigation, localization, and obstacle avoidance</li>
+                    <li><strong>USB Camera Module</strong> — Real-time image/video for computer vision, YOLOv8 object detection, and AI-based navigation</li>
+                    <li><strong>30Ah LiFePO4 Battery Pack</strong> — Long operational backup, stable voltage, thermal safety, deep-cycle durability</li>
+                    <li><strong>BTS7960 Motor Driver Modules ×2</strong> — High-current H-bridge with bidirectional PWM and overcurrent protection</li>
+                    <li><strong>130mm Rugged Rubber Wheels</strong> — High-traction for indoor and outdoor terrain</li>
+                    <li><strong>High Torque DC Geared Motors</strong> — High torque at lower RPM for carrying payloads and rough terrain</li>
+                </ul>
+
+                <h2>What You Can Implement</h2>
+                <div class="capability-grid">
+                    <div class="capability-card">
+                        <h4><i class="fas fa-map"></i> SLAM + Nav2</h4>
+                        <p>Full 2D SLAM with Cartographer, GMapping, SLAM Toolbox. Autonomous navigation, path planning, obstacle avoidance, waypoint following.</p>
+                    </div>
+                    <div class="capability-card">
+                        <h4><i class="fas fa-eye"></i> Computer Vision</h4>
+                        <p>YOLOv8 object detection, person tracking, warehouse navigation, safety monitoring using the USB camera with OpenCV and ROS2.</p>
+                    </div>
+                    <div class="capability-card">
+                        <h4><i class="fas fa-project-diagram"></i> Sensor Fusion</h4>
+                        <p>Fuse wheel odometry, LiDAR, and visual data with robot_localization (EKF/UKF) for stable pose estimation and reduced drift.</p>
+                    </div>
+                    <div class="capability-card">
+                        <h4><i class="fas fa-robot"></i> Industrial AMR</h4>
+                        <p>Build autonomous patrol robots, smart delivery robots, industrial inspection robots, and warehouse AMRs.</p>
+                    </div>
+                    <div class="capability-card">
+                        <h4><i class="fas fa-digital-tachograph"></i> Digital Twin</h4>
+                        <p>URDF model, Gazebo simulation, Isaac Sim integration. Test navigation algorithms virtually before real-world deployment.</p>
+                    </div>
+                    <div class="capability-card">
+                        <h4><i class="fas fa-microchip"></i> micro-ROS Bridge</h4>
+                        <p>STM32U585 handles real-time motor control; QRB2210 runs the full ROS2 stack. Full distributed architecture on one board.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-sidebar">
+                <div class="product-img-box">
+                    <img src="../robo uno.png" alt="MR Robo UNO Q">
+                    <p>Arduino UNO Q — Qualcomm QRB2210 + STM32U585</p>
+                </div>
+                <div class="product-action-box">
+                    <div class="badge-strip">
+                        <span class="badge-pill">✅ Dual LiDAR</span>
+                        <span class="badge-pill">✅ USB Camera</span>
+                        <span class="badge-pill">✅ 30Ah Battery</span>
+                        <span class="badge-pill">✅ ROS2 Ready</span>
+                    </div>
+                    <div class="price-tag">
+                        &#8377;9,999
+                        <small style="color:#cc7a00;font-weight:700;">&#9888; Placeholder price &mdash; confirm actual price</small>
+                    </div>
+                    <button class="btn btn-cart" onclick="ViCart.addItem('unoq',1); window.location.href='../cart.html?added=unoq';">&#128722; Add to Cart</button>
+                    <button class="btn btn-enquiry" onclick="document.getElementById('enq-name').scrollIntoView({behavior:'smooth',block:'center'}); document.getElementById('enq-name').focus();">&#128231; Send Enquiry</button>
+                    <a href="../index.html" class="btn btn-back">← Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TRUST BADGES -->
+<div class="brochure-download" style="text-align:center;margin:0 0 28px;"><a href="../brochures/MR_Robo_UNO_Q.pdf" download target="_blank"><i class="fas fa-file-pdf"></i> MR Robo UNO Q Brochure (PDF)</a></div>
+<div class="trust-badges-band">
+    <div class="container">
+        <div class="trust-badges-grid">
+            <div class="trust-badge">
+                <i class="fas fa-box-open"></i>
+                <strong>Free Shipping</strong>
+                <span>For all orders within India</span>
+            </div>
+            <div class="trust-badge">
+                <i class="fas fa-headset"></i>
+                <strong>Awesome Support</strong>
+                <span>Support through Email and Ticket</span>
+            </div>
+            <div class="trust-badge">
+                <i class="fas fa-lock"></i>
+                <strong>Secured Payment</strong>
+                <span>Secured Payment Gateway</span>
+            </div>
+            <div class="trust-badge">
+                <i class="fas fa-check-circle"></i>
+                <strong>High Quality</strong>
+                <span>Products made with high standards</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- WARRANTY / SHIPPING / FAQ -->
+<div class="container extra-info-section">
+<div class="extra-info-grid">
+<div class="extra-info-main">
+    <h2>Warranty and Return Policy</h2>
+    <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>90 Days Warranty</span>
+            <i class="fas fa-plus accordion-icon"></i>
+        </div>
+        <div class="accordion-body">
+            <p>Invent Logic warrants its products against defects in materials and workmanship for a period of 90 days from the date of purchase. If you discover a defect, Invent Logics. will, at its option, repair or replace.</p>
+            <p>If the item cannot be repaired and the replacement product is unavailable within 4-5 working days from the date of receiving the defective product, a refund will be issued within 7&ndash;10 working days.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Return &amp; Replacement</span>
+            <i class="fas fa-plus accordion-icon"></i>
+        </div>
+        <div class="accordion-body">
+            <p>If you receive a damaged or incorrect item, please contact us within 7 days of delivery with photos of the product and packaging. We will arrange a replacement or refund after verification.</p>
+        </div>
+    </div>
+
+    <h2>Shipping</h2>
+    <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>For Orders within India</span>
+            <i class="fas fa-plus accordion-icon"></i>
+        </div>
+        <div class="accordion-body">
+            <ul>
+                <li>Free shipping on all orders within India.</li>
+                <li>We ship through DTDC/Professional Courier.</li>
+                <li>All orders will be shipped within 1 - 3 working days.</li>
+                <li>Estimated delivery time: 2 - 3 working days from the date of shipping.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>For International Orders</span>
+            <i class="fas fa-plus accordion-icon"></i>
+        </div>
+        <div class="accordion-body">
+            <ul>
+                <li>Shipping costs will be calculated in the checkout for all international orders.</li>
+                <li>We ship through DHL Express/FedEx.</li>
+                <li>All orders will be shipped within 1 - 3 working days.</li>
+                <li>Estimated delivery time: 3 - 5 working days from the date of shipping.</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2>FAQ</h2>
+    <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>What software / tools are required to use this product?</span>
+            <i class="fas fa-plus accordion-icon"></i>
+        </div>
+        <div class="accordion-body">
+            <p>Refer to the Technical Specifications section above for the specific software toolchain (e.g. Vivado, Arduino IDE, ROS2, MATLAB/Simulink) required for this product. Setup instructions are included in the product documentation.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Does this product require an external power adapter?</span>
+            <i class="fas fa-plus accordion-icon"></i>
+        </div>
+        <div class="accordion-body">
+            <p>Power requirements vary by product &mdash; most boards can be powered via USB, while higher-power systems require an external adapter. Please check the specifications table above or contact us for confirmation specific to your use case.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Is technical support available after purchase?</span>
+            <i class="fas fa-plus accordion-icon"></i>
+        </div>
+        <div class="accordion-body">
+            <p>Yes. All Vi Microsystems products include email and ticket-based technical support. For institutional customers, we also offer training sessions and on-site support on request.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Do you provide GST invoices for institutional purchases?</span>
+            <i class="fas fa-plus accordion-icon"></i>
+        </div>
+        <div class="accordion-body">
+            <p>Yes, GST-compliant invoices are provided for all orders. For bulk / institutional orders, please share your GSTIN and billing details at the time of enquiry.</p>
+        </div>
+    </div>
+</div>
+<div class="extra-info-sidebar">
+<div class="enquiry-form-box">
+    <h3>Product Enquiry / Request for Quote</h3>
+    <p class="enquiry-sub">We usually reply within 2&ndash;3 hours on (Mon&ndash;Sat 9AM &ndash; 6PM).</p>
+    <form onsubmit="submitEnquiry(event, 'MR Robo UNO Q')">
+        <input type="text" id="enq-name" placeholder="Name" required>
+        <input type="email" id="enq-email" placeholder="Email Address" required>
+        <input type="text" id="enq-subject" placeholder="Subject">
+        <textarea id="enq-message" placeholder="Your Message" required></textarea>
+        <button type="submit"><i class="fas fa-paper-plane"></i> Send Enquiry</button>
+    </form>
+</div>
+</div>
+</div>
+</div>
+<footer class="site-footer" id="contact">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-about">
+                <h3>About Us</h3>
+                <p><strong>Vi Microsystems</strong> is the manufacturer of high-quality and reliable engineering educational lab equipment. Our kits are feature-rich development platforms with the best documentation and support. We aim to offer the best robotics, networking, and embedded systems learning platform to students, research scholars, and young engineers.</p>
+                <p style="color:#888;font-size:12px;"><strong style="color:#555;">ISO Certificate No.:</strong> ICI/4144787/24 &nbsp;|&nbsp; <strong style="color:#555;">DSIR Recognized R&D Unit</strong></p>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-follow-card">
+                    <img src="../robo esp32.png" alt="" onerror="this.style.display='none'">
+                    <div>
+                        <span class="ffc-name">Vi Microsystems</span>
+                        <span class="ffc-btn"><i class="fab fa-facebook-f"></i> Follow Page</span>
+                        <span class="ffc-followers">4.1K followers</span>
+                    </div>
+                </div>
+                <div class="footer-follow-card">
+                    <img src="../robo esp32.png" alt="" onerror="this.style.display='none'">
+                    <div>
+                        <span class="ffc-name">Vi Microsystems</span>
+                        <span class="ffc-btn yt"><i class="fab fa-youtube"></i> YouTube</span>
+                        <span class="ffc-followers">1K</span>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="mailto:info@vimicrosystem.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links footer-newsletter">
+                <h3>Get Notified on New Products and Tutorials!</h3>
+                <input type="email" placeholder="Email Address">
+                <button type="button">Notify Me</button>
+                <div class="footer-payment-icons">
+                    <span style="display:inline-block;background:#003087;color:#fff;font-weight:800;font-size:11px;padding:6px 10px;border-radius:3px;font-style:italic;">PayPal</span>
+                    <span style="display:inline-block;background:#fff;border:1px solid #ddd;border-radius:3px;padding:4px 8px;"><span style="color:#eb001b;font-weight:900;">&#9679;</span><span style="color:#f79e1b;font-weight:900;margin-left:-8px;">&#9679;</span></span>
+                    <span style="display:inline-block;background:#1a1f71;color:#fff;font-weight:800;font-size:11px;padding:6px 10px;border-radius:3px;font-style:italic;">VISA</span>
+                    <span style="display:inline-block;background:#2e77bc;color:#fff;font-weight:800;font-size:10px;padding:6px 8px;border-radius:3px;">AMEX</span>
+                </div>
+            </div>
+
+            <div class="footer-links footer-contact">
+                <svg class="footer-made-india" viewBox="0 0 220 70" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="220" height="70" fill="#1a1a1a"/>
+                    <rect x="10" y="14" width="60" height="42" fill="#fff"/>
+                    <rect x="10" y="14" width="60" height="14" fill="#ff9933"/>
+                    <rect x="10" y="42" width="60" height="14" fill="#138808"/>
+                    <circle cx="40" cy="35" r="6" fill="none" stroke="#000080" stroke-width="1"/>
+                    <text x="82" y="32" font-family="Montserrat, sans-serif" font-size="13" font-weight="800" fill="#fff">MADE IN</text>
+                    <text x="82" y="50" font-family="Montserrat, sans-serif" font-size="16" font-weight="900" fill="#fff">INDIA</text>
+                </svg>
+                <div class="footer-company-name">VI MICROSYSTEMS PVT LTD</div>
+                <p class="footer-address">
+                    SIDCO Industrial Estate,<br>
+                    Perungudi,<br>
+                    Chennai, Tamil Nadu, India &ndash; 600096
+                </p>
+                <p class="footer-address"><strong style="display:inline;color:#1e73be;">Email:</strong> <a href="mailto:info@vimicrosystem.com">info@vimicrosystem.com</a></p>
+                <p class="footer-address"><strong style="display:inline;color:#1e73be;">Phone:</strong> <a href="tel:+914448591234" style="color:#444;font-weight:400;">+91-44-4859 1234</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div style="margin-bottom:8px;">
+                <a href="../account.html" style="margin:0 10px;">My account</a>
+                <a href="../terms-of-service.html" style="margin:0 10px;">Terms of Service</a>
+                <a href="../privacy-policy.html" style="margin:0 10px;">Privacy Policy</a>
+                <a href="../return-refund-policy.html" style="margin:0 10px;">Return and Refund Policy</a>
+                <a href="../shipping-policy.html" style="margin:0 10px;">Shipping Policy</a>
+            </div>
+            &copy; 2026 &bull; VI MICROSYSTEMS
+        </div>
+    </div>
+</footer>
+
+<script src="../js/cart.js"></script>
+<script src="../js/account.js"></script>
+<script src="../js/product-extras.js"></script>
+</body>
+</html>

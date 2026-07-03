@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cobot Pick & Place with MoveIt - Vi Microsystems Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #333; background: #f4f4f4; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        .top-bar { background: #444; padding: 7px 0; font-size: 12px; color: #ccc; }
+        .top-bar .inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; }
+        .top-bar a { color: #ccc; margin-left: 14px; }
+        .site-header { background: #fff; padding: 16px 0; border-bottom: 1px solid #eee; }
+        .site-header .inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 14px; }
+        .logo-text { height: 65px; width: 65px; background: #1e73be; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 900; color: #fff; }
+        .site-header h1 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; color: #1e73be; }
+        .site-header .tagline { font-size: 10px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+        .main-nav { background: #fff; border-bottom: 2px solid #eee; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .main-nav .inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: flex-end; }
+        .nav-list { list-style: none; display: flex; }
+        .nav-list > li > a { display: block; color: #333; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; padding: 16px 18px; text-transform: uppercase; border-bottom: 3px solid transparent; transition: color 0.2s; }
+        .nav-list > li > a:hover { color: #1e73be; border-bottom-color: #1e73be; }
+
+        .post-hero { background: linear-gradient(120deg, #5e1a0a, #c85828); padding: 50px 0; }
+        .post-cat { display: inline-block; background: #e8720c; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 2px; margin-bottom: 14px; }
+        .post-hero h1 { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 12px; }
+        .post-meta { font-size: 12px; color: rgba(255,255,255,0.7); display: flex; gap: 20px; flex-wrap: wrap; }
+        .post-meta i { margin-right: 5px; color: #ffd700; }
+        .breadcrumb-nav { margin-top: 14px; font-size: 12px; color: rgba(255,255,255,0.6); }
+        .breadcrumb-nav a { color: rgba(255,255,255,0.8); }
+        .breadcrumb-nav span { margin: 0 6px; }
+
+        .post-body { background: #fff; padding: 48px 0 60px; }
+        .post-body h2 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: #1e73be; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e8720c; }
+        .post-body h3 { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: #222; margin: 24px 0 10px; }
+        .post-body p { font-size: 14.5px; color: #444; line-height: 1.85; margin-bottom: 14px; }
+        .post-body ul, .post-body ol { margin: 8px 0 16px 24px; }
+        .post-body li { font-size: 14px; color: #555; margin-bottom: 6px; line-height: 1.7; }
+
+        .code-block { background: #1e1e2e; border-radius: 8px; margin: 20px 0; overflow: hidden; }
+        .code-header { background: #2a2a3e; padding: 10px 16px; font-size: 12px; color: #aaa; font-family: monospace; }
+        .code-header span { color: #e8720c; font-weight: 700; }
+        .code-block pre { padding: 20px; overflow-x: auto; font-size: 13px; line-height: 1.7; font-family: 'Courier New', monospace; color: #cdd6f4; }
+        .kw { color: #cba6f7; } .fn { color: #89b4fa; } .st { color: #a6e3a1; } .cm { color: #6c7086; font-style: italic; } .nm { color: #fab387; }
+
+        .diagram-box { background: #f0f6ff; border: 2px solid #c8ddf5; border-radius: 8px; padding: 24px; margin: 20px 0; text-align: center; }
+        .diagram-box h4 { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800; color: #1e73be; margin-bottom: 20px; text-transform: uppercase; }
+        .diagram { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0; }
+        .diag-box { background: #1e73be; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; padding: 12px 14px; border-radius: 6px; text-align: center; min-width: 95px; line-height: 1.4; }
+        .diag-box.green { background: #28a745; } .diag-box.orange { background: #c85828; } .diag-box.red { background: #c0392b; } .diag-box.dark { background: #1a1a2e; }
+        .diag-arrow { font-size: 20px; color: #c85828; padding: 0 6px; font-weight: 700; }
+
+        .info-box { background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px; padding: 14px 18px; margin: 16px 0; font-size: 13.5px; color: #555; }
+        .info-box i { color: #ffc107; margin-right: 8px; }
+        .tip-box { background: #d4edda; border-left: 4px solid #28a745; border-radius: 4px; padding: 14px 18px; margin: 16px 0; font-size: 13.5px; color: #444; }
+        .tip-box i { color: #28a745; margin-right: 8px; }
+        .warn-box { background: #f8d7da; border-left: 4px solid #c0392b; border-radius: 4px; padding: 14px 18px; margin: 16px 0; font-size: 13.5px; color: #444; }
+        .warn-box i { color: #c0392b; margin-right: 8px; }
+
+        .post-nav { background: #f4f4f4; padding: 30px 0; border-top: 1px solid #eee; }
+        .post-nav .container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .post-nav a { background: #1e73be; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; padding: 10px 20px; border-radius: 4px; text-transform: uppercase; transition: background 0.2s; }
+        .post-nav a:hover { background: #e8720c; }
+        .site-footer { background: #1a1a1a; padding: 28px 0; color: #999; font-size: 12px; text-align: center; }
+        .site-footer p { margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="inner">
+        <span><i class="fas fa-envelope" style="margin-right:6px;"></i>info@vimicrosystem.com</span>
+        <span><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../support.html">Support</a></span>
+    </div>
+</div>
+<header class="site-header">
+    <div class="inner">
+        <div class="logo-text">Vi</div>
+        <div><h1>VI MICROSYSTEMS PVT LTD</h1><div class="tagline">Robotics &nbsp;|&nbsp; Networking &nbsp;|&nbsp; Embedded Security</div></div>
+    </div>
+</header>
+<nav class="main-nav">
+    <div class="inner">
+        <ul class="nav-list">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#products">Products</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../support.html">Support</a></li>
+            <li><a href="../index.html#contact">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="post-hero">
+    <div class="container">
+        <span class="post-cat">Robotics &amp; Automation</span>
+        <h1>ASYSTR 3C Cobot — Pick &amp; Place Automation<br>with ROS2 MoveIt</h1>
+        <div class="post-meta">
+            <span><i class="far fa-calendar"></i>April 2026</span>
+            <span><i class="far fa-user"></i>Vi Microsystems Team</span>
+            <span><i class="fas fa-tag"></i>Cobot, MoveIt, ROS2, Pick and Place</span>
+        </div>
+        <div class="breadcrumb-nav"><a href="../index.html">Home</a><span>›</span><a href="../blog.html">Blog</a><span>›</span>Cobot Pick &amp; Place with MoveIt</div>
+    </div>
+</div>
+
+<div class="post-body">
+  <div class="container">
+
+    <h2>Introduction</h2>
+    <p>The ASYSTR 3C is a 6-axis collaborative robot with ±0.02 mm repeatability and built-in force-limiting safety. In this tutorial we program a complete pick-and-place task using <strong>ROS2 MoveIt</strong> — defining target poses, planning collision-free trajectories, and executing gripper control with force feedback for safe collaborative operation.</p>
+
+    <h2>System Block Diagram</h2>
+    <div class="diagram-box">
+        <h4>ASYSTR 3C Pick &amp; Place — ROS2 MoveIt Pipeline</h4>
+        <div class="diagram">
+            <div class="diag-box green">User<br>Pose Goal<br>(Python)</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box">MoveIt<br>Motion<br>Planner</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box orange">Trajectory<br>Execution<br>Controller</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box red">ASYSTR 3C<br>6-DOF<br>Cobot</div>
+            <div class="diag-arrow">→</div>
+            <div class="diag-box dark">Gripper<br>Force<br>Feedback</div>
+        </div>
+    </div>
+
+    <h2>Working Principle</h2>
+    <p>MoveIt uses the <strong>OMPL (Open Motion Planning Library)</strong> to plan collision-free joint trajectories from the current pose to a goal Cartesian pose. The ASYSTR 3C's built-in force sensor monitors contact forces — if the force exceeds the safety threshold during a pick operation, the cobot stops automatically without human intervention.</p>
+    <ul>
+        <li><strong>Forward Kinematics</strong> — Given joint angles → compute end-effector position</li>
+        <li><strong>Inverse Kinematics</strong> — Given target position → solve for joint angles (KDL / TracIK)</li>
+        <li><strong>OMPL Planner</strong> — RRT* or BiTRRT finds collision-free path in joint space</li>
+        <li><strong>Trajectory Execution</strong> — Joint trajectory controller sends commands to each servo</li>
+        <li><strong>Force Limiting</strong> — Real-time force monitoring stops motion if threshold exceeded</li>
+    </ul>
+
+    <h2>Step 1 — Setup MoveIt for ASYSTR 3C</h2>
+    <div class="info-box"><i class="fas fa-info-circle"></i>Requires ROS2 Humble + MoveIt2 installed. The ASYSTR 3C URDF and MoveIt config package must be sourced from your workspace.</div>
+    <div class="code-block">
+        <div class="code-header"><span>Terminal — Launch MoveIt with ASYSTR 3C</span></div>
+        <pre><span class="cm"># Source ROS2 and workspace</span>
+source /opt/ros/humble/setup.bash
+source ~/ros2_ws/install/setup.bash
+
+<span class="cm"># Launch ASYSTR 3C MoveIt demo</span>
+ros2 launch asystr3c_moveit_config demo.launch.py
+
+<span class="cm"># In another terminal — check robot state</span>
+ros2 topic echo /joint_states</pre>
+    </div>
+
+    <h2>Step 2 — Define Pick and Place Poses</h2>
+    <div class="code-block">
+        <div class="code-header"><span>pick_place.py — MoveIt Python API</span></div>
+        <pre><span class="kw">import</span> <span class="nm">rclpy</span>
+<span class="kw">from</span> <span class="nm">rclpy.node</span> <span class="kw">import</span> Node
+<span class="kw">from</span> <span class="nm">moveit2</span> <span class="kw">import</span> MoveIt2
+<span class="kw">from</span> <span class="nm">geometry_msgs.msg</span> <span class="kw">import</span> Pose
+<span class="kw">import</span> <span class="nm">time</span>
+
+<span class="kw">class</span> <span class="fn">PickPlaceNode</span>(Node):
+    <span class="kw">def</span> <span class="fn">__init__</span>(self):
+        <span class="fn">super().__init__</span>(<span class="st">"pick_place_node"</span>)
+        self.moveit = <span class="fn">MoveIt2</span>(
+            node=self,
+            joint_names=[<span class="st">"joint1"</span>, <span class="st">"joint2"</span>, <span class="st">"joint3"</span>,
+                         <span class="st">"joint4"</span>, <span class="st">"joint5"</span>, <span class="st">"joint6"</span>],
+            base_link_name=<span class="st">"base_link"</span>,
+            end_effector_name=<span class="st">"tool0"</span>,
+            group_name=<span class="st">"asystr3c_arm"</span>
+        )
+
+    <span class="kw">def</span> <span class="fn">move_to_pose</span>(self, x, y, z, qx=<span class="nm">0</span>, qy=<span class="nm">0</span>,
+                          qz=<span class="nm">0</span>, qw=<span class="nm">1</span>):
+        pose = Pose()
+        pose.position.x    = x
+        pose.position.y    = y
+        pose.position.z    = z
+        pose.orientation.x = qx
+        pose.orientation.y = qy
+        pose.orientation.z = qz
+        pose.orientation.w = qw
+
+        self.moveit.<span class="fn">move_to_pose</span>(pose)
+        self.moveit.<span class="fn">execute</span>()
+        <span class="fn">print</span>(<span class="st">f"Moved to: x={x}, y={y}, z={z}"</span>)
+
+    <span class="kw">def</span> <span class="fn">run_pick_place</span>(self):
+        <span class="cm"># 1. Move to home position</span>
+        self.<span class="fn">move_to_pose</span>(<span class="nm">0.0</span>, <span class="nm">0.0</span>, <span class="nm">0.5</span>)
+        time.<span class="fn">sleep</span>(<span class="nm">1.0</span>)
+
+        <span class="cm"># 2. Move above pick location</span>
+        self.<span class="fn">move_to_pose</span>(<span class="nm">0.3</span>, <span class="nm">0.0</span>, <span class="nm">0.3</span>)
+        time.<span class="fn">sleep</span>(<span class="nm">0.5</span>)
+
+        <span class="cm"># 3. Lower to pick position</span>
+        self.<span class="fn">move_to_pose</span>(<span class="nm">0.3</span>, <span class="nm">0.0</span>, <span class="nm">0.1</span>)
+        <span class="fn">print</span>(<span class="st">"Closing gripper — picking object"</span>)
+        time.<span class="fn">sleep</span>(<span class="nm">1.0</span>)
+
+        <span class="cm"># 4. Lift object</span>
+        self.<span class="fn">move_to_pose</span>(<span class="nm">0.3</span>, <span class="nm">0.0</span>, <span class="nm">0.4</span>)
+        time.<span class="fn">sleep</span>(<span class="nm">0.5</span>)
+
+        <span class="cm"># 5. Move to place location</span>
+        self.<span class="fn">move_to_pose</span>(-<span class="nm">0.3</span>, <span class="nm">0.2</span>, <span class="nm">0.4</span>)
+        time.<span class="fn">sleep</span>(<span class="nm">0.5</span>)
+
+        <span class="cm"># 6. Lower to place position</span>
+        self.<span class="fn">move_to_pose</span>(-<span class="nm">0.3</span>, <span class="nm">0.2</span>, <span class="nm">0.1</span>)
+        <span class="fn">print</span>(<span class="st">"Opening gripper — placing object"</span>)
+        time.<span class="fn">sleep</span>(<span class="nm">1.0</span>)
+
+        <span class="cm"># 7. Return to home</span>
+        self.<span class="fn">move_to_pose</span>(<span class="nm">0.0</span>, <span class="nm">0.0</span>, <span class="nm">0.5</span>)
+        <span class="fn">print</span>(<span class="st">"Pick and place cycle complete!"</span>)
+
+<span class="kw">def</span> <span class="fn">main</span>():
+    rclpy.<span class="fn">init</span>()
+    node = <span class="fn">PickPlaceNode</span>()
+    node.<span class="fn">run_pick_place</span>()
+    rclpy.<span class="fn">shutdown</span>()
+
+<span class="kw">if</span> __name__ == <span class="st">"__main__"</span>:
+    <span class="fn">main</span>()</pre>
+    </div>
+
+    <h2>Step 3 — Add Collision Objects</h2>
+    <div class="code-block">
+        <div class="code-header"><span>add_collision.py — Define Workspace Boundaries</span></div>
+        <pre><span class="kw">from</span> <span class="nm">moveit2</span> <span class="kw">import</span> MoveIt2, CollisionObject
+<span class="kw">from</span> <span class="nm">shape_msgs.msg</span> <span class="kw">import</span> SolidPrimitive
+
+<span class="cm"># Add table as collision object</span>
+table = <span class="fn">CollisionObject</span>()
+table.id = <span class="st">"table"</span>
+table.primitive_poses[<span class="nm">0</span>].position.z = -<span class="nm">0.05</span>
+
+box = SolidPrimitive()
+box.type       = SolidPrimitive.BOX
+box.dimensions = [<span class="nm">1.0</span>, <span class="nm">1.0</span>, <span class="nm">0.1</span>]  <span class="cm"># 1m × 1m × 10cm</span>
+
+moveit.<span class="fn">add_collision_object</span>(table)
+<span class="fn">print</span>(<span class="st">"Table collision object added to planning scene"</span>)</pre>
+    </div>
+
+    <h2>Force Feedback Safety</h2>
+    <div class="warn-box"><i class="fas fa-exclamation-triangle"></i><strong>Collaborative Safety:</strong> The ASYSTR 3C monitors contact forces in real time. If force exceeds the configured threshold (default 150N), the cobot stops immediately. Always set appropriate force limits before running near humans.</div>
+    <div class="code-block">
+        <div class="code-header"><span>Terminal — Monitor Force Feedback Topic</span></div>
+        <pre><span class="cm"># Monitor end-effector wrench (force/torque)</span>
+ros2 topic echo /asystr3c/wrench
+
+<span class="cm"># Expected output during pick:</span>
+<span class="st">wrench:
+  force:
+    x: 0.12
+    y: -0.08
+    z: 8.45    # Weight of object in Newtons
+  torque:
+    x: 0.001
+    y: 0.002
+    z: 0.0</span></pre>
+    </div>
+
+    <div class="tip-box"><i class="fas fa-check-circle"></i>A successful pick-and-place cycle takes approximately 8–12 seconds depending on the path length and velocity scaling. Start with velocity_scaling=0.3 and acceleration_scaling=0.3, then increase gradually after verifying trajectory correctness in RViz2.</div>
+
+    <h2>Conclusion</h2>
+    <p>You have programmed a complete pick-and-place cycle on the ASYSTR 3C cobot using ROS2 MoveIt — including pose goal definition, collision-free trajectory planning, gripper control, and force feedback monitoring. This forms the foundation for building industrial automation cells, educational robotics labs, and smart manufacturing demonstrations with the ASYSTR 3C collaborative robot.</p>
+
+    <div style="margin-top:30px;padding:20px;background:#f0f6ff;border-radius:8px;">
+        <strong style="color:#1e73be;font-family:'Montserrat',sans-serif;">Related Product:</strong>
+        <a href="../products/cobot.html" style="display:inline-block;margin-left:12px;background:#c85828;color:#fff;padding:8px 18px;border-radius:4px;font-size:12px;font-weight:800;font-family:'Montserrat',sans-serif;">ASYSTR 3C Cobot →</a>
+    </div>
+  </div>
+</div>
+
+<div class="post-nav">
+    <div class="container">
+        <a href="blog5.html">← FOC on TMS320F28379D</a>
+        <a href="../blog.html">← Back to All Blogs</a>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <div class="container" style="max-width:1200px;">
+        <p>© 2026 Vi Microsystems Pvt Ltd. All Rights Reserved.</p>
+        <p>SIDCO Industrial Estate, Perungudi, Chennai – 600096, Tamil Nadu, India</p>
+    </div>
+</footer>
+</body>
+</html>

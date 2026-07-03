@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - Vi Microsystems Pvt Ltd</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #333; background: #f4f4f4; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        .top-bar { background: #444; padding: 7px 0; font-size: 12px; color: #ccc; }
+        .top-bar .container { display: flex; justify-content: space-between; align-items: center; }
+        .top-bar a { color: #ccc; margin-left: 16px; }
+        .top-bar a:hover { color: #fff; }
+
+        .site-header { background: #fff; padding: 16px 0; border-bottom: 1px solid #eee; }
+        .site-header .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .header-brand { display: flex; align-items: center; gap: 14px; }
+        .header-logo img { height: 75px; width: auto; object-fit: contain; }
+        .header-logo .logo-text { height: 75px; width: 75px; background: #1e73be; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; color: #fff; }
+        .header-text h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 900; color: #1e73be; letter-spacing: -0.5px; }
+        .header-text .tagline { font-size: 11px; color: #888; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 4px; }
+
+        .main-nav { background: #fff; border-bottom: 2px solid #eee; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .main-nav .container { display: flex; align-items: center; justify-content: flex-end; }
+        .nav-list { list-style: none; display: flex; align-items: center; }
+        .nav-list > li > a { display: flex; align-items: center; gap: 5px; color: #333; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; padding: 18px 20px; text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.2s; border-bottom: 3px solid transparent; }
+        .nav-list > li > a:hover, .nav-list > li.active > a { color: #1e73be; border-bottom-color: #1e73be; background: #f0f6ff; }
+        .nav-list li.has-dropdown:hover .dropdown { display: block; }
+        .dropdown { display: none; position: absolute; top: 100%; left: 0; background: #fff; min-width: 240px; box-shadow: 0 8px 24px rgba(0,0,0,0.13); border-top: 3px solid #1e73be; z-index: 2000; border-radius: 0 0 6px 6px; }
+        .dropdown li a { display: block; padding: 11px 20px; font-size: 13px; color: #444; font-weight: 600; border-bottom: 1px solid #f0f0f0; transition: background 0.2s; }
+        .dropdown li a:hover { background: #f0f6ff; color: #1e73be; padding-left: 26px; }
+        .nav-list li { position: relative; }
+
+        /* PAGE HERO */
+        .page-hero { background: linear-gradient(120deg, #1a3a0a 0%, #3a6a1a 60%, #5a9a28 100%); padding: 50px 0; }
+        .page-hero h1 { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 900; color: #fff; }
+        .page-hero p { color: rgba(255,255,255,0.8); font-size: 14px; margin-top: 8px; }
+        .breadcrumb-nav { margin-top: 12px; font-size: 12px; color: rgba(255,255,255,0.6); }
+        .breadcrumb-nav a { color: rgba(255,255,255,0.8); }
+        .breadcrumb-nav span { margin: 0 6px; }
+
+        /* SUPPORT INTRO */
+        .support-intro { background: #fff; padding: 50px 0 0; }
+        .support-intro h2 { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 900; color: #222; margin-bottom: 14px; }
+        .support-intro p { font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 10px; max-width: 800px; }
+
+        /* LOGIN / REGISTER FORMS */
+        .auth-section { background: #fff; padding: 40px 0 60px; }
+        .auth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 30px; }
+        .auth-box h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px; font-weight: 900; color: #222;
+            margin-bottom: 20px; padding-bottom: 12px;
+            border-bottom: 2px solid #1e73be;
+        }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 6px; }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 100%; padding: 12px 14px;
+            border: 1px solid #ddd; border-radius: 4px;
+            font-size: 14px; color: #333; font-family: 'Open Sans', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #fafafa;
+        }
+        .form-group input:focus { outline: none; border-color: #1e73be; box-shadow: 0 0 0 3px rgba(30,115,190,0.1); background: #fff; }
+        .form-group input::placeholder { color: #bbb; }
+        .check-group { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; font-size: 13px; color: #555; }
+        .check-group input { width: 16px; height: 16px; cursor: pointer; }
+        .btn-submit {
+            background: #1e73be; color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px; font-weight: 800;
+            padding: 12px 28px; border: none; border-radius: 4px;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            transition: background 0.2s; margin-right: 12px;
+        }
+        .btn-submit:hover { background: #155d9e; }
+        .forgot-link { font-size: 13px; color: #1e73be; }
+        .forgot-link:hover { text-decoration: underline; }
+        .divider { border: none; border-top: 1px solid #eee; margin: 28px 0; }
+
+        /* TICKET SUBMISSION */
+        .ticket-section { background: #f0f6ff; border: 1px solid #c8ddf5; border-radius: 8px; padding: 28px; margin-top: 40px; }
+        .ticket-section h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: #1e73be; margin-bottom: 16px; }
+        .ticket-section .form-group textarea {
+            width: 100%; padding: 12px 14px; min-height: 100px;
+            border: 1px solid #ddd; border-radius: 4px;
+            font-size: 14px; color: #333; font-family: 'Open Sans', sans-serif;
+            resize: vertical; background: #fafafa;
+        }
+        .ticket-section .form-group textarea:focus { outline: none; border-color: #1e73be; box-shadow: 0 0 0 3px rgba(30,115,190,0.1); }
+        .ticket-section .form-group select {
+            width: 100%; padding: 12px 14px;
+            border: 1px solid #ddd; border-radius: 4px;
+            font-size: 14px; color: #333; background: #fafafa;
+        }
+
+        /* ABOUT & ADDRESS */
+        .about-section { background: #1a3a4a; padding: 60px 0; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .about-box h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #e8720c; }
+        .about-box p { font-size: 13.5px; color: rgba(255,255,255,0.8); line-height: 1.85; margin-bottom: 12px; }
+        .about-box ul { list-style: none; padding: 0; margin-top: 8px; }
+        .about-box ul li { font-size: 13px; color: rgba(255,255,255,0.75); padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: flex-start; gap: 10px; }
+        .about-box ul li i { color: #e8720c; margin-top: 3px; flex-shrink: 0; width: 16px; }
+        .about-box ul li:last-child { border-bottom: none; }
+        .cert-badges { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+        .cert-badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; padding: 8px 14px; font-size: 11px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 6px; }
+        .cert-badge i { color: #ffd700; }
+
+        /* MAP PLACEHOLDER */
+        .map-section { background: #eee; height: 300px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #999; border-top: 3px solid #1e73be; }
+        .map-section i { font-size: 40px; color: #1e73be; margin-right: 14px; }
+
+        /* FOOTER */
+        .site-footer { background: #1a1a1a; padding: 50px 0 0; color: #aaa; font-size: 13px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .footer-about h3 { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 14px; }
+        .footer-about p { line-height: 1.8; font-size: 12.5px; color: #999; margin-bottom: 12px; }
+        .footer-social { display: flex; gap: 10px; margin-top: 16px; }
+        .footer-social a { width: 34px; height: 34px; background: rgba(255,255,255,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ccc; font-size: 14px; transition: background 0.2s; }
+        .footer-social a:hover { background: #1e73be; color: #fff; }
+        .footer-links h4 { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+        .footer-links ul { list-style: none; }
+        .footer-links ul li { margin-bottom: 9px; }
+        .footer-links ul li a { color: #999; font-size: 12.5px; }
+        .footer-links ul li a:hover { color: #e8720c; }
+        .footer-contact p { margin-bottom: 10px; font-size: 12.5px; color: #999; display: flex; align-items: flex-start; gap: 8px; }
+        .footer-contact i { color: #e8720c; margin-top: 3px; }
+        .footer-contact a { color: #e8720c; }
+        .footer-bottom { text-align: center; padding: 18px 0; font-size: 12px; color: #555; }
+
+        @media (max-width: 800px) {
+            .auth-grid, .about-grid { grid-template-columns: 1fr; gap: 36px; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="container">
+        <span><i class="fas fa-envelope" style="margin-right:6px;"></i>info@vimicrosystem.com &nbsp;|&nbsp; <i class="fas fa-phone" style="margin-right:6px;"></i>+91-44-4859 1234</span>
+        <span><a href="#">Distributors</a><a href="#">My Account</a><a href="#">Sign In</a></span>
+    </div>
+</div>
+
+<header class="site-header">
+    <div class="container">
+        <div class="header-brand">
+            <div class="header-logo">
+                <img src="logo.png" alt="Vi Microsystems" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div class="logo-text" style="display:none;">Vi</div>
+            </div>
+            <div class="header-text">
+                <h1>VI MICROSYSTEMS PVT LTD</h1>
+                <div class="tagline">Robotics &nbsp;|&nbsp; Networking &nbsp;|&nbsp; Embedded Security</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<nav class="main-nav">
+    <div class="container">
+        <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li class="has-dropdown" style="position:relative;">
+                <a href="index.html#products">Products <i class="fas fa-chevron-down" style="font-size:10px;"></i></a>
+                <ul class="dropdown">
+                    <li><a href="products/esp32.html"><i class="fas fa-robot" style="margin-right:8px;color:#1e73be;"></i>MR Robo ESP32</a></li>
+                    <li><a href="products/unoq.html"><i class="fas fa-microchip" style="margin-right:8px;color:#1e73be;"></i>MR Robo UNO Q</a></li>
+                    <li><a href="products/orin.html"><i class="fas fa-brain" style="margin-right:8px;color:#1e73be;"></i>MR Robo Jetson Orin</a></li>
+                    <li><a href="products/cobot.html"><i class="fas fa-cogs" style="margin-right:8px;color:#1e73be;"></i>ASYSTR 3C Cobot</a></li>
+                    <li><a href="products/vilan.html"><i class="fas fa-network-wired" style="margin-right:8px;color:#1e73be;"></i>Vi LaN-05 Trainer</a></li>
+                    <li><a href="products/dsp379d.html"><i class="fas fa-wave-square" style="margin-right:8px;color:#1e73be;"></i>TMS320F28379D</a></li>
+                    <li><a href="products/llmchatbot.html"><i class="fas fa-comments" style="margin-right:8px;color:#1e73be;"></i>Local LLM AI ChatBot</a></li>
+                </ul>
+            </li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="index.html#clients">Clients</a></li>
+            <li class="active"><a href="support.html">Support</a></li>
+            <li><a href="index.html#contact">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+    <div class="container">
+        <h1>Support</h1>
+        <p>Submit tickets, get help, and find resources for your Vi Microsystems products</p>
+        <div class="breadcrumb-nav">
+            <a href="index.html">Home</a><span>›</span> Support
+        </div>
+    </div>
+</div>
+
+<!-- INTRO -->
+<div class="support-intro">
+    <div class="container">
+        <h2>Welcome to the Support Page</h2>
+        <p>Customers who purchased Vi Microsystems products can raise a support ticket related to board demonstration, software setup, and troubleshooting. Our technical team typically responds within 1 business day.</p>
+        <p>You need to first register on this page and log in to submit your support ticket.</p>
+    </div>
+</div>
+
+<!-- LOGIN / REGISTER -->
+<section class="auth-section">
+    <div class="container">
+        <div class="auth-grid">
+
+            <!-- LOG IN -->
+            <div class="auth-box">
+                <h3>Log In</h3>
+                <div class="form-group">
+                    <label>E-mail or Username</label>
+                    <input type="text" placeholder="E-mail or username">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Password">
+                </div>
+                <div class="check-group">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember Me</label>
+                </div>
+                <button class="btn-submit">Log In</button>
+                <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
+
+            <!-- REGISTER -->
+            <div class="auth-box">
+                <h3>Register</h3>
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Password">
+                </div>
+                <div class="check-group">
+                    <input type="checkbox" id="showpass">
+                    <label for="showpass">Show Password</label>
+                </div>
+                <button class="btn-submit">Create Account</button>
+            </div>
+        </div>
+
+        <!-- TICKET FORM -->
+        <div class="ticket-section">
+            <h3><i class="fas fa-ticket-alt" style="margin-right:8px;"></i>Submit a Support Ticket</h3>
+            <p style="font-size:13px;color:#555;margin-bottom:18px;">Please log in first to submit a ticket. Fill in the details below and our team will get back to you.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" placeholder="Full Name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Product</label>
+                    <select>
+                        <option>Select Product</option>
+                        <option>MR Robo ESP32</option>
+                        <option>MR Robo UNO Q</option>
+                        <option>MR Robo Jetson Orin</option>
+                        <option>ASYSTR 3C Cobot</option>
+                        <option>Vi LaN-05 Trainer</option>
+                        <option>TMS320F28379D PWM Controller</option>
+                        <option>Local LLM AI ChatBot</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Issue Type</label>
+                    <select>
+                        <option>Select Issue Type</option>
+                        <option>Hardware Setup</option>
+                        <option>Software Installation</option>
+                        <option>ROS2 / Firmware</option>
+                        <option>Board Demonstration</option>
+                        <option>Troubleshooting</option>
+                        <option>General Enquiry</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Describe Your Issue</label>
+                <textarea placeholder="Please describe the issue in detail — include what you tried, error messages, and your setup..."></textarea>
+            </div>
+            <button class="btn-submit" style="background:#e8720c;">Submit Ticket &rarr;</button>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT & ADDRESS -->
+<section class="about-section">
+    <div class="container">
+        <div class="about-grid">
+
+            <!-- About Us -->
+            <div class="about-box">
+                <h3>About Vi Microsystems</h3>
+                <p>Vi Microsystems Pvt. Ltd. is a pioneer in engineering educational lab equipment in India. Since our founding, we have been committed to delivering high-quality, industry-relevant training platforms to engineering students, research scholars, and industry professionals.</p>
+                <p>Our product range includes advanced robotics platforms (ROS2-based), networking and cyber security trainers, DSP-based power electronics controllers, and edge AI systems. All products are indigenously designed and manufactured in India.</p>
+                <p>Vi Microsystems products are used in over 200+ engineering institutions, IITs, NITs, deemed universities, and industry R&D labs across India and abroad.</p>
+                <div class="cert-badges">
+                    <div class="cert-badge"><i class="fas fa-certificate"></i>ISO Certified — ICI/4144787/24</div>
+                    <div class="cert-badge"><i class="fas fa-flask"></i>DSIR Recognized R&D Unit</div>
+                    <div class="cert-badge"><i class="fas fa-flag"></i>Made in India</div>
+                </div>
+            </div>
+
+            <!-- Address & Contact -->
+            <div class="about-box">
+                <h3>Contact & Address</h3>
+                <ul>
+                    <li>
+                        <i class="fas fa-building"></i>
+                        <span><strong style="color:#fff;">Corporate Office</strong><br>
+                        Vi Microsystems Pvt. Ltd.,<br>
+                        SIDCO Industrial Estate, Perungudi,<br>
+                        Chennai – 600096, Tamil Nadu, India</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <span><strong style="color:#fff;">Phone</strong><br>
+                        +91-44-4859 1234</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span><strong style="color:#fff;">Email</strong><br>
+                        <a href="mailto:info@vimicrosystem.com" style="color:#e8720c;">info@vimicrosystem.com</a></span>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <span><strong style="color:#fff;">Working Hours</strong><br>
+                        Monday – Saturday: 9:00 AM – 6:00 PM<br>
+                        Sunday: Closed</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span><strong style="color:#fff;">Location</strong><br>
+                        Perungudi, Chennai, Tamil Nadu – 600096</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GOOGLE MAPS -->
+<div style="width:100%;border-top:4px solid #1e73be;">
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.1!2d80.2437!3d12.9716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525d4e6e7b9a6f%3A0x1234567890abcdef!2sPerungudi%2C%20Chennai%2C%20Tamil%20Nadu%20600096!5e0!3m2!1sen!2sin!4v1234567890"
+        width="100%" height="350" style="border:0;display:block;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-about">
+                <h3>Vi Microsystems Pvt Ltd</h3>
+                <p>Pioneer in engineering educational lab equipment. Robotics platforms, networking trainers, embedded systems kits, and DSP controllers for students and researchers across India.</p>
+                <p style="color:#777;font-size:12px;"><strong style="color:#aaa;">ISO:</strong> ICI/4144787/24 &nbsp;|&nbsp; <strong style="color:#aaa;">DSIR Recognized R&D</strong></p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Products</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="index.html#clients">Clients</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="index.html#contact">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-links footer-contact">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-building"></i><span>Vi Microsystems Pvt. Ltd., SIDCO Industrial Estate, Perungudi, Chennai – 600096</span></p>
+                <p><i class="fas fa-envelope"></i><a href="mailto:info@vimicrosystem.com">info@vimicrosystem.com</a></p>
+                <p><i class="fas fa-phone"></i><span>+91-44-4859 1234</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">© 2026 Vi Microsystems Pvt Ltd. All Rights Reserved.</div>
+    </div>
+</footer>
+
+</body>
+</html>
