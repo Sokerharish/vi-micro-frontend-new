@@ -252,18 +252,17 @@
         }
         .product-card-desc a:hover { background: #e8720c; color: #fff; }
 
-        .product-card-actions { display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap; align-items: center; }
-        .pc-add-cart-btn {
+        .product-card-actions { display: flex; margin-top: 8px; }
+        .pc-more-btn {
             display: inline-flex; align-items: center; gap: 6px;
-            background: #28a745; color: #fff;
+            background: #fff; color: #222;
             font-family: 'Montserrat', sans-serif;
             font-size: 11px; font-weight: 800;
-            padding: 8px 16px; border-radius: 3px; border: none;
+            padding: 10px 20px; border-radius: 3px; border: none;
             text-transform: uppercase; letter-spacing: 0.5px;
-            cursor: pointer; transition: background 0.2s;
+            cursor: pointer; transition: background 0.2s, color 0.2s;
         }
-        .pc-add-cart-btn:hover { background: #218838; }
-        .pc-add-cart-btn.added { background: #1e73be; }
+        .pc-more-btn:hover { background: #1a1a1a; color: #fff; }
 
         .more-link { display: inline-block; color: #e8720c; font-size: 13px; font-weight: 700; border-bottom: 2px solid #e8720c; padding-bottom: 1px; }
         .more-link:hover { color: #c55a00; border-color: #c55a00; }
@@ -379,12 +378,12 @@
         .blog-thumb { height: 195px; overflow: hidden; width: 100%; flex-shrink: 0; }
         .blog-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
         .blog-card-inner:hover .blog-thumb img { transform: scale(1.04); }
-        .blog-body { padding: 20px 18px 24px; text-align: center; display: flex; flex-direction: column; flex: 1; }
-        .blog-body h3 { font-family: 'Open Sans', sans-serif; font-size: 13px; font-weight: 800; color: #111; margin-bottom: 14px; line-height: 1.55; text-transform: uppercase; }
+        .blog-body { padding: 22px 20px 26px; text-align: center; display: flex; flex-direction: column; flex: 1; }
+        .blog-body h3 { font-family: Arial, 'Open Sans', sans-serif; font-size: 15.5px; font-weight: 800; color: #111; margin-bottom: 14px; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.2px; }
         .blog-body h3 a { color: #111; }
         .blog-body h3 a:hover { color: #1e73be; }
-        .blog-body p { font-size: 13.5px; color: #444; line-height: 1.85; margin: 0; text-align: center; flex: 1; }
-        .blog-read-more { color: #1e73be; font-weight: 700; font-size: 13.5px; }
+        .blog-body p { font-size: 14px; color: #444; line-height: 1.85; margin: 0; text-align: center; flex: 1; }
+        .blog-read-more { color: #1e73be; font-weight: 700; font-size: 14px; }
         .blog-read-more:hover { text-decoration: underline; }
         .blog-arrow { position: absolute; top: 42%; transform: translateY(-50%); background: #fff; border: 1px solid #bbb; color: #666; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; cursor: pointer; z-index: 10; transition: background 0.2s, color 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.1); line-height: 1; }
         .blog-arrow:hover { background: #1e73be; color: #fff; border-color: #1e73be; }
@@ -762,7 +761,7 @@
             <div class="product-card-bg"></div>
             <div class="product-card-label">MR ROBO<br>ESP32</div>
             <div class="product-card-img">
-                <img src="robo esp32.png" alt="MR Robo ESP32">
+                <img src="nodemcu_transparent.png" alt="MR Robo ESP32">
             </div>
             <div class="product-card-desc">
                 <p>micro-ROS on ESP32 with BTS7960 motor driver, MPU6050 IMU and dual ultrasonic sensors. Real-time ROS2 robotics development platform.</p>
@@ -775,9 +774,7 @@
                     <li><i class="fas fa-check-circle"></i>Wi-Fi + Bluetooth 4.2 Built-in</li>
                 </ul>
                 <div class="product-card-actions">
-                    <button type="button" class="pc-add-cart-btn" onclick="ViCart.addItem('esp32',1); this.textContent='✓ Added'; this.classList.add('added'); setTimeout(()=>{this.innerHTML='<i class=\'fas fa-cart-plus\'></i> Add to Cart'; this.classList.remove('added');},1800);"><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    <a href="cart.html?added=esp32" style="font-size:11px;color:#fff;opacity:0.85;text-decoration:underline;align-self:center;">View Cart</a>
-                    <a href="products/esp32.html">More Info &rarr;</a>
+                    <a href="products/esp32.html" class="pc-more-btn">More Info &rarr;</a>
                 </div>
             </div>
         </div>
@@ -787,7 +784,7 @@
             <div class="product-card-bg"></div>
             <div class="product-card-label">MR ROBO<br>UNO Q</div>
             <div class="product-card-img">
-                <img src="robo uno.png" alt="MR Robo UNO Q">
+                <img src="robo_uno_transparent.png" alt="MR Robo UNO Q">
             </div>
             <div class="product-card-desc">
                 <p>Qualcomm QRB2210 + STM32U585, dual LiDAR, USB camera, 30Ah battery. Full SLAM and autonomous navigation platform.</p>
@@ -800,9 +797,7 @@
                     <li><i class="fas fa-check-circle"></i>ROS2 Nav2 Autonomous Navigation</li>
                 </ul>
                 <div class="product-card-actions">
-                    <button type="button" class="pc-add-cart-btn" onclick="ViCart.addItem('unoq',1); this.textContent='✓ Added'; this.classList.add('added'); setTimeout(()=>{this.innerHTML='<i class=\'fas fa-cart-plus\'></i> Add to Cart'; this.classList.remove('added');},1800);"><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    <a href="cart.html?added=unoq" style="font-size:11px;color:#fff;opacity:0.85;text-decoration:underline;align-self:center;">View Cart</a>
-                    <a href="products/unoq.html">More Info &rarr;</a>
+                    <a href="products/unoq.html" class="pc-more-btn">More Info &rarr;</a>
                 </div>
             </div>
         </div>
@@ -812,7 +807,7 @@
             <div class="product-card-bg"></div>
             <div class="product-card-label">MR ROBO<br>JETSON ORIN</div>
             <div class="product-card-img">
-                <img src="Screenshot 2026-05-21 114115.png" alt="Jetson Orin">
+                <img src="jetson_orin_transparent_1.png" alt="Jetson Orin">
             </div>
             <div class="product-card-desc">
                 <p>NVIDIA Ampere GPU, 67 INT8 TOPS, 8GB LPDDR5, 512GB NVMe. Run SLAM + AI inference simultaneously at the edge.</p>
@@ -825,9 +820,7 @@
                     <li><i class="fas fa-check-circle"></i>Ubuntu 22.04 + JetPack + ROS2</li>
                 </ul>
                 <div class="product-card-actions">
-                    <button type="button" class="pc-add-cart-btn" onclick="ViCart.addItem('orin',1); this.textContent='✓ Added'; this.classList.add('added'); setTimeout(()=>{this.innerHTML='<i class=\'fas fa-cart-plus\'></i> Add to Cart'; this.classList.remove('added');},1800);"><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    <a href="cart.html?added=orin" style="font-size:11px;color:#fff;opacity:0.85;text-decoration:underline;align-self:center;">View Cart</a>
-                    <a href="products/orin.html">More Info &rarr;</a>
+                    <a href="products/orin.html" class="pc-more-btn">More Info &rarr;</a>
                 </div>
             </div>
         </div>
@@ -850,9 +843,7 @@
                     <li><i class="fas fa-check-circle"></i>ROS2 MoveIt Motion Planning</li>
                 </ul>
                 <div class="product-card-actions">
-                    <button type="button" class="pc-add-cart-btn" onclick="ViCart.addItem('cobot',1); this.textContent='\u2713 Added'; this.classList.add('added'); setTimeout(()=>{this.innerHTML='<i class=\'fas fa-cart-plus\'></i> Add to Cart'; this.classList.remove('added');},1800);"><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    <a href="cart.html?added=cobot" style="font-size:11px;color:#fff;opacity:0.85;text-decoration:underline;align-self:center;">View Cart</a>
-                    <a href="products/cobot.html">More Info &rarr;</a>
+                    <a href="products/cobot.html" class="pc-more-btn">More Info &rarr;</a>
                 </div>
             </div>
         </div>
@@ -875,9 +866,7 @@
                     <li><i class="fas fa-check-circle"></i>Anna University ECE Compatible</li>
                 </ul>
                 <div class="product-card-actions">
-                    <button type="button" class="pc-add-cart-btn" onclick="ViCart.addItem('vilan',1); this.textContent='\u2713 Added'; this.classList.add('added'); setTimeout(()=>{this.innerHTML='<i class=\'fas fa-cart-plus\'></i> Add to Cart'; this.classList.remove('added');},1800);"><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    <a href="cart.html?added=vilan" style="font-size:11px;color:#fff;opacity:0.85;text-decoration:underline;align-self:center;">View Cart</a>
-                    <a href="products/vilan.html">More Info &rarr;</a>
+                    <a href="products/vilan.html" class="pc-more-btn">More Info &rarr;</a>
                 </div>
             </div>
         </div>
@@ -887,7 +876,7 @@
             <div class="product-card-bg"></div>
             <div class="product-card-label">TMS320<br>F28379D</div>
             <div class="product-card-img">
-                <img src="soker5.png" alt="DSP Controller">
+                <img src="soker5_4K.png" alt="DSP Controller">
             </div>
             <div class="product-card-desc">
                 <p>200 MHz dual C28x DSP, 16 HRPWMs. FOC, DTC, Sensorless motor control for PMSM and Induction motors. ₹25,234 + GST</p>
@@ -900,9 +889,7 @@
                     <li><i class="fas fa-check-circle"></i>20×4 LCD + Slide Switches + LEDs</li>
                 </ul>
                 <div class="product-card-actions">
-                    <button type="button" class="pc-add-cart-btn" onclick="ViCart.addItem('dsp379d',1); this.textContent='\u2713 Added'; this.classList.add('added'); setTimeout(()=>{this.innerHTML='<i class=\'fas fa-cart-plus\'></i> Add to Cart'; this.classList.remove('added');},1800);"><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    <a href="cart.html?added=dsp379d" style="font-size:11px;color:#fff;opacity:0.85;text-decoration:underline;align-self:center;">View Cart</a>
-                    <a href="products/dsp379d.html">More Info &rarr;</a>
+                    <a href="products/dsp379d.html" class="pc-more-btn">More Info &rarr;</a>
                 </div>
             </div>
         </div>
@@ -912,7 +899,7 @@
             <div class="product-card-bg"></div>
             <div class="product-card-label">LOCAL LLM<br>AI CHATBOT</div>
             <div class="product-card-img">
-                <img src="SOKER HARISH.jpeg" alt="LLM ChatBot">
+                <img src="chatbot llm.jpg" alt="LLM ChatBot">
             </div>
             <div class="product-card-desc">
                 <p>SmolLM2 + llama.cpp + Flask running fully offline on Arduino UNO Q. No cloud, no API keys. Complete edge AI project.</p>
@@ -925,9 +912,7 @@
                     <li><i class="fas fa-check-circle"></i>OpenAI-Compatible REST API</li>
                 </ul>
                 <div class="product-card-actions">
-                    <button type="button" class="pc-add-cart-btn" onclick="ViCart.addItem('llmchatbot',1); this.textContent='✓ Added'; this.classList.add('added'); setTimeout(()=>{this.innerHTML='<i class=\'fas fa-cart-plus\'></i> Add to Cart'; this.classList.remove('added');},1800);"><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    <a href="cart.html?added=llmchatbot" style="font-size:11px;color:#fff;opacity:0.85;text-decoration:underline;align-self:center;">View Cart</a>
-                    <a href="products/llmchatbot.html">More Info &rarr;</a>
+                    <a href="products/llmchatbot.html" class="pc-more-btn">More Info &rarr;</a>
                 </div>
             </div>
         </div>

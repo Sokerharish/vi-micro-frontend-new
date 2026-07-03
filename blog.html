@@ -38,86 +38,167 @@
         .dropdown li a:hover { background: #f0f6ff; color: #1e73be; padding-left: 26px; }
         .dropdown li:last-child a { border-bottom: none; }
 
-        /* PAGE HERO */
-        .page-hero { background: linear-gradient(120deg, #0a2a5e 0%, #1a4f9e 60%, #2468c8 100%); padding: 50px 0; }
-        .page-hero h1 { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 900; color: #fff; }
-        .page-hero p { color: rgba(255,255,255,0.8); font-size: 14px; margin-top: 8px; }
-        .breadcrumb-nav { margin-top: 12px; font-size: 12px; color: rgba(255,255,255,0.6); }
-        .breadcrumb-nav a { color: rgba(255,255,255,0.8); }
-        .breadcrumb-nav a:hover { color: #fff; }
-        .breadcrumb-nav span { margin: 0 6px; }
+        /* PAGE TITLE (matches allaboutfpga.com plain page header) */
+        .page-hero { background: #fff; padding: 30px 0 10px; border-bottom: 1px solid #eaeaea; }
+        .page-hero h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 42px; font-weight: 400; color: #333; }
+        .page-hero p { display: none; }
+        .breadcrumb-nav { display: none; }
 
-        /* BLOG GRID */
-        .blog-page { padding: 50px 0 70px; }
-        .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        /* BLOG LAYOUT: content + sidebar, like allaboutfpga.com/blog */
+        .blog-page { padding: 40px 0 70px; background: #fff; }
+        .blog-layout { display: grid; grid-template-columns: 2.6fr 1fr; gap: 40px; align-items: start; }
+        .blog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px 28px; }
 
         .blog-card {
-            background: #fff; border-radius: 8px; overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-            transition: transform 0.25s, box-shadow 0.25s;
+            background: #fff; border-radius: 0; overflow: hidden;
             display: flex; flex-direction: column;
         }
-        .blog-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.13); }
 
         .blog-thumb {
-            height: 200px; overflow: hidden;
-            position: relative;
+            height: 220px; overflow: hidden;
+            position: relative; border: 1px solid #e5e5e5;
         }
         .blog-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-        .blog-card:hover .blog-thumb img { transform: scale(1.05); }
+        .blog-card:hover .blog-thumb img { transform: scale(1.04); }
         .blog-thumb .thumb-fallback {
             width: 100%; height: 100%;
             display: flex; align-items: center; justify-content: center;
             font-size: 60px; color: #fff;
         }
-        .blog-cat-tag {
-            position: absolute; top: 14px; left: 14px;
-            background: #e8720c; color: #fff;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 10px; font-weight: 800;
-            letter-spacing: 1px; text-transform: uppercase;
-            padding: 4px 10px; border-radius: 2px;
-        }
+        .blog-cat-tag { display: none; }
 
-        .blog-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
-        .blog-meta { font-size: 11px; color: #aaa; margin-bottom: 10px; display: flex; gap: 14px; }
-        .blog-meta i { color: #1e73be; margin-right: 4px; }
-        .blog-body h2 { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; color: #1e73be; margin-bottom: 10px; line-height: 1.4; }
-        .blog-body h2 a:hover { color: #e8720c; }
-        .blog-body p { font-size: 13px; color: #666; line-height: 1.75; margin-bottom: 16px; flex: 1; }
-        .blog-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid #f0f0f0; }
+        .blog-body { padding: 16px 2px 0; flex: 1; display: flex; flex-direction: column; }
+        .blog-tags-top { margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+        .blog-tags-top span {
+            display: inline-block; background: #6fc36f; color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 11px; font-weight: 700; padding: 4px 9px;
+            border-radius: 2px; letter-spacing: 0.3px;
+        }
+        .blog-tags-top span:nth-child(2) { background: #4aa3c9; }
+        .blog-tags-top span:nth-child(3) { background: #b96fc9; }
+        .blog-tags-top span:nth-child(4) { background: #4aa3c9; }
+        .blog-tags-top span:nth-child(5) { background: #6fc36f; }
+        .blog-meta { font-size: 12px; color: #999; margin-bottom: 8px; }
+        .blog-meta a { color: #4aa3c9; font-weight: 600; }
+        .blog-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: 400; color: #3d3d3d; margin-bottom: 10px; line-height: 1.35; }
+        .blog-body h2 a:hover { color: #4aa3c9; }
+        .blog-body p { font-size: 14.5px; color: #555; line-height: 1.75; margin-bottom: 16px; flex: 1; }
+        .blog-footer { display: block; padding-top: 4px; }
         .read-more-btn {
-            display: inline-block; background: #1e73be; color: #fff;
-            font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 800;
-            padding: 8px 18px; border-radius: 3px; text-transform: uppercase;
-            letter-spacing: 0.5px; transition: background 0.2s;
+            display: inline-block; background: #fff; color: #444;
+            font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
+            padding: 7px 16px; border-radius: 2px;
+            letter-spacing: 0.3px; border: 1px solid #ccc; transition: all 0.2s;
         }
-        .read-more-btn:hover { background: #e8720c; }
-        .blog-tags span {
-            display: inline-block; background: #f0f6ff; color: #1e73be;
-            font-size: 10px; font-weight: 700; padding: 3px 8px;
-            border-radius: 2px; margin-left: 4px;
+        .read-more-btn:hover { background: #4aa3c9; color: #fff; border-color: #4aa3c9; }
+        .blog-tags { margin-top: 12px; font-size: 13px; color: #888; }
+        .blog-tags strong { color: #555; }
+        .blog-tags a { color: #4aa3c9; font-style: italic; }
+        .blog-tags a:hover { text-decoration: underline; }
+
+        /* SIDEBAR */
+        .blog-sidebar { display: flex; flex-direction: column; gap: 30px; }
+        .sidebar-promo {
+            background: #f2f2f2; border-radius: 4px; overflow: hidden;
+            position: relative;
         }
+        .promo-slider { position: relative; width: 100%; }
+        .promo-slide {
+            display: none; text-align: center; padding-bottom: 26px;
+            animation: promoFade 0.4s ease;
+        }
+        .promo-slide.active { display: block; }
+        @keyframes promoFade { from { opacity: 0; } to { opacity: 1; } }
+        .promo-img { width: 100%; height: 170px; display: flex; align-items: center; justify-content: center; font-size: 56px; color: #fff; }
+        .promo-slide .promo-badge {
+            display: inline-block; background: #4aa3c9; color: #fff;
+            font-family: Arial, sans-serif; font-size: 11px; font-weight: 800;
+            letter-spacing: 1px; padding: 6px 16px; border-radius: 14px;
+            margin-top: 18px; text-transform: uppercase;
+        }
+        .promo-slide h3 { font-family: Georgia, serif; font-size: 22px; color: #4aa3c9; margin: 14px 20px 8px; }
+        .promo-slide p { font-size: 13px; color: #555; margin: 0 20px 16px; line-height: 1.6; min-height: 42px; }
+        .promo-slide .promo-btn {
+            display: inline-block; background: #6fc36f; color: #fff;
+            font-family: Arial, sans-serif; font-size: 13px; font-weight: 700;
+            padding: 9px 20px; border-radius: 20px;
+        }
+        .promo-arrow {
+            position: absolute; top: 70px; transform: translateY(-50%);
+            background: rgba(255,255,255,0.85); border: none; color: #333;
+            width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
+            font-size: 12px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15); z-index: 5; transition: background 0.2s;
+        }
+        .promo-arrow:hover { background: #4aa3c9; color: #fff; }
+        .promo-arrow-left { left: 10px; }
+        .promo-arrow-right { right: 10px; }
+        .promo-dots { display: flex; justify-content: center; gap: 6px; padding-bottom: 18px; }
+        .promo-dots span { width: 7px; height: 7px; border-radius: 50%; background: #ccc; cursor: pointer; transition: background 0.2s; }
+        .promo-dots span.active { background: #4aa3c9; }
+        .sidebar-recent h3 {
+            font-family: Georgia, serif; font-size: 20px; font-weight: 400;
+            color: #333; margin-bottom: 16px; padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        .sidebar-recent ul { list-style: none; }
+        .sidebar-recent ul li { margin-bottom: 14px; }
+        .sidebar-recent ul li a { color: #4aa3c9; font-size: 14.5px; line-height: 1.5; font-weight: 600; }
+        .sidebar-recent ul li a:hover { text-decoration: underline; }
 
         /* FOOTER */
-        .site-footer { background: #1a1a1a; padding: 50px 0 0; color: #aaa; font-size: 13px; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .footer-about h3 { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 14px; }
-        .footer-about p { line-height: 1.8; font-size: 12.5px; color: #999; margin-bottom: 12px; }
-        .footer-social { display: flex; gap: 10px; margin-top: 16px; }
-        .footer-social a { width: 34px; height: 34px; background: rgba(255,255,255,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ccc; font-size: 14px; transition: background 0.2s; }
-        .footer-social a:hover { background: #1e73be; color: #fff; }
-        .footer-links h4 { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
-        .footer-links ul { list-style: none; }
-        .footer-links ul li { margin-bottom: 9px; }
-        .footer-links ul li a { color: #999; font-size: 12.5px; }
-        .footer-links ul li a:hover { color: #e8720c; }
-        .footer-contact p { margin-bottom: 10px; font-size: 12.5px; color: #999; display: flex; align-items: flex-start; gap: 8px; }
-        .footer-contact i { color: #e8720c; margin-top: 3px; }
-        .footer-contact a { color: #e8720c; }
-        .footer-bottom { text-align: center; padding: 18px 0; font-size: 12px; color: #555; }
+        .site-footer { background: #ececec; padding: 50px 0 0; color: #555; font-size: 13px; }
+        .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; }
+        .footer-about h3 { font-family: Arial, sans-serif; font-size: 19px; font-weight: 800; color: #222; margin-bottom: 16px; }
+        .footer-about p { line-height: 1.7; font-size: 13.5px; color: #444; margin-bottom: 14px; }
+        .footer-about p strong { color: #222; }
 
-        @media (max-width: 900px) { .blog-grid { grid-template-columns: 1fr 1fr; } }
+        .footer-social-cards { display: flex; flex-direction: column; gap: 14px; }
+        .social-card { background: #fff; border-radius: 4px; padding: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .social-card .sc-thumb { width: 44px; height: 44px; background: #ddd; border-radius: 2px; flex-shrink: 0; overflow: hidden; }
+        .social-card .sc-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .social-card .sc-info { display: flex; flex-direction: column; gap: 6px; }
+        .social-card .sc-info > a.sc-name { font-family: Arial, sans-serif; font-weight: 700; font-size: 14px; color: #1a5fb4; }
+        .sc-btn { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 3px; font-size: 12px; font-weight: 700; color: #fff; width: fit-content; }
+        .sc-btn.fb { background: #1877f2; }
+        .sc-btn.yt { background: #ff0000; }
+        .sc-followers { font-size: 11.5px; color: #777; }
+
+        .footer-social-icons { display: flex; gap: 10px; margin-top: 16px; }
+        .footer-social-icons a { width: 32px; height: 32px; background: #d8d8d8; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #555; font-size: 13px; transition: background 0.2s, color 0.2s; }
+        .footer-social-icons a:hover { background: #1a5fb4; color: #fff; }
+
+        .footer-newsletter h3 { font-family: Arial, sans-serif; font-size: 19px; font-weight: 800; color: #222; margin-bottom: 16px; line-height: 1.35; }
+        .newsletter-input { width: 100%; padding: 12px 14px; border: none; border-radius: 3px; font-size: 13px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .notify-btn { display: inline-block; background: #1a1a1a; color: #fff; font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; padding: 11px 26px; border-radius: 22px; border: none; cursor: pointer; margin-bottom: 20px; }
+        .notify-btn:hover { background: #333; }
+        .payment-icons { display: flex; gap: 8px; }
+        .payment-icons span { display: inline-flex; align-items: center; justify-content: center; height: 26px; padding: 0 10px; border-radius: 3px; font-size: 10.5px; font-weight: 800; color: #fff; font-style: italic; font-family: Georgia, serif; }
+        .payment-icons .pp { background: #003087; }
+        .payment-icons .mc { background: #eee; width: 26px; padding: 0; }
+        .payment-icons .mc::before { content: ''; display: block; width: 12px; height: 12px; border-radius: 50%; background: #eb001b; box-shadow: 6px 0 0 #f79e1b; opacity: 0.9; }
+        .payment-icons .vi { background: #1a1f71; }
+        .payment-icons .ax { background: #2e77bc; }
+
+        .footer-madein { background: #1a1a1a; color: #fff; border-radius: 4px; display: flex; align-items: center; gap: 12px; padding: 14px; margin-bottom: 24px; }
+        .footer-madein .flag { width: 44px; height: 30px; border-radius: 2px; background: linear-gradient(#ff9933 0 33%, #fff 33% 66%, #138808 66% 100%); position: relative; flex-shrink: 0; }
+        .footer-madein .flag::after { content:''; position:absolute; top:50%; left:50%; width:8px; height:8px; border:1.5px solid #000088; border-radius:50%; transform:translate(-50%,-50%); }
+        .footer-madein .mi-text { font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; line-height: 1.4; }
+        .footer-madein .mi-text strong { display: block; font-size: 15px; }
+        .footer-contact-block h4 { font-family: Arial, sans-serif; font-size: 15px; font-weight: 800; color: #222; margin-bottom: 12px; }
+        .footer-contact-block p { font-size: 13px; color: #444; line-height: 1.6; margin-bottom: 12px; }
+        .footer-contact-block strong { color: #222; }
+        .footer-contact-block a { color: #1a5fb4; }
+        .footer-contact-block a:hover { text-decoration: underline; }
+
+        .footer-bottom { background: #1a1a1a; text-align: center; padding: 18px 0; font-size: 13px; color: #ccc; margin-top: 10px; }
+        .footer-bottom .bottom-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 10px; flex-wrap: wrap; }
+        .footer-bottom .bottom-links a { color: #eee; font-size: 13px; }
+        .footer-bottom .bottom-links a:hover { color: #4aa3c9; }
+        .footer-bottom .copyright { color: #888; font-size: 12px; }
+
+        @media (max-width: 900px) { .blog-layout { grid-template-columns: 1fr; } .blog-grid { grid-template-columns: 1fr 1fr; } .footer-grid { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 600px) { .blog-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -183,24 +264,25 @@
 <!-- BLOG GRID -->
 <section class="blog-page">
     <div class="container">
+        <div class="blog-layout">
         <div class="blog-grid">
 
             <!-- Blog 1 -->
             <div class="blog-card">
                 <div class="blog-thumb" style="background:linear-gradient(135deg,#0d5c30,#25b060);">
-                    <div class="thumb-fallback"><i class="fas fa-robot"></i></div>
+                    <img src="nodemcu_transparent.png" alt="MR Robo ESP32 Kit">
                     <span class="blog-cat-tag">Robotics</span>
                 </div>
                 <div class="blog-body">
+                    <div class="blog-tags-top"><span>ROS2</span><span>ESP32</span><span>Robotics Tutorial</span></div>
                     <div class="blog-meta">
-                        <span><i class="far fa-calendar"></i> June 2026</span>
-                        <span><i class="far fa-user"></i> Vi Team</span>
+                        BY <a href="#">VI TEAM</a> / <span><i class="far fa-calendar"></i> June 2026</span>
                     </div>
                     <h2><a href="blog/blog1.html">Getting Started with micro-ROS on ESP32 for Autonomous Navigation</a></h2>
                     <p>Learn how to flash micro-ROS firmware on the ESP32, set up the XRCE-DDS agent on a Raspberry Pi or PC, and start publishing IMU and ultrasonic sensor data as ROS2 topics. Covers full wiring, code walkthrough, and RViz2 visualization.</p>
                     <div class="blog-footer">
                         <a href="blog/blog1.html" class="read-more-btn">Read More</a>
-                        <div class="blog-tags"><span>ROS2</span><span>ESP32</span></div>
+                        <div class="blog-tags"><strong>Tags:</strong> <a href="#">ROS2 Tutorial</a>, <a href="#">micro-ROS</a></div>
                     </div>
                 </div>
             </div>
@@ -208,19 +290,19 @@
             <!-- Blog 2 -->
             <div class="blog-card">
                 <div class="blog-thumb" style="background:linear-gradient(135deg,#3a2a0a,#b88a28);">
-                    <div class="thumb-fallback"><i class="fas fa-comments"></i></div>
+                    <img src="chatbot llm.jpg" alt="AI Chatbot on Arduino UNO Q">
                     <span class="blog-cat-tag">Edge AI</span>
                 </div>
                 <div class="blog-body">
+                    <div class="blog-tags-top"><span>LLM</span><span>UNO Q</span><span>Edge AI Tutorial</span></div>
                     <div class="blog-meta">
-                        <span><i class="far fa-calendar"></i> June 2026</span>
-                        <span><i class="far fa-user"></i> Vi Team</span>
+                        BY <a href="#">VI TEAM</a> / <span><i class="far fa-calendar"></i> June 2026</span>
                     </div>
                     <h2><a href="blog/blog2.html">Build an Offline AI Chatbot on Arduino UNO Q using SmolLM2 + llama.cpp</a></h2>
                     <p>Run a fully local LLM with no cloud and no API keys. Complete step-by-step guide to building llama.cpp from source, downloading the SmolLM2-360M GGUF model, and launching a Flask web chat UI on the Arduino UNO Q SBC.</p>
                     <div class="blog-footer">
                         <a href="blog/blog2.html" class="read-more-btn">Read More</a>
-                        <div class="blog-tags"><span>LLM</span><span>UNO Q</span></div>
+                        <div class="blog-tags"><strong>Tags:</strong> <a href="#">LLM Tutorial</a>, <a href="#">llama.cpp</a></div>
                     </div>
                 </div>
             </div>
@@ -232,15 +314,15 @@
                     <span class="blog-cat-tag">Networking</span>
                 </div>
                 <div class="blog-body">
+                    <div class="blog-tags-top"><span>AES</span><span>RSA</span><span>Cyber Security</span></div>
                     <div class="blog-meta">
-                        <span><i class="far fa-calendar"></i> May 2026</span>
-                        <span><i class="far fa-user"></i> Vi Team</span>
+                        BY <a href="#">VI TEAM</a> / <span><i class="far fa-calendar"></i> May 2026</span>
                     </div>
                     <h2><a href="blog/blog3.html">Implementing AES and RSA on the Vi LaN-05 Cyber Security Trainer</a></h2>
                     <p>Hands-on walkthrough of Experiments 22–25 from the Vi LaN-05 trainer. Covers AES block cipher, RSA public-key encryption, and Diffie-Hellman key exchange implemented in Python and tested live on the trainer hardware.</p>
                     <div class="blog-footer">
                         <a href="blog/blog3.html" class="read-more-btn">Read More</a>
-                        <div class="blog-tags"><span>AES</span><span>RSA</span></div>
+                        <div class="blog-tags"><strong>Tags:</strong> <a href="#">Cyber Security Tutorial</a>, <a href="#">Cryptography</a></div>
                     </div>
                 </div>
             </div>
@@ -248,19 +330,19 @@
             <!-- Blog 4 -->
             <div class="blog-card">
                 <div class="blog-thumb" style="background:linear-gradient(135deg,#3a0a5e,#8a28c8);">
-                    <div class="thumb-fallback"><i class="fas fa-brain"></i></div>
+                    <img src="jetson_orin_transparent_1.png" alt="Jetson Orin Nano">
                     <span class="blog-cat-tag">AI / Vision</span>
                 </div>
                 <div class="blog-body">
+                    <div class="blog-tags-top"><span>YOLO</span><span>Orin</span><span>AI Vision Tutorial</span></div>
                     <div class="blog-meta">
-                        <span><i class="far fa-calendar"></i> May 2026</span>
-                        <span><i class="far fa-user"></i> Vi Team</span>
+                        BY <a href="#">VI TEAM</a> / <span><i class="far fa-calendar"></i> May 2026</span>
                     </div>
                     <h2><a href="blog/blog4.html">Running YOLOv8 with TensorRT on Jetson Orin Nano — Real-Time Object Detection</a></h2>
                     <p>Convert a YOLOv8 model to TensorRT engine format, deploy it on the Jetson Orin Nano Super, and stream detection results as ROS2 topics. Achieve 30+ FPS on the Ampere GPU with full ROS2 integration and RViz2 visualization.</p>
                     <div class="blog-footer">
                         <a href="blog/blog4.html" class="read-more-btn">Read More</a>
-                        <div class="blog-tags"><span>YOLO</span><span>Orin</span></div>
+                        <div class="blog-tags"><strong>Tags:</strong> <a href="#">Jetson Tutorial</a>, <a href="#">TensorRT</a></div>
                     </div>
                 </div>
             </div>
@@ -268,19 +350,19 @@
             <!-- Blog 5 -->
             <div class="blog-card">
                 <div class="blog-thumb" style="background:linear-gradient(135deg,#1a3a0a,#5a9a28);">
-                    <div class="thumb-fallback"><i class="fas fa-wave-square"></i></div>
+                    <img src="soker5_4K.png" alt="TMS320F28379D DSP Controller">
                     <span class="blog-cat-tag">Power Electronics</span>
                 </div>
                 <div class="blog-body">
+                    <div class="blog-tags-top"><span>FOC</span><span>DSP</span><span>Power Electronics</span></div>
                     <div class="blog-meta">
-                        <span><i class="far fa-calendar"></i> April 2026</span>
-                        <span><i class="far fa-user"></i> Vi Team</span>
+                        BY <a href="#">VI TEAM</a> / <span><i class="far fa-calendar"></i> April 2026</span>
                     </div>
                     <h2><a href="blog/blog5.html">FOC Implementation for PMSM on TMS320F28379D — From Theory to Code</a></h2>
                     <p>Field-Oriented Control (FOC) step-by-step on the TMS320F28379D. Covers Clarke and Park transforms, PI current controllers, SVPWM generation, encoder feedback, and real-time tuning using CCS Watch expressions and oscilloscope probing.</p>
                     <div class="blog-footer">
                         <a href="blog/blog5.html" class="read-more-btn">Read More</a>
-                        <div class="blog-tags"><span>FOC</span><span>DSP</span></div>
+                        <div class="blog-tags"><strong>Tags:</strong> <a href="#">DSP Tutorial</a>, <a href="#">Motor Control</a></div>
                     </div>
                 </div>
             </div>
@@ -292,19 +374,90 @@
                     <span class="blog-cat-tag">Robotics</span>
                 </div>
                 <div class="blog-body">
+                    <div class="blog-tags-top"><span>ROS2</span><span>ESP32</span><span>Robotics Tutorial</span></div>
                     <div class="blog-meta">
-                        <span><i class="far fa-calendar"></i> April 2026</span>
-                        <span><i class="far fa-user"></i> Vi Team</span>
+                        BY <a href="#">VI TEAM</a> / <span><i class="far fa-calendar"></i> April 2026</span>
                     </div>
                     <h2><a href="blog/blog6.html">ASYSTR 3C Cobot — Pick and Place Automation with ROS2 MoveIt</a></h2>
                     <p>Program the ASYSTR 3C cobot for a pick-and-place task using ROS2 MoveIt motion planning. Covers URDF setup, collision objects, trajectory planning, and gripper control with force feedback monitoring for safe collaborative operation.</p>
                     <div class="blog-footer">
                         <a href="blog/blog6.html" class="read-more-btn">Read More</a>
-                        <div class="blog-tags"><span>MoveIt</span><span>Cobot</span></div>
+                        <div class="blog-tags"><strong>Tags:</strong> <a href="#">ROS2 Tutorial</a>, <a href="#">micro-ROS</a></div>
                     </div>
                 </div>
             </div>
 
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside class="blog-sidebar">
+            <div class="sidebar-promo">
+                <div class="promo-slider" id="promoSlider">
+
+                    <div class="promo-slide active">
+                        <div class="promo-img" style="background:linear-gradient(135deg,#0d5c30,#25b060);"><img src="nodemcu_transparent.png" alt="MR Robo ESP32 Kit" style="width:auto;height:100%;object-fit:contain;"></div>
+                        <span class="promo-badge">Hottest Product</span>
+                        <h3>MR Robo ESP32 Kit</h3>
+                        <p>Low Cost and Feature Packed Robotics Development Kit for Beginners.</p>
+                        <a href="blog/blog1.html" class="promo-btn">More info &gt;</a>
+                    </div>
+
+                    <div class="promo-slide">
+                        <div class="promo-img" style="background:linear-gradient(135deg,#3a2a0a,#b88a28);"><img src="robo_uno_transparent.png" alt="Arduino UNO Q" style="width:auto;height:100%;object-fit:contain;"></div>
+                        <span class="promo-badge">Hottest Product</span>
+                        <h3>Arduino UNO Q</h3>
+                        <p>Run Local LLMs Offline — No Cloud, No API Keys, Full Edge AI Control.</p>
+                        <a href="blog/blog2.html" class="promo-btn">More info &gt;</a>
+                    </div>
+
+                    <div class="promo-slide">
+                        <div class="promo-img" style="background:linear-gradient(135deg,#0a4a5e,#28a0b4);"><i class="fas fa-network-wired"></i></div>
+                        <span class="promo-badge">Hottest Product</span>
+                        <h3>Vi LaN-05 Trainer</h3>
+                        <p>Cyber Security Trainer Kit covering AES, RSA and Diffie-Hellman.</p>
+                        <a href="blog/blog3.html" class="promo-btn">More info &gt;</a>
+                    </div>
+
+                    <div class="promo-slide">
+                        <div class="promo-img" style="background:linear-gradient(135deg,#3a0a5e,#8a28c8);"><img src="jetson_orin_transparent_1.png" alt="Jetson Orin Nano" style="width:auto;height:100%;object-fit:contain;"></div>
+                        <span class="promo-badge">Hottest Product</span>
+                        <h3>MR Robo Jetson Orin</h3>
+                        <p>Real-Time Object Detection with YOLOv8, TensorRT and ROS2.</p>
+                        <a href="blog/blog4.html" class="promo-btn">More info &gt;</a>
+                    </div>
+
+                    <div class="promo-slide">
+                        <div class="promo-img" style="background:linear-gradient(135deg,#1a3a0a,#5a9a28);"><img src="soker5_4K.png" alt="TMS320F28379D DSP Controller" style="width:auto;height:100%;object-fit:contain;"></div>
+                        <span class="promo-badge">Hottest Product</span>
+                        <h3>TMS320F28379D</h3>
+                        <p>DSP Controller for Field-Oriented Motor Control Applications.</p>
+                        <a href="blog/blog5.html" class="promo-btn">More info &gt;</a>
+                    </div>
+
+                    <div class="promo-slide">
+                        <div class="promo-img" style="background:linear-gradient(135deg,#5e1a0a,#c85828);"><i class="fas fa-cogs"></i></div>
+                        <span class="promo-badge">Hottest Product</span>
+                        <h3>ASYSTR 3C Cobot</h3>
+                        <p>Pick and Place Automation with ROS2 MoveIt Motion Planning.</p>
+                        <a href="blog/blog6.html" class="promo-btn">More info &gt;</a>
+                    </div>
+
+                </div>
+                <button class="promo-arrow promo-arrow-left" onclick="promoMove(-1)" aria-label="Previous">&#10094;</button>
+                <button class="promo-arrow promo-arrow-right" onclick="promoMove(1)" aria-label="Next">&#10095;</button>
+                <div class="promo-dots" id="promoDots"></div>
+            </div>
+            <div class="sidebar-recent">
+                <h3>Recent Posts</h3>
+                <ul>
+                    <li><a href="blog/blog1.html">Getting Started with micro-ROS on ESP32 for Autonomous Navigation</a></li>
+                    <li><a href="blog/blog2.html">Build an Offline AI Chatbot on Arduino UNO Q using SmolLM2 + llama.cpp</a></li>
+                    <li><a href="blog/blog3.html">Implementing AES and RSA on the Vi LaN-05 Cyber Security Trainer</a></li>
+                    <li><a href="blog/blog4.html">Running YOLOv8 with TensorRT on Jetson Orin Nano</a></li>
+                    <li><a href="blog/blog5.html">FOC Implementation for PMSM on TMS320F28379D</a></li>
+                </ul>
+            </div>
+        </aside>
         </div>
     </div>
 </section>
@@ -313,40 +466,112 @@
 <footer class="site-footer" id="contact">
     <div class="container">
         <div class="footer-grid">
+
+            <!-- Column 1: About Us -->
             <div class="footer-about">
-                <h3>About Vi Microsystems</h3>
-                <p>Vi Microsystems Pvt. Ltd. is a pioneer in engineering educational lab equipment. We manufacture high-quality robotics platforms, networking trainers, embedded systems kits, and DSP controllers for students, research scholars, and engineers across India.</p>
-                <p style="color:#777;font-size:12px;"><strong style="color:#aaa;">ISO Certificate No.:</strong> ICI/4144787/24 &nbsp;|&nbsp; <strong style="color:#aaa;">DSIR Recognized R&D Unit</strong></p>
-                <div class="footer-social">
+                <h3>About Us</h3>
+                <p><strong>Vi Microsystems</strong> is the manufacturer of high-quality and reliable engineering educational lab equipment. Our kits are feature-rich development platforms with the best documentation and support. We aim to offer the best robotics, networking, and embedded systems learning platform to students, research scholars, and young engineers.</p>
+                <p><strong>ISO Certificate No.:</strong> ICI/4144787/24 &nbsp;|&nbsp; <strong>DSIR Recognized R&D Unit</strong></p>
+            </div>
+
+            <!-- Column 2: Social follow cards -->
+            <div class="footer-social-cards">
+                <div class="social-card">
+                    <div class="sc-thumb"><img src="logo.png" alt="Vi Microsystems" onerror="this.parentElement.style.background='#1a5fb4';"></div>
+                    <div class="sc-info">
+                        <a href="#" class="sc-name">Vi Microsystems</a>
+                        <a href="#" class="sc-btn fb"><i class="fab fa-facebook-f"></i> Follow Page</a>
+                        <span class="sc-followers">4.1K followers</span>
+                    </div>
+                </div>
+                <div class="social-card">
+                    <div class="sc-thumb"><img src="logo.png" alt="Vi Microsystems" onerror="this.parentElement.style.background='#1a5fb4';"></div>
+                    <div class="sc-info">
+                        <a href="#" class="sc-name">Vi Microsystems</a>
+                        <a href="#" class="sc-btn yt"><i class="fab fa-youtube"></i> YouTube</a>
+                        <span class="sc-followers">1K followers</span>
+                    </div>
+                </div>
+                <div class="footer-social-icons">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="mailto:info@vimicrosystem.com"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#products">Products</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="index.html#clients">Clients</a></li>
-                    <li><a href="support.html">Support</a></li>
-                    <li><a href="index.html#contact">Contact Us</a></li>
-                </ul>
+
+            <!-- Column 3: Newsletter -->
+            <div class="footer-newsletter">
+                <h3>Get Notified on New Products and Tutorials!</h3>
+                <input type="email" class="newsletter-input" placeholder="Email Address">
+                <br>
+                <button type="button" class="notify-btn">Notify Me</button>
+                <div class="payment-icons">
+                    <span class="pp">PayPal</span>
+                    <span class="mc"></span>
+                    <span class="vi">VISA</span>
+                    <span class="ax">AMEX</span>
+                </div>
             </div>
-            <div class="footer-links footer-contact">
-                <h4>Contact Us</h4>
-                <p><i class="fas fa-building"></i><span>Vi Microsystems Pvt. Ltd., SIDCO Industrial Estate, Perungudi, Chennai – 600096</span></p>
-                <p><i class="fas fa-envelope"></i><a href="mailto:info@vimicrosystem.com">info@vimicrosystem.com</a></p>
-                <p><i class="fas fa-phone"></i><span>+91-44-4859 1234</span></p>
+
+            <!-- Column 4: Made in India + Contact -->
+            <div class="footer-contact-block">
+                <div class="footer-madein">
+                    <div class="flag"></div>
+                    <div class="mi-text">MADE IN<strong>INDIA</strong></div>
+                </div>
+                <h4>VI MICROSYSTEMS PVT LTD</h4>
+                <p>SIDCO Industrial Estate,<br>Perungudi,<br>Chennai, Tamil Nadu, India – 600096</p>
+                <p><strong>Email:</strong> <a href="mailto:info@vimicrosystem.com">info@vimicrosystem.com</a></p>
+                <p><strong>Phone:</strong> <a href="tel:+914448591234">+91-44-4859 1234</a></p>
             </div>
+
         </div>
     </div>
     <div class="footer-bottom">
-        <div class="container">© 2026 Vi Microsystems Pvt Ltd. All Rights Reserved.</div>
+        <div class="bottom-links">
+            <a href="account.html">My account</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="return-refund-policy.html">Return and Refund Policy</a>
+            <a href="shipping-policy.html">Shipping Policy</a>
+        </div>
+        <div class="copyright">© 2026 &bull; VI MICROSYSTEMS</div>
     </div>
 </footer>
+
+<script>
+(function(){
+    var slides = document.querySelectorAll('#promoSlider .promo-slide');
+    var dotsWrap = document.getElementById('promoDots');
+    var current = 0;
+    var timer;
+
+    slides.forEach(function(_, i){
+        var dot = document.createElement('span');
+        if (i === 0) dot.className = 'active';
+        dot.addEventListener('click', function(){ goTo(i); resetTimer(); });
+        dotsWrap.appendChild(dot);
+    });
+    var dots = dotsWrap.querySelectorAll('span');
+
+    function goTo(index){
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+    }
+
+    window.promoMove = function(dir){ goTo(current + dir); resetTimer(); };
+
+    function resetTimer(){
+        clearInterval(timer);
+        timer = setInterval(function(){ goTo(current + 1); }, 4000);
+    }
+    resetTimer();
+})();
+</script>
 
 </body>
 </html>
