@@ -367,25 +367,26 @@
         /* ===== BLOG ===== */
         /* ===== BLOG SLIDER — exact allaboutfpga.com ===== */
         .blog-section { padding: 60px 0 70px; background: #f0f0f0; }
+        .blog-section .container { max-width: 100%; padding: 0 60px; }
         .blog-section .section-title { text-align: center; font-family: 'Open Sans', sans-serif; font-size: 24px; font-weight: 400; letter-spacing: 3px; color: #222; text-transform: uppercase; }
         .blog-section .section-title::after { display: none; }
         .blog-slider-wrapper { position: relative; margin-top: 40px; }
         .blog-slider-track-outer { overflow: hidden; width: 100%; }
         .blog-slider-track { display: flex; flex-wrap: nowrap; transition: transform 0.45s ease; will-change: transform; }
-        .blog-card { width: 25%; min-width: 25%; flex: 0 0 25%; background: transparent; box-sizing: border-box; padding: 0 10px; display: flex; flex-direction: column; }
+        .blog-card { width: 25%; min-width: 25%; flex: 0 0 25%; background: transparent; box-sizing: border-box; padding: 0 14px; display: flex; flex-direction: column; }
         .blog-card-inner { background: #fff; border: 1px solid #e0e0e0; display: flex; flex-direction: column; height: 100%; transition: box-shadow 0.2s; }
         .blog-card-inner:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
-        .blog-thumb { height: 195px; overflow: hidden; width: 100%; flex-shrink: 0; }
+        .blog-thumb { height: 260px; overflow: hidden; width: 100%; flex-shrink: 0; }
         .blog-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
         .blog-card-inner:hover .blog-thumb img { transform: scale(1.04); }
-        .blog-body { padding: 22px 20px 26px; text-align: center; display: flex; flex-direction: column; flex: 1; }
-        .blog-body h3 { font-family: Arial, 'Open Sans', sans-serif; font-size: 15.5px; font-weight: 800; color: #111; margin-bottom: 14px; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.2px; }
-        .blog-body h3 a { color: #111; }
+        .blog-body { padding: 26px 26px 30px; text-align: left; display: flex; flex-direction: column; flex: 1; }
+        .blog-body h3 { font-family: Arial, 'Open Sans', sans-serif; font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 16px; line-height: 1.45; text-transform: uppercase; letter-spacing: 0.1px; text-align: left; }
+        .blog-body h3 a { color: #1a1a1a; }
         .blog-body h3 a:hover { color: #1e73be; }
-        .blog-body p { font-size: 14px; color: #444; line-height: 1.85; margin: 0; text-align: center; flex: 1; }
-        .blog-read-more { color: #1e73be; font-weight: 700; font-size: 14px; }
+        .blog-body p { font-size: 15px; color: #555; line-height: 1.85; margin: 0; text-align: left; flex: 1; }
+        .blog-read-more { color: #1e73be; font-weight: 700; font-size: 15px; }
         .blog-read-more:hover { text-decoration: underline; }
-        .blog-arrow { position: absolute; top: 42%; transform: translateY(-50%); background: #fff; border: 1px solid #bbb; color: #666; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; cursor: pointer; z-index: 10; transition: background 0.2s, color 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.1); line-height: 1; }
+        .blog-arrow { position: absolute; top: 42%; transform: translateY(-50%); background: #fff; border: 1px solid #bbb; color: #666; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; cursor: pointer; z-index: 10; transition: background 0.2s, color 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.1); line-height: 1; }
         .blog-arrow:hover { background: #1e73be; color: #fff; border-color: #1e73be; }
         .blog-arrow.prev { left: -20px; }
         .blog-arrow.next { right: -20px; }

@@ -104,6 +104,9 @@
             margin: 14px 0;
             letter-spacing: 1px;
         }
+        .doc-figure { background: #f9fafc; border: 1px solid #e2e8f5; border-radius: 8px; padding: 16px; text-align: center; margin: 18px 0; }
+        .doc-figure img { max-width: 100%; height: auto; border-radius: 6px; }
+        .doc-figure figcaption { font-size: 12px; color: #888; margin-top: 10px; font-style: italic; }
 
         .product-sidebar { position: sticky; top: 76px; }
         .product-img-box { background: #f5f8ff; border: 1px solid #dde6f5; border-radius: 8px; padding: 24px; text-align: center; margin-bottom: 20px; }
@@ -334,6 +337,17 @@
 
                 <p>The MR Robo ESP32 brings ROS2 to microcontrollers via <strong>micro-ROS</strong>. The ESP32 runs micro-ROS firmware and interfaces with motor drivers, IMU, and proximity sensors — communicating with a full ROS2 host (Jetson / PC) over USB Serial XRCE-DDS protocol. The result is a low-cost, capable autonomous robot platform built for real embedded robotics development.</p>
 
+                <h2>Robot Operating System (ROS)</h2>
+                <p>The Robot Operating System (ROS) is an open-source robotics middleware framework that provides a collection of software libraries and tools for developing robotic applications. Although ROS is called an "operating system," it is not a traditional operating system. Instead, it acts as a software framework that simplifies the development, integration, and management of complex robotic systems.</p>
+                <p>ROS provides essential functionalities such as hardware abstraction, low-level device control, package management, inter-process communication, and implementation of commonly used robotic algorithms. It follows a modular architecture in which individual processes, called nodes, communicate with each other through message passing. These nodes can perform tasks such as sensor data acquisition, motion control, perception, planning, mapping, and actuator control.</p>
+                <p>One of the major strengths of ROS is its extensive ecosystem of reusable software packages. These include hardware drivers, robot models, simulation environments, path-planning algorithms, perception systems, and Simultaneous Localization and Mapping (SLAM) solutions. ROS also includes powerful development and debugging tools, making it widely used in robotics research and prototyping.</p>
+                <p>ROS is mainly designed for Unix-like operating systems, especially Ubuntu Linux, which is officially supported. While ROS provides flexibility and modularity, the original ROS architecture has limitations in areas such as real-time communication, scalability, reliability, and security.</p>
+
+                <figure class="doc-figure">
+                    <img src="docimg/image1.png" alt="Robot Operating System overview">
+                    <figcaption>Robot Operating System (ROS) — Overview</figcaption>
+                </figure>
+
                 <h2>System Architecture</h2>
                 <div class="arch-box">
                     ESP32 (micro-ROS) &nbsp;→&nbsp; USB Serial &nbsp;→&nbsp; micro-ROS Agent &nbsp;→&nbsp; ROS2 Host (Jetson / PC)
@@ -341,9 +355,44 @@
 
                 <h2>What is micro-ROS?</h2>
                 <p>micro-ROS is a lightweight version of ROS2 designed for microcontrollers. Unlike standard ROS2 that runs on Linux-capable SBCs, micro-ROS lets the ESP32 participate directly in a ROS2 network — publishing topics, subscribing to commands, and interfacing with hardware peripherals in real time.</p>
+                <p>micro-ROS is a lightweight version of ROS 2 designed specifically for microcontrollers and resource-constrained embedded systems. It extends the capabilities of ROS 2 to low-power devices such as ESP32, STM32, RP2040, and other microcontroller platforms, enabling them to participate directly in a ROS 2 robotic network.</p>
+                <p>Unlike a standard ROS 2 system that typically runs on high-performance computers like PCs or Raspberry Pi boards, micro-ROS allows small embedded controllers to function as intelligent ROS 2 nodes. This makes it possible to perform real-time hardware interfacing, sensor acquisition, actuator control, and low-level robotic operations directly on microcontrollers.</p>
 
-                <h2>ESP32 Development Board — Features</h2>
+                <figure class="doc-figure">
+                    <img src="docimg/image2.png" alt="micro-ROS on ESP32 architecture">
+                    <figcaption>micro-ROS on ESP32 — Communication Architecture</figcaption>
+                </figure>
+
+                <h2>micro-ROS on ESP32 — System Details</h2>
+                <p>In this system, the ESP32 acts as the main embedded controller running micro-ROS firmware. It interfaces with multiple hardware peripherals including motor drivers, sensors, and battery monitoring circuits while communicating with the main ROS 2 ecosystem through USB serial.</p>
+                <p>The ESP32 is connected to a BTS7960 high-current motor driver module for controlling DC motors. Using PWM signals generated by the ESP32, the system can control motor direction, speed, and braking functions efficiently. The motor commands received from the ROS 2 network are processed by the ESP32 and translated into real-time motor control signals for robotic movement.</p>
+                <p>An MPU6050 inertial measurement unit (IMU) is connected through the I2C interface to provide acceleration and gyroscope data. This sensor enables orientation tracking, motion detection, tilt estimation, and stabilization functionalities for the robot. The ESP32 continuously reads IMU data and publishes it as ROS 2 topics through micro-ROS.</p>
+                <p>The system also includes battery voltage monitoring and State of Charge (SoC) estimation. The ESP32 reads the battery voltage using its internal Analog-to-Digital Converter (ADC) through a voltage divider circuit. Based on the measured voltage and battery characteristics, the controller estimates the remaining battery percentage and publishes the information to ROS 2 for power management and monitoring.</p>
+                <p>Additionally, two ultrasonic sensors are integrated for obstacle detection and distance measurement. These sensors help the robot detect nearby objects and avoid collisions during navigation. The ESP32 processes the distance measurements and sends the sensor data to the ROS 2 network in real time.</p>
+                <p>micro-ROS uses the Micro XRCE-DDS middleware to communicate with a micro-ROS Agent running on a more powerful system such as a Raspberry Pi, Jetson, or PC. The agent acts as a bridge between the embedded microcontroller and the full ROS 2 environment, allowing seamless communication between microcontroller nodes and higher-level robotic applications.</p>
+
+                <figure class="doc-figure">
+                    <img src="docimg/image3.png" alt="ESP32 hardware interfacing diagram">
+                    <figcaption>ESP32 Hardware Interfacing — Motor Driver, IMU &amp; Sensors</figcaption>
+                </figure>
+
+                <h2>Distributed System Architecture</h2>
+                <p>The complete system architecture enables distributed robotics development where:</p>
+                <ul>
+                    <li>ESP32 handles low-level real-time hardware control</li>
+                    <li>micro-ROS manages ROS 2 communication on the microcontroller</li>
+                    <li>ROS 2 on a Jetson performs advanced processing such as SLAM, navigation, AI inference, and visualization</li>
+                </ul>
+                <p>This architecture is widely used in modern robotics applications where embedded controllers perform hardware-level tasks while higher-level computers handle computationally intensive operations such as autonomous navigation, machine learning, and decision-making.</p>
+
+                <figure class="doc-figure">
+                    <img src="docimg/image4.png" alt="ESP32 Micro ROS Controller board">
+                    <figcaption>ESP32 Micro ROS Controller</figcaption>
+                </figure>
+
+                <h2>ESP32 Development Board — Specifications</h2>
                 <div class="specs-grid">
+                    <div class="spec-item"><strong>Chipset</strong>ESP-WROOM-32</div>
                     <div class="spec-item"><strong>MCU</strong>Tensilica Xtensa Dual-Core 32-bit LX6</div>
                     <div class="spec-item"><strong>Clock Speed</strong>Up to 240 MHz</div>
                     <div class="spec-item"><strong>Flash Memory</strong>4 MB (ESP-WROOM-32)</div>
@@ -354,7 +403,21 @@
                     <div class="spec-item"><strong>USB Interface</strong>Micro USB (CP2102 / CH340)</div>
                     <div class="spec-item"><strong>Operating Voltage</strong>3.3V logic, 5V USB input</div>
                     <div class="spec-item"><strong>Interfaces</strong>ADC, DAC, PWM, I2C, SPI, UART</div>
+                    <div class="spec-item"><strong>Mounting</strong>Breadboard-compatible</div>
                 </div>
+
+                <h2>ESP32 Development Board — Features</h2>
+                <ul>
+                    <li>Dual-core 32-bit LX6 microprocessor</li>
+                    <li>Integrated 2.4GHz Wi-Fi and Bluetooth (Classic + BLE)</li>
+                    <li>30-pin layout for compact form factor</li>
+                    <li>520KB SRAM + 4MB Flash memory</li>
+                    <li>Multiple GPIOs with support for ADC, DAC, PWM, I2C, SPI, UART</li>
+                    <li>PCB antenna for wireless communication</li>
+                    <li>Built-in USB to Serial (CP2102/CH340) for easy programming</li>
+                    <li>Low-power consumption with multiple sleep modes</li>
+                    <li>Ideal for IoT, automation, robotics, and sensor networks</li>
+                </ul>
 
                 <h2>Robot Hardware Components</h2>
                 <ul>
@@ -364,6 +427,14 @@
                     <li><strong>Ultrasonic Sensors ×2</strong> — Front and rear obstacle detection for autonomous navigation</li>
                     <li><strong>130mm Rugged Rubber Wheels</strong> — High-traction wheels for indoor and outdoor terrain</li>
                     <li><strong>High Torque DC Geared Motors</strong> — Controlled via PWM for bidirectional movement</li>
+                </ul>
+
+                <h2>Component Details</h2>
+                <ul>
+                    <li><strong>2500mAh LiFePO4 Battery Pack</strong> — High-capacity Lithium Iron Phosphate battery offering long operational backup, stable voltage output, enhanced thermal safety, deep-cycle durability, and reliable power delivery for robotic systems.</li>
+                    <li><strong>BTS Motor Driver Modules ×2</strong> — High-current H-bridge motor driver modules capable of driving powerful DC motors with bidirectional control, PWM speed regulation, overcurrent protection, and efficient heat handling.</li>
+                    <li><strong>Rugged Rubber Wheels – 130 mm</strong> — Heavy-duty rubber wheels designed for strong traction, shock absorption, terrain adaptability, and smooth movement across rough indoor and outdoor surfaces.</li>
+                    <li><strong>High Torque DC Motors</strong> — Geared motors delivering high torque at lower RPM, suitable for carrying heavy payloads, climbing uneven terrain, and ensuring stable robotic movement under load conditions.</li>
                 </ul>
 
                 <h2>ROS2 Capabilities</h2>
@@ -382,6 +453,8 @@
                     <li>Communication via USB Serial or Wi-Fi</li>
                     <li>Low power consumption — suitable for battery-powered field robots</li>
                     <li>Scalable architecture — upgrade host to Jetson Orin for full AI stack</li>
+                    <li>Easy integration with ROS2 tools and packages</li>
+                    <li>Suitable for mobile robots, autonomous systems, and IoT robotics</li>
                 </ul>
             </div>
 
